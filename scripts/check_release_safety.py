@@ -117,12 +117,16 @@ def main() -> int:
         if findings:
             n_dirty += 1
             total += len(findings)
-            sys.stderr.write(f"[check_release_safety] {path.relative_to(root)}: {len(findings)} match(es)\n")
+            sys.stderr.write(
+                f"[check_release_safety] {path.relative_to(root)}: {len(findings)} match(es)\n"
+            )
             if args.verbose:
                 for name, lineno, snippet in findings:
                     sys.stderr.write(f"  L{lineno}  [{name}]  {snippet}\n")
     if n_dirty:
-        sys.stderr.write(f"[check_release_safety] FAIL: {total} match(es) in {n_dirty} of {n_scanned} text file(s).\n")
+        sys.stderr.write(
+            f"[check_release_safety] FAIL: {total} match(es) in {n_dirty} of {n_scanned} text file(s).\n"
+        )
         return 1
     sys.stdout.write(f"[check_release_safety] OK: 0 matches across {n_scanned} text file(s).\n")
     return 0
