@@ -1,0 +1,11 @@
+# Versions used to compute every result file in results/ (Python 3.12.10, Windows, CPU only).
+# Newer minor versions reproduce the metrics; byte-identical JSON needs these pins.
+numpy==2.4.4
+pandas==2.3.3
+scipy==1.17.1
+scikit-learn==1.8.0
+matplotlib==3.10.9
+lightgbm==4.6.0
+xgboost==3.2.0
+# CPU build is sufficient (the MLP learner is small):  pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cpu
+torch==2.13.0

@@ -1,0 +1,33 @@
+{
+  "N_raw": 0.8062714324589622,
+  "S_actual": 0.12019533938708711,
+  "whatif_N_plus_a_lnw": {
+    "0.25": 0.7767664089015882,
+    "0.5": 0.7601358201670128,
+    "0.75": 0.7252735662829887,
+    "1.0": 0.6668297918981638
+  },
+  "top7_overlap_N_vs_whatif": {
+    "mean": 3.852906,
+    "frac_rows_changed": 0.979968,
+    "n_rows": 500000
+  },
+  "top7_overlap_N_vs_S_actual": {
+    "mean": 2.684884,
+    "frac_rows_changed": 0.999978,
+    "n_rows": 500000
+  },
+  "loss_share": {
+    "odds_shift_part": 0.20324515307982038,
+    "residual_saturation_part": 0.7967548469201796
+  },
+  "_meta": {
+    "generated_at": "2026-09-06T23:27:47.743895+00:00",
+    "inputs": {
+      "uq_arrays.npz": "843c419cbb27f244c0bbabc3ce5d1c619c5516f2432f1eb15d884b8abbe3154b",
+      "predictions.npz": "bec72a9396842861fd0993d4966b934aa36bc81d31aa92858d94c40579a4e13a"
+    },
+    "k": 7,
+    "elapsed_sec": 7.9
+  }
+}

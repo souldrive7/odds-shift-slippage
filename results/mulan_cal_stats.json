@@ -1,0 +1,83 @@
+{
+  "datasets": {
+    "emotions": {
+      "n_cal": 117,
+      "L": 6,
+      "cal_pos_per_label_median": 32.5,
+      "cal_pos_per_label_min": 27,
+      "n_labels_lt5_cal_pos": 0,
+      "n_labels_lt10_cal_pos": 0,
+      "n_labels_zero_cal_pos": 0
+    },
+    "scene": {
+      "n_cal": 363,
+      "L": 6,
+      "cal_pos_per_label_median": 59.5,
+      "cal_pos_per_label_min": 49,
+      "n_labels_lt5_cal_pos": 0,
+      "n_labels_lt10_cal_pos": 0,
+      "n_labels_zero_cal_pos": 0
+    },
+    "flags": {
+      "n_cal": 50,
+      "L": 7,
+      "cal_pos_per_label_median": 22.0,
+      "cal_pos_per_label_min": 8,
+      "n_labels_lt5_cal_pos": 0,
+      "n_labels_lt10_cal_pos": 1,
+      "n_labels_zero_cal_pos": 0
+    },
+    "birds": {
+      "n_cal": 96,
+      "L": 15,
+      "cal_pos_per_label_median": 5.0,
+      "cal_pos_per_label_min": 0,
+      "n_labels_lt5_cal_pos": 7,
+      "n_labels_lt10_cal_pos": 14,
+      "n_labels_zero_cal_pos": 1
+    },
+    "yeast": {
+      "n_cal": 450,
+      "L": 14,
+      "cal_pos_per_label_median": 125.5,
+      "cal_pos_per_label_min": 8,
+      "n_labels_lt5_cal_pos": 0,
+      "n_labels_lt10_cal_pos": 1,
+      "n_labels_zero_cal_pos": 0
+    },
+    "genbase": {
+      "n_cal": 138,
+      "L": 27,
+      "cal_pos_per_label_median": 5.0,
+      "cal_pos_per_label_min": 0,
+      "n_labels_lt5_cal_pos": 13,
+      "n_labels_lt10_cal_pos": 18,
+      "n_labels_zero_cal_pos": 6
+    },
+    "enron": {
+      "n_cal": 336,
+      "L": 53,
+      "cal_pos_per_label_median": 6.0,
+      "cal_pos_per_label_min": 0,
+      "n_labels_lt5_cal_pos": 22,
+      "n_labels_lt10_cal_pos": 32,
+      "n_labels_zero_cal_pos": 3
+    },
+    "medical": {
+      "n_cal": 99,
+      "L": 45,
+      "cal_pos_per_label_median": 1.0,
+      "cal_pos_per_label_min": 0,
+      "n_labels_lt5_cal_pos": 37,
+      "n_labels_lt10_cal_pos": 43,
+      "n_labels_zero_cal_pos": 21
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-09-06T22:05:43.508141+00:00",
+    "cal_split": {
+      "seed": 42,
+      "frac": 0.3
+    }
+  }
+}

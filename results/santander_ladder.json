@@ -1,0 +1,295 @@
+{
+  "popularity_train_prevalence": {
+    "map7_all": 0.5359367806037988,
+    "map7_te": 0.535380311784656
+  },
+  "S_lgbm_spw": {
+    "raw": {
+      "map7_all": 0.12019533938708711,
+      "map7_te": 0.12014536934877187
+    },
+    "saturation": {
+      "frac_ge_1m1e9": 0.16067935657667398,
+      "frac_le_1e9": 0.40915351329245286,
+      "frac_exact_1": 0.16021367617339577,
+      "frac_exact_0": 0.34903109846138813
+    },
+    "within_label_auc_mean_sub200k": 0.7846818094569014,
+    "per_label_iso_identity": {
+      "map7_te": 0.5007460823884963,
+      "n_dead_in_cal": 3,
+      "dead_label_diagnostics": {
+        "dead_label_idx": [
+          1,
+          9,
+          11
+        ],
+        "mean_dead_labels_in_top7": 1.285645860033219,
+        "frac_rows_all_dead_in_top7": 0.0003489629328195698,
+        "mean_raw_score_dead_labels": 0.13509340796777097,
+        "max_mean_calibrated_score_alive_labels": 0.01063299900908948
+      }
+    },
+    "per_label_iso_prior": {
+      "map7_te": 0.7836168902191799,
+      "n_dead_in_cal": 3
+    },
+    "per_label_iso_exclude": {
+      "map7_te": 0.7844878556899741,
+      "n_dead_in_cal": 3
+    },
+    "pooled_iso": {
+      "map7_te": 0.2598722891227706
+    },
+    "per_label_offset_prior": {
+      "map7_te": 0.736640342620976
+    },
+    "per_label_platt_prior": {
+      "map7_te": 0.7671337391832791
+    },
+    "per_label_beta_prior": {
+      "map7_te": 0.7762378886538955
+    },
+    "oracle_in_sample_per_label_iso": {
+      "map7_all": 0.7861873272882184,
+      "map7_te": 0.7865127629818407
+    },
+    "elkan_inversion_known_w": {
+      "map7_all": 0.1547336807276599
+    },
+    "prior_match_shift_label_free": {
+      "map7_all": 0.7230386345254023,
+      "map7_te": 0.7233303434207565,
+      "shift_b": [
+        40.0,
+        40.0,
+        4.846921613217104,
+        40.0,
+        35.548338099142995,
+        40.0,
+        39.87615810624388,
+        40.0,
+        40.0,
+        39.16733586100301,
+        39.12625827380825,
+        40.0,
+        38.35436814186431,
+        40.0,
+        40.0,
+        4.897276624972559,
+        5.14730020730223,
+        40.0,
+        40.0,
+        40.0,
+        4.038906246718824,
+        5.085417147667107,
+        40.0,
+        40.0
+      ],
+      "ln_w": [
+        15.925594295385446,
+        14.826981764261678,
+        5.088072642028834,
+        11.281190909701202,
+        5.74931977701784,
+        10.228464803570892,
+        7.567583797549632,
+        8.00554110238814,
+        8.470664963666497,
+        7.8948122520456785,
+        6.592818281504184,
+        10.40410319134174,
+        6.287148067964308,
+        7.830818750485591,
+        11.882536238770228,
+        5.005134831593881,
+        5.136536326574635,
+        9.882910544724641,
+        11.163406298062307,
+        7.063814544146001,
+        4.362983102744302,
+        5.1071075897898375,
+        7.773840572301966,
+        11.974344394166357
+      ]
+    }
+  },
+  "W_wgboost": {
+    "raw": {
+      "map7_all": 0.7762643306908903,
+      "map7_te": 0.7759266150545842
+    },
+    "saturation": {
+      "frac_ge_1m1e9": 0.0,
+      "frac_le_1e9": 0.0,
+      "frac_exact_1": 0.0,
+      "frac_exact_0": 0.0
+    },
+    "within_label_auc_mean_sub200k": 0.9200257334735156,
+    "per_label_iso_identity": {
+      "map7_te": 0.4335237273842024,
+      "n_dead_in_cal": 3,
+      "dead_label_diagnostics": {
+        "dead_label_idx": [
+          1,
+          9,
+          11
+        ],
+        "mean_dead_labels_in_top7": 3.0,
+        "frac_rows_all_dead_in_top7": 1.0,
+        "mean_raw_score_dead_labels": 0.12013659308222245,
+        "max_mean_calibrated_score_alive_labels": 0.01063493186238798
+      }
+    },
+    "per_label_iso_prior": {
+      "map7_te": 0.8278076437080288,
+      "n_dead_in_cal": 3
+    },
+    "per_label_iso_exclude": {
+      "map7_te": 0.8298901722430506,
+      "n_dead_in_cal": 3
+    },
+    "pooled_iso": {
+      "map7_te": 0.7759195050378443
+    },
+    "per_label_offset_prior": {
+      "map7_te": 0.6891019014392649
+    },
+    "per_label_platt_prior": {
+      "map7_te": 0.7748555524058413
+    },
+    "per_label_beta_prior": {
+      "map7_te": 0.7750562741227198
+    },
+    "oracle_in_sample_per_label_iso": {
+      "map7_all": 0.8308797207886941,
+      "map7_te": 0.8312195747638719
+    }
+  },
+  "N_lgbm_unweighted": {
+    "raw": {
+      "map7_all": 0.8062714324589622,
+      "map7_te": 0.8063128711529096
+    },
+    "saturation": {
+      "frac_ge_1m1e9": 5.2400741962986953e-05,
+      "frac_le_1e9": 0.2613380956283335,
+      "frac_exact_1": 5.2400741962986953e-05,
+      "frac_exact_0": 0.2474897385163577
+    },
+    "within_label_auc_mean_sub200k": 0.8516344314053574,
+    "per_label_iso_identity": {
+      "map7_te": 0.8171629682227799,
+      "n_dead_in_cal": 3,
+      "dead_label_diagnostics": {
+        "dead_label_idx": [
+          1,
+          9,
+          11
+        ],
+        "mean_dead_labels_in_top7": 0.10176434533146694,
+        "frac_rows_all_dead_in_top7": 0.0,
+        "mean_raw_score_dead_labels": 0.00043023076858090837,
+        "max_mean_calibrated_score_alive_labels": 0.01063690334422887
+      }
+    },
+    "per_label_iso_prior": {
+      "map7_te": 0.8202446077355129,
+      "n_dead_in_cal": 3
+    },
+    "per_label_iso_exclude": {
+      "map7_te": 0.8221859858404903,
+      "n_dead_in_cal": 3
+    },
+    "pooled_iso": {
+      "map7_te": 0.8065564150878723
+    },
+    "per_label_offset_prior": {
+      "map7_te": 0.8172784747292559
+    },
+    "per_label_platt_prior": {
+      "map7_te": 0.8115007894357349
+    },
+    "per_label_beta_prior": {
+      "map7_te": 0.8175821365191149
+    },
+    "oracle_in_sample_per_label_iso": {
+      "map7_all": 0.8238260193707162,
+      "map7_te": 0.8235305417292365
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-09-06T23:27:38.389640+00:00",
+    "inputs": {
+      "uq_arrays.npz": "843c419cbb27f244c0bbabc3ce5d1c619c5516f2432f1eb15d884b8abbe3154b",
+      "predictions.npz": "bec72a9396842861fd0993d4966b934aa36bc81d31aa92858d94c40579a4e13a"
+    },
+    "n_test": 2538132,
+    "n_train": 8248933,
+    "n_pos_train": [
+      1,
+      3,
+      50583,
+      104,
+      26189,
+      298,
+      4262,
+      2751,
+      1728,
+      3073,
+      11287,
+      250,
+      15315,
+      3276,
+      57,
+      54928,
+      48204,
+      421,
+      117,
+      7051,
+      103772,
+      49635,
+      3468,
+      52
+    ],
+    "scale_pos_weight_S": [
+      8248932.0,
+      2749643.3333333335,
+      162.07718008026413,
+      79315.66346153847,
+      313.97701324983774,
+      27679.98322147651,
+      1934.4605818864384,
+      2997.5216284987278,
+      4772.6880787037035,
+      2683.325740318907,
+      729.8348542571099,
+      32994.732,
+      537.6178909565785,
+      2516.9893162393164,
+      144717.12280701756,
+      149.1771956015147,
+      170.12548751140983,
+      19592.66508313539,
+      70502.70085470086,
+      1168.8954758190328,
+      78.49093204332576,
+      165.19186058225043,
+      2377.5850634371395,
+      158632.32692307694
+    ],
+    "k": 7,
+    "cal_split": {
+      "seed": 42,
+      "frac": 0.3,
+      "n_val": 761439
+    },
+    "dead_label_policies": [
+      "identity",
+      "prior(train prevalence)",
+      "exclude(-inf)"
+    ],
+    "map_definition": "Kaggle MAP@7, rows with no positives excluded, stable argsort",
+    "elapsed_sec": 201.6
+  }
+}

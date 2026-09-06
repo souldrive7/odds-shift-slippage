@@ -1,0 +1,14 @@
+raw score & 0.120 & 0.776 & 0.806 \\
+per-label iso, dead$\to$identity & 0.501 & 0.434 & 0.817 \\
+per-label iso, dead$\to$prior & \textbf{0.784} & \textbf{0.828} & \textbf{0.820} \\
+per-label iso, dead$\to$excluded & 0.784 & 0.830 & 0.822 \\
+per-label logit shift (intercept only), dead$\to$prior & 0.737 & 0.689 & 0.817 \\
+per-label Platt, dead$\to$prior & 0.767 & 0.775 & 0.812 \\
+per-label beta, dead$\to$prior & 0.776 & 0.775 & 0.818 \\
+pooled (shared) isotonic & 0.260 & 0.776 & 0.807 \\
+label-free prevalence shift & 0.723 & -- & -- \\
+popularity (train prevalence) & 0.535 & 0.535 & 0.535 \\
+\midrule
+oracle per-label ceiling & 0.786 & 0.831 & 0.824 \\
+mean within-label AUC & 0.785 & 0.920 & 0.852 \\
+cells at 1.0 / 0.0 (\%) & 16.0 / 34.9 & 0.0 / 0.0 & 0.0 / 24.7 \\

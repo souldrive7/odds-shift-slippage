@@ -1,0 +1,5 @@
+# Normalise line endings so SHA-256 manifests are stable across platforms.
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.npz binary

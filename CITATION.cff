@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the paper (arXiv identifier to be added once assigned)."
+title: "Don't Reweight, Calibrate: Per-Label Class Weights Distort Top-K Ranking, the Textbook Inversion Does Not Repair It, and Per-Label Calibration Does"
+authors:
+  - family-names: "Goto"
+    given-names: "Akifumi"
+    email: "souldrive7@gmail.com"
+version: "0.1.0"
+date-released: "2026-09-07"
+repository-code: "https://github.com/souldrive7/dont-reweight-calibrate"
+license: MIT
+keywords:
+  - class imbalance
+  - class weights
+  - multi-label classification
+  - top-K recommendation
+  - probability calibration
+  - isotonic regression
+  - gradient boosting
+preferred-citation:
+  type: article
+  title: "Don't Reweight, Calibrate: Per-Label Class Weights Distort Top-K Ranking, the Textbook Inversion Does Not Repair It, and Per-Label Calibration Does"
+  authors:
+    - family-names: "Goto"
+      given-names: "Akifumi"
+  year: 2026
+  journal: "arXiv preprint"
+  notes: "arXiv identifier and categories (cs.IR primary, cs.LG cross-list) to be added once assigned."
