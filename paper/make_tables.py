@@ -159,7 +159,19 @@ if dd:
     put("WaliveCalMax", f"{dd['max_mean_calibrated_score_alive_labels']:.4f}")
 put("SlabelFree", f3(S["prior_match_shift_label_free"]["map7_te"]))
 
-TAGS = [t for t, _ in rows]  # S, W, N (+ Nh)
+TAGS = [
+    t for t, _ in rows if t != "Nh"
+]  # main table: S, W, N; the earlier run goes to the appendix
+if csp and "n_rows_with_positives_te" in lad.get("_meta", {}):
+    pass
+# share of evaluation rows with at least one positive (MAP averages over these rows only)
+try:
+    _bs = load("santander_bootstrap.json")
+    _n_te_rows = lad["_meta"]["n_test"] - lad["_meta"]["cal_split"]["n_val"]
+    put("fracRowsWithPos", f"{100 * _bs['_meta']['n_rows_with_positives_te'] / _n_te_rows:.1f}")
+    put("nEvalRows", f"{_n_te_rows:,}")
+except (FileNotFoundError, KeyError):
+    pass
 
 
 def _cols(key, bold=False, fmt=None):
@@ -203,6 +215,32 @@ tab_ladder = "\n".join(
     ]
 )
 write(FIG / "tab_ladder_body.tex", tab_ladder + "\n")
+if Nh:  # appendix: the matched control against the earlier 100-tree, subsampled run
+    keys = [
+        ("raw score", "raw"),
+        ("per-label iso, dead$\\to$identity", "plIsoId"),
+        ("per-label iso, dead$\\to$prior", "plIsoPrior"),
+        ("per-label iso, dead$\\to$excluded", "plIsoExcl"),
+        ("per-label logit shift (intercept only)", "plOffsetPrior"),
+        ("per-label Platt", "plPlattPrior"),
+        ("per-label beta", "plBetaPrior"),
+        ("pooled (shared) isotonic", "pooled"),
+        ("oracle per-label ceiling", "ceil"),
+        ("mean within-label AUC", "auc"),
+    ]
+    write(
+        FIG / "tab_ladder_earlier_body.tex",
+        "\n".join(
+            f"{lab} & {NUM['N' + k]} & {NUM['Nh' + k]} \\\\"
+            for lab, k in keys
+            if "N" + k in NUM and "Nh" + k in NUM
+        )
+        + "\n",
+    )
+    put(
+        "NhMaxAbsDiff",
+        f"{max(abs(float(NUM['N' + k]) - float(NUM['Nh' + k])) for _, k in keys if k != 'auc' and 'N' + k in NUM and 'Nh' + k in NUM):.3f}",
+    )
 
 # ---------------------------------------------------------------- max_delta_step variants (B2)
 for cfg, tag in (
@@ -234,14 +272,28 @@ for cfg, tag in (
                 f"{100 * (r['per_label_iso_prior']['map7_te'] - r['raw']['map7_te']) / lo_:.0f}",
             )
     put(f"{tag}loss", f3(N["raw"]["map7_te"] - r["raw"]["map7_te"]))
+    if (
+        "prior_match_shift_label_free" in r
+    ):  # realized per-label shift (prevalence matching), excluding unreachable labels
+        bb = [abs(x) for x in r["prior_match_shift_label_free"]["shift_b"] if abs(x) < 39.9]
+        put(f"{tag}shiftMax", f"{max(bb):.2f}" if bb else "--")
+        put(
+            f"{tag}nCapped",
+            sum(1 for x in r["prior_match_shift_label_free"]["shift_b"] if abs(x) >= 39.9),
+        )
+# total logit movement a leaf step cap allows in T rounds at learning rate eta: T * eta * cap (design constants of the runs)
+put("mdsBoundA", f"{60 * 0.05 * 0.7:.1f}")
+put("mdsBoundB", f"{60 * 0.05 * 2.0:.1f}")
+put("lnwMin", f"{min(__import__('math').log(w) for w in lad['_meta']['scale_pos_weight_S']):.1f}")
+put("lnwMax", f"{max(__import__('math').log(w) for w in lad['_meta']['scale_pos_weight_S']):.1f}")
 if "Smdsaraw" in NUM:
     put("SorigMinusS", f"{lad['S_orig_lgbm_spw']['raw']['map7_te'] - S['raw']['map7_te']:+.4f}")
     put("Selkan", f3(S["elkan_inversion_known_w"]["map7_te"]))  # same split as the mds rows
     mds_rows = [
-        ("\\Sm, as trained (\\texttt{max\\_delta\\_step} $=0$)", "S"),
-        ("\\Sm, earlier run of the same configuration", "Sorig"),
-        ("\\Sm, \\texttt{max\\_delta\\_step} $=0.7$", "Smdsa"),
-        ("\\Sm, \\texttt{max\\_delta\\_step} $=2$", "Smdsb"),
+        ("no cap (\\Sm)", "S"),
+        ("no cap, earlier run", "Sorig"),
+        ("cap $0.7$", "Smdsa"),
+        ("cap $2$", "Smdsb"),
     ]
     lines = []
     for label, t in mds_rows:
@@ -613,6 +665,48 @@ try:
         "tauWorstSelCell",
         f"{worst_cell[1]}, {LNAME[worst_cell[2].split('|')[0]]}, ${worst_cell[2].split('|')[1].replace('w=', 'w{=}')}$",
     )
+    wc_ = tu["datasets"][worst_cell[1]]["cells"][worst_cell[2]]
+    oof_ = wc_["oof_map_by_candidate"]
+    put("tauWorstOofRaw", f3(oof_["raw"]))
+    put(
+        "tauWorstOofSel",
+        f3(
+            oof_["shared"]
+            if wc_["choice"] == "shared"
+            else oof_[f"per_label_tau{wc_['tau_selected']}"]
+        ),
+    )
+    put("tauWorstOofMin", f3(min(oof_.values())))
+    put("tauWorstTestRaw", f3(wc_["map_raw"]))
+    put("tauWorstTestSel", f3(wc_["map_selected"]))
+    put("tauWorstTestMin", f3(min(wc_["map_per_label_iso_prior_by_tau"].values())))
+    # every cell where the selected candidate ends more than 0.01 below raw, named
+    fails = [
+        (name, key)
+        for name, d in tu["datasets"].items()
+        for key, c in d["cells"].items()
+        if "error" not in c and c["map_selected"] < c["map_raw"] - 0.01
+    ]
+    put(
+        "tauFailCells",
+        "; ".join(
+            f"{n} ({LNAME[k.split('|')[0]]}, ${k.split('|')[1].replace('w=', 'w{=}')}$)"
+            for n, k in fails
+        ),
+    )
+    # Table 6: non-raw selections whose paired interval lies entirely above zero
+    put(
+        "nTauSigGain",
+        sum(
+            1
+            for d in tu["datasets"].values()
+            for k, c in d["cells"].items()
+            if k == "lgbm_default|w=1"
+            and "error" not in c
+            and c["choice"] != "raw"
+            and c["ci_selected_minus_raw"]["ci95"][0] > 0
+        ),
+    )
     n_cells = sum(
         1 for d in tu["datasets"].values() for c in d["cells"].values() if "error" not in c
     )
@@ -697,6 +791,22 @@ try:
             "depSminusN",
             f"{dp['weighted']['per_label_iso_prior']['map7'] - dp['unweighted']['raw']:+.3f}",
         )
+        # largest difference between the two protocols on the per-label isotonic (prior) rung
+        put(
+            "protoMaxDiff",
+            f3(
+                max(
+                    abs(
+                        dp["weighted"]["per_label_iso_prior"]["map7"]
+                        - S["per_label_iso_prior"]["map7_te"]
+                    ),
+                    abs(
+                        dp["unweighted"]["per_label_iso_prior"]["map7"]
+                        - N["per_label_iso_prior"]["map7_te"]
+                    ),
+                )
+            ),
+        )
         rows_dep = [
             ("raw score", "raw"),
             ("per-label iso, dead$\\to$prior", "plIsoPrior"),
@@ -722,6 +832,7 @@ try:
     band = None  # on the unweighted model N: smallest split at which per-label (prior) still beats the shared map
     lose = None  # on N: largest split at which per-label loses to the shared map
     s_pl_min, s_po_max = 1.0, 0.0
+    max_sd = 0.0
     for fr in cz["fracs"]:
         cells = []
         for tag in ("S", "N"):
@@ -731,10 +842,11 @@ try:
             raw_ = st_.mean(r["raw"] for r in rs)
             dead = st_.mean(r["n_dead"] for r in rs)
             med = st_.mean(r["cal_pos_median"] for r in rs)
+            for k_ in ("per_label_iso_prior", "pooled_iso", "raw"):
+                max_sd = max(max_sd, st_.pstdev([r[k_] for r in rs]))
+            if tag == "S":  # split statistics are identical for both models (same rows): print once
+                cells += [f"{rs[0]['n_cal']:,}", f"{med:.0f}", f"{dead:.1f}"]
             cells += [
-                f"{rs[0]['n_cal']:,}",
-                f"{med:.0f}",
-                f"{dead:.1f}",
                 f"{raw_:.3f}",
                 f"{pl:.3f}",
                 f"{po:.3f}",
@@ -783,6 +895,7 @@ try:
         put("calsizeLoseRaw", f3(lose[4]))
     put("calsizeSplMin", f3(s_pl_min))
     put("calsizeSpooledMax", f3(s_po_max))
+    put("calsizeMaxSd", f"{max_sd:.4f}")
 except (FileNotFoundError, KeyError) as e:  # result not (yet) available in the expected schema
     print("skipped section:", repr(e))
 

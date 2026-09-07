@@ -90,6 +90,9 @@
 \newcommand{\nWdeadRawMean}{0.120}
 \newcommand{\nWaliveCalMax}{0.0106}
 \newcommand{\nSlabelFree}{0.725}
+\newcommand{\nfracRowsWithPos}{2.9}
+\newcommand{\nnEvalRows}{1,776,693}
+\newcommand{\nNhMaxAbsDiff}{0.002}
 \newcommand{\nSorigraw}{0.120}
 \newcommand{\nSorigsatOne}{16.0}
 \newcommand{\nSorigsatZero}{34.9}
@@ -102,6 +105,8 @@
 \newcommand{\nSorigelkanShare}{5}
 \newcommand{\nSorigrepairShare}{96}
 \newcommand{\nSorigloss}{0.688}
+\newcommand{\nSorigshiftMax}{39.88}
+\newcommand{\nSorignCapped}{14}
 \newcommand{\nSmdsaraw}{0.642}
 \newcommand{\nSmdsasatOne}{0.0}
 \newcommand{\nSmdsasatZero}{0.0}
@@ -114,6 +119,8 @@
 \newcommand{\nSmdsaelkanShare}{-2}
 \newcommand{\nSmdsarepairShare}{12}
 \newcommand{\nSmdsaloss}{0.166}
+\newcommand{\nSmdsashiftMax}{2.08}
+\newcommand{\nSmdsanCapped}{0}
 \newcommand{\nSmdsbraw}{0.785}
 \newcommand{\nSmdsbsatOne}{0.0}
 \newcommand{\nSmdsbsatZero}{0.0}
@@ -126,6 +133,12 @@
 \newcommand{\nSmdsbelkanShare}{-81}
 \newcommand{\nSmdsbrepairShare}{123}
 \newcommand{\nSmdsbloss}{0.023}
+\newcommand{\nSmdsbshiftMax}{5.54}
+\newcommand{\nSmdsbnCapped}{0}
+\newcommand{\nmdsBoundA}{2.1}
+\newcommand{\nmdsBoundB}{6.0}
+\newcommand{\nlnwMin}{4.4}
+\newcommand{\nlnwMax}{15.9}
 \newcommand{\nSorigMinusS}{+0.0027}
 \newcommand{\nwhatifN}{0.808}
 \newcommand{\nwhatifIdeal}{0.646}
@@ -255,6 +268,14 @@
 \newcommand{\nnWhatifCiCoversZero}{5}
 \newcommand{\ntauWorstSelMinusRaw}{-0.134}
 \newcommand{\ntauWorstSelCell}{genbase, XGBoost, $w{=}1$}
+\newcommand{\ntauWorstOofRaw}{0.994}
+\newcommand{\ntauWorstOofSel}{0.994}
+\newcommand{\ntauWorstOofMin}{0.659}
+\newcommand{\ntauWorstTestRaw}{0.568}
+\newcommand{\ntauWorstTestSel}{0.434}
+\newcommand{\ntauWorstTestMin}{0.439}
+\newcommand{\ntauFailCells}{birds (LightGBM (regularized), $w{=}1$); birds (LightGBM (regularized), $w{=}r$); genbase (XGBoost, $w{=}1$); enron (XGBoost, $w{=}1$); medical (LightGBM (regularized), $w{=}1$); medical (XGBoost, $w{=}r$)}
+\newcommand{\nnTauSigGain}{0}
 \newcommand{\nnTauCells}{80}
 \newcommand{\nnTauSelBelowRaw}{6}
 \newcommand{\nnTauZeroBelowRaw}{22}
@@ -303,6 +324,7 @@
 \newcommand{\ndepSoffsetShare}{89}
 \newcommand{\ndepNprGain}{+0.011}
 \newcommand{\ndepSminusN}{-0.027}
+\newcommand{\nprotoMaxDiff}{0.004}
 \newcommand{\ncalsizeSThirtyPctPl}{0.784}
 \newcommand{\ncalsizeSThirtyPctPooled}{0.260}
 \newcommand{\ncalsizeSThirtyPctRaw}{0.117}
@@ -373,6 +395,7 @@
 \newcommand{\ncalsizeLoseRaw}{0.808}
 \newcommand{\ncalsizeSplMin}{0.767}
 \newcommand{\ncalsizeSpooledMax}{0.260}
+\newcommand{\ncalsizeMaxSd}{0.0051}
 \newcommand{\ndeadFreqSantOnePct}{8.2}
 \newcommand{\ndeadFreqSantTenPct}{5.1}
 \newcommand{\ndeadFreqSantThirtyPct}{3.7}
