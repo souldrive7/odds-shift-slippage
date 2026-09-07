@@ -48,6 +48,13 @@ ALLOWLIST: tuple[str, ...] = (
     "github.com/dmlc",  # XGBoost
     "kaggle.com",  # Santander benchmark host
     "download.pytorch.org",
+    # public code repositories cited in docs/dead_label_survey.md (implementation survey)
+    "github.com/xmc-aalto",  # Ullah et al. 2025 calibration code
+    "github.com/boschresearch",  # I-Max (Patel et al. 2021)
+    "github.com/ttvand",  # Kaggle Santander 2nd-place solution
+    "github.com/kweonwooj",  # Kaggle Santander reproduction
+    "github.com/yaxinus",  # Kaggle Santander solution
+    "github.com/apryor6",  # Kaggle Santander solution
 )
 
 TEXT_EXTS = {
