@@ -9,24 +9,28 @@ metadata needed to check them; the inputs are pinned by SHA-256.
   (`train_ver2.csv`, 2.13 GiB, SHA-256
   `51f919f6cc7145b214010895b303c0e76070cc947112cb3d31d060c23cc29c98`). Kaggle competition
   terms apply; the file is not redistributed here.
-- The paper's Santander results are computed from **two fixed prediction arrays** on the public
+- The paper's Santander results are computed from **fixed prediction arrays** on the public
   time split (last month as test, 2,469,894 rows after filtering, 24 products):
 
   | File | Keys | Content |
   |---|---|---|
-  | `uq_arrays.npz` | `Y_te`, `p_te_br`, `p_te_wg` | test labels; LightGBM one-vs-rest with per-label `scale_pos_weight = n_-/n_+` (60 trees, learning rate 0.05, 31 leaves); WGBoost with Beta outputs |
-  | `predictions.npz` | `p_te_lgbm` | LightGBM one-vs-rest without weights (100 trees, learning rate 0.05, 31 leaves) |
+  | `uq_arrays.npz` | `Y_te`, `p_te_br`, `p_te_wg` | test labels; an earlier run of the weighted LightGBM configuration (`p_te_br`, reported as a robustness row); WGBoost with Beta outputs (`p_te_wg`) |
+  | `matched_pair/weighted/predictions.npz` | `p_te`, `p_va`, `Y_te`, `Y_va` | LGBM-w: LightGBM one-vs-rest with per-label `scale_pos_weight = n_-/n_+` (60 trees, learning rate 0.05, 31 leaves, no subsampling, seed 42); test and validation-period predictions |
+  | `matched_pair/unweighted/predictions.npz` | same keys | LGBM-0: the identical configuration without weights, trained by the same script in the same session |
+  | `matched_pair/weighted_mds0.7/`, `matched_pair/weighted_mds2/` | same keys | LGBM-w with `max_delta_step` 0.7 and 2 |
+  | `predictions.npz` | `p_te_lgbm` | earlier unweighted run (100 trees, feature/row subsampling); the robustness column LGBM-0_100 |
 
   Their SHA-256 values are in `data/PRIMARY_ARRAYS.sha256` and in the `_meta.inputs` block of
-  `results/santander_ladder.json` and `results/santander_whatif.json`. Together they are 568 MB and
-  are **not in this repository**. They are derived from Kaggle data; the author will deposit them
+  `results/santander_ladder.json` and `results/santander_whatif.json`. They are **not in this repository**. They are derived from Kaggle data; the author will deposit them
   (or provide them on request) where the competition terms allow. Place them in `data/` or pass
   `--arrays-dir` to `code/run_experiment.py`.
 - `data/santander_run_meta.json` holds the training-period counts (`n_train` and per-label `n_pos`)
   from which the weights `w_j = n_-/n_+` and the training prevalence are computed.
-- The feature pipeline and the two training scripts that produced the arrays are not yet part of
-  this repository; they are listed in `RELEASE_CHECKLIST.md` as an item to add before the repository
-  is made public.
+- `code/santander_train/train_matched_pair.py` (with `io_data.py`, `train_models.py`) regenerates the
+  matched-pair arrays from `train_ver2.csv`; its per-config `run_meta.json` files are shipped under
+  `data/matched_pair/`. The WGBoost run (`p_te_wg`) and the earlier 100-tree run (`p_te_lgbm`) come
+  from scripts of the author's thesis pipeline that are not shipped; their configurations are recorded
+  in the paper and in `data/santander_run_meta.json`.
 
 ## 2. MULAN benchmarks
 

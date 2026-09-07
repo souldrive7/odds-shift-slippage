@@ -90,7 +90,7 @@ ax1.text(
 ax1.text(
     0.02,
     4.62,
-    f"recovers {100 * repair:.0f}%\n({100 * ties:.0f}% above the ceiling)",
+    f"recovers {100 * repair:.0f}%\n({100 * ties:.0f}% of the loss lies above the ceiling)",
     fontsize=7,
     color=ORANGE,
     ha="left",
@@ -102,8 +102,8 @@ ax1.set_title("A. Textbook prediction vs. reality", fontsize=8, loc="left")
 # ---- right: repair ladder
 models = [
     ("S_lgbm_spw", "LGBM-w\n(weighted)", ORANGE),
-    ("W_wgboost", "WGB\n(direct prob.)", GREEN),
-    ("N_lgbm_unweighted", "LGBM-0\n(unweighted)", BLUE),
+    ("W_wgboost", "WGB (Wasserstein GB,\ndirect prob.)", GREEN),
+    ("N_lgbm_unweighted", "LGBM-0\n(unweighted, same config)", BLUE),
 ]
 methods = [
     ("raw", lambda r: r["raw"]["map7_te"], "o"),
@@ -113,15 +113,17 @@ methods = [
     ("oracle ceiling", lambda r: r["oracle_in_sample_per_label_iso"]["map7_all"], "|"),
 ]
 pop = lad["popularity_train_prevalence"]["map7_te"]
-ax2.axvline(pop, color=GRAY, lw=0.8, ls=":")
-ax2.text(pop, -0.55, "popularity", color=GRAY, fontsize=7, ha="center", va="center")
+XLO, XHI = 0.40, 0.85  # zoom on the decisive range; values below XLO are drawn at the edge
+ax2.axvline(pop, color=GRAY, lw=0.8, ls=":", label="popularity (train prevalence)")
 for yi, (key, _name, col) in enumerate(models):
     r = lad[key]
     xs = [f(r) for _, f, _ in methods]
-    ax2.plot([min(xs), max(xs)], [yi, yi], color=col, lw=1.0, alpha=0.5)
-    for (mname, _f, mk), x in zip(methods, xs, strict=True):
+    xs_draw = [max(x, XLO + 0.005) for x in xs]
+    ax2.plot([min(xs_draw), max(xs_draw)], [yi, yi], color=col, lw=1.0, alpha=0.5)
+    n_off = 0
+    for (mname, _f, mk), x, xd in zip(methods, xs, xs_draw, strict=True):
         ax2.scatter(
-            [x],
+            [xd],
             [yi],
             marker=mk,
             s=28 if mk != "|" else 60,
@@ -129,17 +131,27 @@ for yi, (key, _name, col) in enumerate(models):
             zorder=3,
             label=mname if yi == 0 else None,
         )
+        if x < XLO:  # off-axis value: annotate with an arrow-like marker and the number
+            ax2.text(
+                xd + 0.008,
+                yi + 0.26 + 0.2 * n_off,
+                f"◂ {mname} {x:.3f}",
+                color=col,
+                fontsize=6,
+                va="center",
+            )
+            n_off += 1
 ax2.set_yticks(range(3), [m[1] for m in models])
 ax2.set_ylim(2.5, -0.8)
-ax2.set_xlim(0.0, 0.9)
-ax2.set_xlabel("MAP@7 on the 70% evaluation split")
+ax2.set_xlim(XLO, XHI)
+ax2.set_xlabel("MAP@7 on the 70% evaluation split (axis starts at 0.40)")
 ax2.set_title("B. Repair ladder (dead-label policy decides the sign)", fontsize=8, loc="left")
 ax2.legend(
     loc="upper center",
     bbox_to_anchor=(0.5, -0.28),
     fontsize=6.5,
     frameon=False,
-    ncol=5,
+    ncol=3,
     handletextpad=0.3,
     columnspacing=1.0,
 )

@@ -1,0 +1,212 @@
+{
+  "unweighted": {
+    "n_val": 1903599,
+    "n_test": 2538132,
+    "raw": 0.8077109170583896,
+    "val_pos_per_label": [
+      0,
+      1,
+      9356,
+      18,
+      4843,
+      98,
+      1502,
+      440,
+      270,
+      1,
+      1081,
+      0,
+      4959,
+      200,
+      8,
+      16309,
+      12726,
+      137,
+      13,
+      976,
+      22797,
+      7216,
+      954,
+      4
+    ],
+    "per_label_iso_identity": {
+      "map7": 0.8182726510927749,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_prior": {
+      "map7": 0.8184021707555961,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_exclude": {
+      "map7": 0.8184021707555961,
+      "n_dead_in_val": 2
+    },
+    "pooled_iso": 0.8084043412952183,
+    "per_label_offset_prior": 0.8144782276518109,
+    "per_label_platt_prior": 0.8082516886474299,
+    "per_label_beta_prior": 0.8142282824552367,
+    "oracle_in_sample_per_label_iso": 0.8221273080881217,
+    "popularity": 0.5359367806037988
+  },
+  "weighted": {
+    "n_val": 1903599,
+    "n_test": 2538132,
+    "raw": 0.1172458546472765,
+    "val_pos_per_label": [
+      0,
+      1,
+      9356,
+      18,
+      4843,
+      98,
+      1502,
+      440,
+      270,
+      1,
+      1081,
+      0,
+      4959,
+      200,
+      8,
+      16309,
+      12726,
+      137,
+      13,
+      976,
+      22797,
+      7216,
+      954,
+      4
+    ],
+    "per_label_iso_identity": {
+      "map7": 0.555682095315846,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_prior": {
+      "map7": 0.780349765722104,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_exclude": {
+      "map7": 0.780349765722104,
+      "n_dead_in_val": 2
+    },
+    "pooled_iso": 0.25884846555807167,
+    "per_label_offset_prior": 0.7323380188912538,
+    "per_label_platt_prior": 0.7629848726346787,
+    "per_label_beta_prior": 0.7707806145974728,
+    "oracle_in_sample_per_label_iso": 0.7864879410865873,
+    "popularity": 0.5359367806037988
+  },
+  "weighted_mds0.7": {
+    "n_val": 1903599,
+    "n_test": 2538132,
+    "raw": 0.6426092229576139,
+    "val_pos_per_label": [
+      0,
+      1,
+      9356,
+      18,
+      4843,
+      98,
+      1502,
+      440,
+      270,
+      1,
+      1081,
+      0,
+      4959,
+      200,
+      8,
+      16309,
+      12726,
+      137,
+      13,
+      976,
+      22797,
+      7216,
+      954,
+      4
+    ],
+    "per_label_iso_identity": {
+      "map7": 0.6434324778599559,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_prior": {
+      "map7": 0.6434901105463389,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_exclude": {
+      "map7": 0.6435008012638804,
+      "n_dead_in_val": 2
+    },
+    "pooled_iso": 0.6582103306887306,
+    "per_label_offset_prior": 0.6494039752191327,
+    "per_label_platt_prior": 0.6423874494215674,
+    "per_label_beta_prior": 0.6424405466520235,
+    "oracle_in_sample_per_label_iso": 0.6640395745526366,
+    "popularity": 0.5359367806037988
+  },
+  "weighted_mds2": {
+    "n_val": 1903599,
+    "n_test": 2538132,
+    "raw": 0.7850805070423752,
+    "val_pos_per_label": [
+      0,
+      1,
+      9356,
+      18,
+      4843,
+      98,
+      1502,
+      440,
+      270,
+      1,
+      1081,
+      0,
+      4959,
+      200,
+      8,
+      16309,
+      12726,
+      137,
+      13,
+      976,
+      22797,
+      7216,
+      954,
+      4
+    ],
+    "per_label_iso_identity": {
+      "map7": 0.7854626094853662,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_prior": {
+      "map7": 0.8121122827705588,
+      "n_dead_in_val": 2
+    },
+    "per_label_iso_exclude": {
+      "map7": 0.812122746715304,
+      "n_dead_in_val": 2
+    },
+    "pooled_iso": 0.7806161757035626,
+    "per_label_offset_prior": 0.7499524392653857,
+    "per_label_platt_prior": 0.7634834164293651,
+    "per_label_beta_prior": 0.7634628718938876,
+    "oracle_in_sample_per_label_iso": 0.8156652271993452,
+    "popularity": 0.5359367806037988
+  },
+  "_meta": {
+    "generated_at": "2026-09-07T04:56:26.571663+00:00",
+    "inputs": {
+      "uq_arrays.npz": "843c419cbb27f244c0bbabc3ce5d1c619c5516f2432f1eb15d884b8abbe3154b",
+      "predictions.npz": "bec72a9396842861fd0993d4966b934aa36bc81d31aa92858d94c40579a4e13a",
+      "matched_pair/unweighted/predictions.npz": "45f6e1169c33fe8e5917584179ad4b55611e059e2d1a7a305252e0558a917d1f",
+      "matched_pair/weighted/predictions.npz": "2c627d3728d2634e9a0aac048d35e1eb3dcfa827075643f0f3dcea4b325c295c",
+      "matched_pair/weighted_mds0.7/predictions.npz": "dedfe5ca16ba8bdbaf19382e69ff48ff1b3da16447b7b00d85fe5f8097b5e5c8",
+      "matched_pair/weighted_mds2/predictions.npz": "f152f305f7f056fc62ad59c5cbde5e2ed920a9002b2f8ed83c4af1243c480d10"
+    },
+    "k": 7,
+    "protocol": "calibrators fitted on the validation period (p_va, Y_va), evaluated on all test rows",
+    "elapsed_sec": 368.2
+  }
+}

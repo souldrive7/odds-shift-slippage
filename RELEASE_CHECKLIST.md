@@ -11,8 +11,8 @@
 
 ## Before making the repository public
 
-- [ ] Add the Santander feature pipeline and the two training scripts that produced the arrays
-      (currently outside this repository; the paper's Reproducibility section refers to them).
-- [ ] Deposit the two prediction arrays (568 MB) or state where they can be requested (`DATA.md`).
+- [x] Ship the training script of the matched Santander pair (`code/santander_train/`). The WGBoost
+      and the earlier 100-tree scripts stay outside; their configurations are recorded.
+- [ ] Deposit the prediction arrays or state where they can be requested (`DATA.md`); the matched pair can be regenerated from the Kaggle CSV.
 - [ ] Put the arXiv identifier in `CITATION.cff` and `README.md`.
 - [ ] Tag the release and, optionally, mint a Zenodo DOI from the tag.

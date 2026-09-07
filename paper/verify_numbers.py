@@ -31,6 +31,7 @@ ALLOW = {
     "0.5",
     "0.01",
     "0.12",
+    "0.40",  # Fig. 1B axis origin (design choice, not a result)
     "1/\\pi",
     "4 leaves",
     "30 trees",

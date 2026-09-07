@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-09-07T04:26:54.502928+00:00",
+  "config": "weighted",
+  "csv": "train_ver2.csv",
+  "n_train": 8248933,
+  "n_val": 1903599,
+  "n_test": 2538132,
+  "n_labels": 24,
+  "n_trees": 60,
+  "learning_rate": 0.05,
+  "num_leaves": 31,
+  "random_state": 42,
+  "weighted": true,
+  "scale_pos_weight": "n_neg/n_pos per label",
+  "max_delta_step": 0.0,
+  "subsampling": "none (feature_fraction=1.0, bagging off; LightGBM defaults)",
+  "api": "lightgbm.LGBMClassifier via PerLabelScalePosLGBM, force_row_wise=True",
+  "split_strategy": "time-based via fecha_dato (matches run_uq.py / train_lightgbm_baseline.py)",
+  "max_rows": null,
+  "label_names": [
+    "ind_ahor_fin_ult1",
+    "ind_aval_fin_ult1",
+    "ind_cco_fin_ult1",
+    "ind_cder_fin_ult1",
+    "ind_cno_fin_ult1",
+    "ind_ctju_fin_ult1",
+    "ind_ctma_fin_ult1",
+    "ind_ctop_fin_ult1",
+    "ind_ctpp_fin_ult1",
+    "ind_deco_fin_ult1",
+    "ind_dela_fin_ult1",
+    "ind_deme_fin_ult1",
+    "ind_ecue_fin_ult1",
+    "ind_fond_fin_ult1",
+    "ind_hip_fin_ult1",
+    "ind_nom_pens_ult1",
+    "ind_nomina_ult1",
+    "ind_plan_fin_ult1",
+    "ind_pres_fin_ult1",
+    "ind_reca_fin_ult1",
+    "ind_recibo_ult1",
+    "ind_tjcr_fin_ult1",
+    "ind_valo_fin_ult1",
+    "ind_viv_fin_ult1"
+  ],
+  "total_fit_sec": 267.3,
+  "per_label": [
+    {
+      "label": "ind_ahor_fin_ult1",
+      "n_pos": 1,
+      "scale_pos_weight": 8248932.0,
+      "fit_sec": 10.66
+    },
+    {
+      "label": "ind_aval_fin_ult1",
+      "n_pos": 3,
+      "scale_pos_weight": 2749643.3333333335,
+      "fit_sec": 13.56
+    },
+    {
+      "label": "ind_cco_fin_ult1",
+      "n_pos": 50583,
+      "scale_pos_weight": 162.07718008026413,
+      "fit_sec": 11.51
+    },
+    {
+      "label": "ind_cder_fin_ult1",
+      "n_pos": 104,
+      "scale_pos_weight": 79315.66346153847,
+      "fit_sec": 9.02
+    },
+    {
+      "label": "ind_cno_fin_ult1",
+      "n_pos": 26189,
+      "scale_pos_weight": 313.97701324983774,
+      "fit_sec": 11.14
+    },
+    {
+      "label": "ind_ctju_fin_ult1",
+      "n_pos": 298,
+      "scale_pos_weight": 27679.98322147651,
+      "fit_sec": 8.29
+    },
+    {
+      "label": "ind_ctma_fin_ult1",
+      "n_pos": 4262,
+      "scale_pos_weight": 1934.4605818864384,
+      "fit_sec": 9.55
+    },
+    {
+      "label": "ind_ctop_fin_ult1",
+      "n_pos": 2751,
+      "scale_pos_weight": 2997.5216284987278,
+      "fit_sec": 11.05
+    },
+    {
+      "label": "ind_ctpp_fin_ult1",
+      "n_pos": 1728,
+      "scale_pos_weight": 4772.6880787037035,
+      "fit_sec": 8.69
+    },
+    {
+      "label": "ind_deco_fin_ult1",
+      "n_pos": 3073,
+      "scale_pos_weight": 2683.325740318907,
+      "fit_sec": 8.95
+    },
+    {
+      "label": "ind_dela_fin_ult1",
+      "n_pos": 11287,
+      "scale_pos_weight": 729.8348542571099,
+      "fit_sec": 10.2
+    },
+    {
+      "label": "ind_deme_fin_ult1",
+      "n_pos": 250,
+      "scale_pos_weight": 32994.732,
+      "fit_sec": 12.36
+    },
+    {
+      "label": "ind_ecue_fin_ult1",
+      "n_pos": 15315,
+      "scale_pos_weight": 537.6178909565785,
+      "fit_sec": 9.69
+    },
+    {
+      "label": "ind_fond_fin_ult1",
+      "n_pos": 3276,
+      "scale_pos_weight": 2516.9893162393164,
+      "fit_sec": 10.61
+    },
+    {
+      "label": "ind_hip_fin_ult1",
+      "n_pos": 57,
+      "scale_pos_weight": 144717.12280701756,
+      "fit_sec": 8.9
+    },
+    {
+      "label": "ind_nom_pens_ult1",
+      "n_pos": 54928,
+      "scale_pos_weight": 149.1771956015147,
+      "fit_sec": 13.29
+    },
+    {
+      "label": "ind_nomina_ult1",
+      "n_pos": 48204,
+      "scale_pos_weight": 170.12548751140983,
+      "fit_sec": 13.32
+    },
+    {
+      "label": "ind_plan_fin_ult1",
+      "n_pos": 421,
+      "scale_pos_weight": 19592.66508313539,
+      "fit_sec": 11.08
+    },
+    {
+      "label": "ind_pres_fin_ult1",
+      "n_pos": 117,
+      "scale_pos_weight": 70502.70085470086,
+      "fit_sec": 9.7
+    },
+    {
+      "label": "ind_reca_fin_ult1",
+      "n_pos": 7051,
+      "scale_pos_weight": 1168.8954758190328,
+      "fit_sec": 12.41
+    },
+    {
+      "label": "ind_recibo_ult1",
+      "n_pos": 103772,
+      "scale_pos_weight": 78.49093204332576,
+      "fit_sec": 15.41
+    },
+    {
+      "label": "ind_tjcr_fin_ult1",
+      "n_pos": 49635,
+      "scale_pos_weight": 165.19186058225043,
+      "fit_sec": 14.71
+    },
+    {
+      "label": "ind_valo_fin_ult1",
+      "n_pos": 3468,
+      "scale_pos_weight": 2377.5850634371395,
+      "fit_sec": 13.4
+    },
+    {
+      "label": "ind_viv_fin_ult1",
+      "n_pos": 52,
+      "scale_pos_weight": 158632.32692307694,
+      "fit_sec": 9.77
+    }
+  ]
+}
