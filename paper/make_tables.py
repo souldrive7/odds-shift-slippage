@@ -324,7 +324,7 @@ try:
     }
     put("hurtDefaultDatasets", ", ".join(sorted(n for n, v in deltas.items() if v < -0.005)))
     put("nHurtDefault", sum(1 for v in deltas.values() if v < -0.005))
-    put("maxAbsDeltaElsewhere", f"{max(abs(v) for n, v in deltas.items() if v >= -0.005):.2f}")
+    put("maxAbsDeltaElsewhere", f"{max(abs(v) for n, v in deltas.items() if v >= -0.005):.3f}")
     try:
         cs = load("mulan_cal_stats.json")["datasets"]
         for name, s in cs.items():
@@ -399,6 +399,10 @@ try:
             f"{m(['lgbm_small', 'map_elkan_inversion']):.3f}",
             f"{m(['lgbm_small', 'map_oracle_ceiling']):.3f}",
             f"{100 * m(['lgbm_small', 'sat_ge_1m1e9']):.0f}",
+            f"{m(['lgbm_large', 'map_raw']):.3f}",
+            f"{m(['lgbm_large', 'map_elkan_inversion']):.3f}",
+            f"{m(['lgbm_large', 'map_oracle_ceiling']):.3f}",
+            f"{100 * m(['lgbm_large', 'sat_ge_1m1e9']):.0f}",
             f"{m(['xgb', 'map_raw']):.3f}",
             f"{m(['xgb', 'map_elkan_inversion']):.3f}",
             f"{m(['mlp_posweight', 'map_raw']):.3f}",
@@ -419,6 +423,14 @@ try:
         put("synLRrawDeZero", f3(st.mean(c["logreg"]["map_raw"] for c in groups[(3.0, 0.0)])))
         put("synSmallInvD", f3(st.mean(c["lgbm_small"]["map_elkan_inversion"] for c in g3)))
         put("synSmallCeilD", f3(st.mean(c["lgbm_small"]["map_oracle_ceiling"] for c in g3)))
+        put("synSmallSatD", f"{100 * st.mean(c['lgbm_small']['sat_ge_1m1e9'] for c in g3):.0f}")
+        put("synLargeRawD", f3(st.mean(c["lgbm_large"]["map_raw"] for c in g3)))
+        put("synLargeInvD", f3(st.mean(c["lgbm_large"]["map_elkan_inversion"] for c in g3)))
+        put("synLargeCeilD", f3(st.mean(c["lgbm_large"]["map_oracle_ceiling"] for c in g3)))
+        put("synLargeSatD", f"{100 * st.mean(c['lgbm_large']['sat_ge_1m1e9'] for c in g3):.0f}")
+        put("synXgbRawD", f3(st.mean(c["xgb"]["map_raw"] for c in g3)))
+        put("synXgbInvD", f3(st.mean(c["xgb"]["map_elkan_inversion"] for c in g3)))
+        put("synMlpInvD", f3(st.mean(c["mlp_posweight"]["map_elkan_inversion"] for c in g3)))
 except (FileNotFoundError, KeyError) as e:  # result not (yet) available in the expected schema
     print("skipped section:", repr(e))
 
