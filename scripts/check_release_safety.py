@@ -38,6 +38,11 @@ PATTERNS: list[tuple[str, re.Pattern[str]]] = [
 
 ALLOWLIST: tuple[str, ...] = (
     # author's own public identifiers (intentional; the preprint is not anonymous)
+    "s6025131@st.shiga-u.ac.jp",
+    "st.shiga-u.ac.jp",
+    "shiga-u.ac.jp",
+    "0009-0004-8305-6436",  # the author's ORCID iD, printed on the paper
+    "orcid.org/0009-0004-8305-6436",
     "souldrive7@gmail.com",
     "github.com/souldrive7",
     # third-party public references cited by the paper or used by the code
@@ -59,6 +64,7 @@ ALLOWLIST: tuple[str, ...] = (
 
 TEXT_EXTS = {
     ".py",
+    ".ipynb",  # JSON, and an executed notebook carries absolute paths in its cell outputs
     ".md",
     ".json",
     ".csv",

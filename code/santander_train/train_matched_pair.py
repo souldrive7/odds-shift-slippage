@@ -39,12 +39,31 @@ import pandas as pd
 from io_data import build_xy_pairs_fast, featurize, load_panel_csv
 from train_models import PerLabelScalePosLGBM, build_preprocess, split_cat_num
 
+def _cfg(weighted: bool, mds: float = 0.0, power: float = 1.0, mult: float = 1.0, sub: float | None = None, sub_seed: int | None = None) -> dict:
+    return {"weighted": weighted, "max_delta_step": float(mds), "weight_power": float(power), "weight_multiplier": float(mult), "train_subsample": sub, "subsample_seed": sub_seed}
+
+
 CONFIGS: dict[str, dict] = {
-    "unweighted": {"weighted": False, "max_delta_step": 0.0},
-    "weighted": {"weighted": True, "max_delta_step": 0.0},
-    "weighted_mds0.7": {"weighted": True, "max_delta_step": 0.7},
-    "weighted_mds2": {"weighted": True, "max_delta_step": 2.0},
+    # arXiv v2 set (default --configs)
+    "unweighted": _cfg(False),
+    "weighted": _cfg(True),
+    "weighted_mds0.7": _cfg(True, 0.7),
+    "weighted_mds2": _cfg(True, 2.0),
+    # arXiv v3 additions: cap sweep, weight dose (sqrt r, 10 r), 90% train-row draws
+    "weighted_mds0.3": _cfg(True, 0.3),
+    "weighted_mds1": _cfg(True, 1.0),
+    "weighted_mds5": _cfg(True, 5.0),
+    "weighted_sqrt": _cfg(True, power=0.5),
+    "weighted_10r": _cfg(True, mult=10.0),
+    "weighted_sub0": _cfg(True, sub=0.9, sub_seed=0),
+    "weighted_sub1": _cfg(True, sub=0.9, sub_seed=1),
+    "weighted_sub2": _cfg(True, sub=0.9, sub_seed=2),
+    "unweighted_sub0": _cfg(False, sub=0.9, sub_seed=0),
+    "unweighted_sub1": _cfg(False, sub=0.9, sub_seed=1),
+    "unweighted_sub2": _cfg(False, sub=0.9, sub_seed=2),
 }
+V2_CONFIGS = ("unweighted", "weighted", "weighted_mds0.7", "weighted_mds2")
+V3_CONFIGS = tuple(c for c in CONFIGS if c not in V2_CONFIGS)
 
 
 def _log(msg: str) -> None:
@@ -75,7 +94,13 @@ def main() -> None:
     p.add_argument("--data-dir", type=Path, default=Path("data/raw"))
     p.add_argument("--csv", type=str, default="train_ver2.csv")
     p.add_argument("--output-dir", type=Path, default=Path("outputs_matched_pair"))
-    p.add_argument("--configs", type=str, default=",".join(CONFIGS))
+    p.add_argument("--configs", type=str, default=",".join(V2_CONFIGS), help=f"comma list; v3 additions: {','.join(V3_CONFIGS)}")
+    p.add_argument(
+        "--save-features-cache",
+        type=Path,
+        default=None,
+        help="write X_tr/X_va/X_te.npy (float32) and Y_*.npy (int8) here once (input for train_mlp_posweight.py --dataset santander)",
+    )
     p.add_argument("--max-rows", type=int, default=None)
     p.add_argument("--test-frac", type=float, default=0.2)
     p.add_argument("--val-frac", type=float, default=0.15)
@@ -139,9 +164,25 @@ def main() -> None:
             X_te_t = arr
     del X_df, X_raw, df
 
+    if args.save_features_cache is not None:
+        cache = args.save_features_cache
+        cache.mkdir(parents=True, exist_ok=True)
+        if not (cache / "X_te.npy").exists():
+            _log(f"writing features cache to {cache} ...")
+            for name, arr in (("X_tr", X_tr_t), ("X_va", X_va_t), ("X_te", X_te_t), ("Y_tr", Y_tr.astype(np.int8)), ("Y_va", Y_va.astype(np.int8)), ("Y_te", Y_te.astype(np.int8))):
+                tmp = cache / f"{name}.partial.npy"
+                np.save(tmp, arr)
+                tmp.replace(cache / f"{name}.npy")
+            (cache / "meta.json").write_text(
+                json.dumps({"label_names": prod_cols, "n_train": int(len(tr_idx)), "n_val": int(len(va_idx)), "n_test": int(len(te_idx)), "n_features": int(X_tr_t.shape[1]), "csv": csv_path.name, "split_strategy": "time-based via fecha_dato", "generated_at": datetime.now(UTC).isoformat()}, indent=2),
+                encoding="utf-8",
+            )
+            _log("  features cache written")
+        else:
+            _log(f"features cache already present at {cache}")
+
     args.output_dir.mkdir(parents=True, exist_ok=True)
     n_labels = Y.shape[1]
-    y_tr_pos = Y_tr.sum(0).astype(int)
 
     for cname in configs:
         cfg = CONFIGS[cname]
@@ -151,10 +192,18 @@ def main() -> None:
             _log(f"[{cname}] already done ({out_npz}), skipping")
             continue
         out_dir.mkdir(parents=True, exist_ok=True)
+        # 90% train-row draw (v3 "three seeds": LightGBM's seed only re-samples bin boundaries here)
+        if cfg["train_subsample"] is not None:
+            mask = np.random.default_rng(int(cfg["subsample_seed"])).random(len(tr_idx)) < float(cfg["train_subsample"])
+            X_fit, Y_fit = X_tr_t[mask], Y_tr[mask]
+        else:
+            X_fit, Y_fit = X_tr_t, Y_tr
+        y_tr_pos = Y_fit.sum(0).astype(int)
         _log(
-            f"[{cname}] training {n_labels} LightGBM models "
+            f"[{cname}] training {n_labels} LightGBM models on {len(X_fit):,} rows "
             f"(n_estimators={args.n_trees}, lr={args.learning_rate}, num_leaves={args.num_leaves}, "
-            f"random_state={args.seed}, weighted={cfg['weighted']}, max_delta_step={cfg['max_delta_step']})"
+            f"random_state={args.seed}, weighted={cfg['weighted']}, max_delta_step={cfg['max_delta_step']}, "
+            f"weight_power={cfg['weight_power']}, weight_multiplier={cfg['weight_multiplier']}, train_subsample={cfg['train_subsample']})"
         )
         model = PerLabelScalePosLGBM(
             n_estimators=args.n_trees,
@@ -163,6 +212,8 @@ def main() -> None:
             random_state=args.seed,
             weighted=cfg["weighted"],
             max_delta_step=cfg["max_delta_step"],
+            weight_power=cfg["weight_power"],
+            weight_multiplier=cfg["weight_multiplier"],
         )
         # Fit label by label (same loop as PerLabelScalePosLGBM.fit) so that progress is logged.
         t_total = time.time()
@@ -179,8 +230,10 @@ def main() -> None:
                 random_state=args.seed,
                 weighted=cfg["weighted"],
                 max_delta_step=cfg["max_delta_step"],
+                weight_power=cfg["weight_power"],
+                weight_multiplier=cfg["weight_multiplier"],
             )
-            sub.fit(X_tr_t, Y_tr[:, j : j + 1])
+            sub.fit(X_fit, Y_fit[:, j : j + 1])
             model.models_.append(sub.models_[0])
             model.scale_pos_.append(sub.scale_pos_[0])
             dt = time.time() - t0
@@ -211,7 +264,8 @@ def main() -> None:
             "generated_at": datetime.now(UTC).isoformat(),
             "config": cname,
             "csv": csv_path.name,
-            "n_train": int(len(tr_idx)),
+            "n_train": int(len(X_fit)),
+            "n_train_full": int(len(tr_idx)),
             "n_val": int(len(va_idx)),
             "n_test": int(len(te_idx)),
             "n_labels": int(n_labels),
@@ -220,7 +274,11 @@ def main() -> None:
             "num_leaves": int(args.num_leaves),
             "random_state": int(args.seed),
             "weighted": bool(cfg["weighted"]),
-            "scale_pos_weight": "n_neg/n_pos per label" if cfg["weighted"] else None,
+            "scale_pos_weight": (f"{cfg['weight_multiplier']} * (n_neg/n_pos) ** {cfg['weight_power']} per label" if cfg["weighted"] else None),
+            "weight_power": float(cfg["weight_power"]),
+            "weight_multiplier": float(cfg["weight_multiplier"]),
+            "train_subsample": cfg["train_subsample"],
+            "subsample_seed": cfg["subsample_seed"],
             "max_delta_step": float(cfg["max_delta_step"]),
             "subsampling": "none (feature_fraction=1.0, bagging off; LightGBM defaults)",
             "api": "lightgbm.LGBMClassifier via PerLabelScalePosLGBM, force_row_wise=True",

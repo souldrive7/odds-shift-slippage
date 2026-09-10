@@ -1,0 +1,245 @@
+{
+  "draws": [
+    {
+      "draw": 0,
+      "n_train": 7424755,
+      "S_raw": {
+        "map7_all": 0.031385433303420925,
+        "map7_te": 0.03151874280699447
+      },
+      "N_raw": {
+        "map7_all": 0.8068168237338249,
+        "map7_te": 0.8064289875305283
+      },
+      "S_per_label_iso_prior": {
+        "map7_te": 0.788899913660774,
+        "n_dead_in_cal": 3
+      },
+      "S_pooled_iso": {
+        "map7_te": 0.15485740440694432
+      },
+      "S_oracle": {
+        "map7_te": 0.7897259617359125
+      },
+      "S_saturation_frac_exact_1": 0.26008262835292517,
+      "N_per_label_iso_prior": {
+        "map7_te": 0.8187560944654888,
+        "n_dead_in_cal": 3
+      },
+      "N_pooled_iso": {
+        "map7_te": 0.8070294427259974
+      },
+      "N_oracle": {
+        "map7_te": 0.8223223043927088
+      },
+      "N_saturation_frac_exact_1": 0.0002146263472506552,
+      "S_elkan_inversion_known_w": {
+        "map7_te": 0.08928760179830156
+      },
+      "whatif_N_plus_lnw": {
+        "map7_all": 0.6705425301580823
+      },
+      "loss_share_odds_shift": 0.17573997552524076
+    },
+    {
+      "draw": 1,
+      "n_train": 7424681,
+      "S_raw": {
+        "map7_all": 0.11965395173195024,
+        "map7_te": 0.11987669872272912
+      },
+      "N_raw": {
+        "map7_all": 0.8052453811240804,
+        "map7_te": 0.8051086026107425
+      },
+      "S_per_label_iso_prior": {
+        "map7_te": 0.7853445177524998,
+        "n_dead_in_cal": 3
+      },
+      "S_pooled_iso": {
+        "map7_te": 0.23764425922889434
+      },
+      "S_oracle": {
+        "map7_te": 0.7873339135601067
+      },
+      "S_saturation_frac_exact_1": 0.16269146626994446,
+      "N_per_label_iso_prior": {
+        "map7_te": 0.8166289943857888,
+        "n_dead_in_cal": 3
+      },
+      "N_pooled_iso": {
+        "map7_te": 0.8054772681725388
+      },
+      "N_oracle": {
+        "map7_te": 0.8192400210413264
+      },
+      "N_saturation_frac_exact_1": 0.0003881135155040531,
+      "S_elkan_inversion_known_w": {
+        "map7_te": 0.14919446675492043
+      },
+      "whatif_N_plus_lnw": {
+        "map7_all": 0.6564696610394617
+      },
+      "loss_share_odds_shift": 0.21700347131895825
+    },
+    {
+      "draw": 2,
+      "n_train": 7422492,
+      "S_raw": {
+        "map7_all": 0.12447671205362201,
+        "map7_te": 0.1246078852787605
+      },
+      "N_raw": {
+        "map7_all": 0.8096166832426782,
+        "map7_te": 0.8094107247461623
+      },
+      "S_per_label_iso_prior": {
+        "map7_te": 0.7909416387283924,
+        "n_dead_in_cal": 3
+      },
+      "S_pooled_iso": {
+        "map7_te": 0.24522305458053373
+      },
+      "S_oracle": {
+        "map7_te": 0.7925873088439963
+      },
+      "S_saturation_frac_exact_1": 0.151740006692586,
+      "N_per_label_iso_prior": {
+        "map7_te": 0.8193802937201182,
+        "n_dead_in_cal": 3
+      },
+      "N_pooled_iso": {
+        "map7_te": 0.8095690627345881
+      },
+      "N_oracle": {
+        "map7_te": 0.8232894365068557
+      },
+      "N_saturation_frac_exact_1": 4.356878733388702e-05,
+      "S_elkan_inversion_known_w": {
+        "map7_te": 0.17159427341804828
+      },
+      "whatif_N_plus_lnw": {
+        "map7_all": 0.6620993021877095
+      },
+      "loss_share_odds_shift": 0.21530984508020046
+    }
+  ],
+  "summary": {
+    "S_raw_te": {
+      "mean": 0.09200110893616137,
+      "sd": 0.05243265672263746,
+      "values": [
+        0.03151874280699447,
+        0.11987669872272912,
+        0.1246078852787605
+      ]
+    },
+    "N_raw_te": {
+      "mean": 0.8069827716291443,
+      "sd": 0.0022038764343599825,
+      "values": [
+        0.8064289875305283,
+        0.8051086026107425,
+        0.8094107247461623
+      ]
+    },
+    "S_per_label_iso_prior_te": {
+      "mean": 0.7883953567138887,
+      "sd": 0.0028324678443332582,
+      "values": [
+        0.788899913660774,
+        0.7853445177524998,
+        0.7909416387283924
+      ]
+    },
+    "N_per_label_iso_prior_te": {
+      "mean": 0.8182551275237987,
+      "sd": 0.001442441650213323,
+      "values": [
+        0.8187560944654888,
+        0.8166289943857888,
+        0.8193802937201182
+      ]
+    },
+    "S_pooled_iso_te": {
+      "mean": 0.21257490607212412,
+      "sd": 0.05012825584037443,
+      "values": [
+        0.15485740440694432,
+        0.23764425922889434,
+        0.24522305458053373
+      ]
+    },
+    "S_oracle_te": {
+      "mean": 0.7898823947133385,
+      "sd": 0.002630188958899737,
+      "values": [
+        0.7897259617359125,
+        0.7873339135601067,
+        0.7925873088439963
+      ]
+    },
+    "N_oracle_te": {
+      "mean": 0.8216172539802971,
+      "sd": 0.00211477267481602,
+      "values": [
+        0.8223223043927088,
+        0.8192400210413264,
+        0.8232894365068557
+      ]
+    },
+    "S_elkan_inversion_known_w_te": {
+      "mean": 0.13669211399042344,
+      "sd": 0.04255383257435398,
+      "values": [
+        0.08928760179830156,
+        0.14919446675492043,
+        0.17159427341804828
+      ]
+    },
+    "S_saturation_frac_exact_1": {
+      "mean": 0.19150470043848522,
+      "sd": 0.05964212240101136,
+      "values": [
+        0.26008262835292517,
+        0.16269146626994446,
+        0.151740006692586
+      ]
+    },
+    "loss_share_odds_shift": {
+      "mean": 0.2026844306414665,
+      "sd": 0.023349943010463205,
+      "values": [
+        0.17573997552524076,
+        0.21700347131895825,
+        0.21530984508020046
+      ]
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-09-08T22:25:56.805168+00:00",
+    "dataset": "santander",
+    "learner": "lightgbm",
+    "inputs": {
+      "santander/weighted/predictions.npz": "2c627d3728d2634e9a0aac048d35e1eb3dcfa827075643f0f3dcea4b325c295c",
+      "santander/unweighted/predictions.npz": "45f6e1169c33fe8e5917584179ad4b55611e059e2d1a7a305252e0558a917d1f",
+      "santander/weighted_mds0.3/predictions.npz": "460f6b606011ca8f9cba50afbe6be806ad141577d5e24cb446c1d378df60ebca",
+      "santander/weighted_mds0.7/predictions.npz": "dedfe5ca16ba8bdbaf19382e69ff48ff1b3da16447b7b00d85fe5f8097b5e5c8",
+      "santander/weighted_mds1/predictions.npz": "63471327b4b04930cf4341896b69a3d8926f349feb9d7573d3a85b605281723b",
+      "santander/weighted_mds2/predictions.npz": "f152f305f7f056fc62ad59c5cbde5e2ed920a9002b2f8ed83c4af1243c480d10",
+      "santander/weighted_mds5/predictions.npz": "baf61f37181be7db5f6f0924b5236de8af557285be3e619e33dec640845ce3d0",
+      "santander/weighted_sqrt/predictions.npz": "e0a3bff818fa2737f8f85a89fb32f6a700dceb01892628d783a7753686b10b8f",
+      "santander/weighted_10r/predictions.npz": "515476a1b4a5fdede31ca24ee37689b16b7a36edfc0af5a18706b7fde08201b6",
+      "santander/weighted_sub0/predictions.npz": "514cef38472b9d454f0eeb2c8f7f7f21cbf3e8184605abea0a63914adb3fe7d7",
+      "santander/weighted_sub1/predictions.npz": "742168ac2d9c3f9051cbf9d821d1981964f197cfbf8551603640d74111d05409",
+      "santander/weighted_sub2/predictions.npz": "26370492c7a1438a6144d294b23d356d496493bc259bb78c72ff712d0d43f241",
+      "santander/unweighted_sub0/predictions.npz": "16bd3e5fc9be3d3e60263ebcd98078244071732ba15e35d12bb2532b5416e376",
+      "santander/unweighted_sub1/predictions.npz": "2a21931266f8a9b5a9ede1315b9bafeea3d9dc8837f2699122c0f8ff81a9680d",
+      "santander/unweighted_sub2/predictions.npz": "7c158bd4c34adf693e0b3e8643feda691f8fb6ede3d32180b04a7d1633b44e6b"
+    },
+    "k": 7,
+    "elapsed_sec": 108.4,
+    "protocol": "90% train-row draws, seeds 0/1/2, LightGBM configuration unchanged",
+    "n_draws": 3
+  }
+}

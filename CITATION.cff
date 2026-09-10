@@ -1,12 +1,17 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite the paper (arXiv identifier to be added once assigned)."
-title: "Don't Reweight, Calibrate: Per-Label Class Weights Distort Top-K Ranking, the Textbook Inversion Does Not Repair It, and Per-Label Calibration Does"
+title: "Odds-Shift Slippage in One-vs-Rest Rankers: Don't Reweight, Calibrate"
 authors:
   - family-names: "Goto"
     given-names: "Akifumi"
-    email: "souldrive7@gmail.com"
-version: "0.1.0"
-date-released: "2026-09-07"
+    email: "s6025131@st.shiga-u.ac.jp"
+    orcid: "https://orcid.org/0009-0004-8305-6436"
+    affiliation: "Graduate School of Data Science, Shiga University"
+    city: "Hikone"
+    region: "Shiga"
+    country: "JP"
+version: "0.3.0"
+date-released: "2026-09-10"
 repository-code: "https://github.com/souldrive7/dont-reweight-calibrate"
 license: MIT
 keywords:
@@ -17,12 +22,17 @@ keywords:
   - probability calibration
   - isotonic regression
   - gradient boosting
+  - odds-shift slippage
+  - dead labels
+  - next-basket recommendation
 preferred-citation:
   type: article
-  title: "Don't Reweight, Calibrate: Per-Label Class Weights Distort Top-K Ranking, the Textbook Inversion Does Not Repair It, and Per-Label Calibration Does"
+  title: "Odds-Shift Slippage in One-vs-Rest Rankers: Don't Reweight, Calibrate"
   authors:
     - family-names: "Goto"
       given-names: "Akifumi"
+      orcid: "https://orcid.org/0009-0004-8305-6436"
+      affiliation: "Graduate School of Data Science, Shiga University"
   year: 2026
   journal: "arXiv preprint"
   notes: "arXiv identifier and categories (cs.IR primary, cs.LG cross-list) to be added once assigned."

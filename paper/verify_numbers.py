@@ -1,11 +1,12 @@
-"""Number gate for arxiv_v2/main.tex.
+"""Number gate for arxiv_v3/main.tex.
 
 Rule: the prose never contains a hand-typed result number. Every result number is a macro
 (\\nXxx from figures/numbers.tex) or lives in a generated table body (figures/tab_*.tex).
 
 Checks:
  1. figures/numbers.tex is regenerated from the JSON results and identical to what make_tables.py emits now.
- 2. every \\n<Name> macro used in main.tex is defined.
+ 2. every \\n<Name> macro used in main.tex, supplement.tex and poster/ibis2026_poster.tex is defined
+    (full-line comments are skipped, so "% TODO(v3)" lines may reserve macros that do not exist yet).
  3. main.tex prose (outside \\input'd tables and outside the bibliography) contains no decimal number
     of the form d.ddd, no percentage like dd.d\\%, and no integer with thousands separators.
     Allowed exceptions are listed in ALLOW (theory constants such as 10^{-3}).
@@ -31,7 +32,6 @@ ALLOW = {
     "0.5",
     "0.01",
     "0.12",
-    "0.40",  # Fig. 1B axis origin (design choice, not a result)
     "1/\\pi",
     "4 leaves",
     "30 trees",
@@ -41,6 +41,7 @@ DESIGN = {
     "30\\%",
     "70\\%",
     "95\\%",
+    "100\\%",  # Fig. 2's axis definition: fully restoring the unweighted ranking
     "50,200",
     "20,50,200",
     "5,20,50,200",
@@ -48,6 +49,13 @@ DESIGN = {
     "0.05",
     "0.001",
     "0.005",
+    # Instacart design constants (the dataset README and its EDA result file): labelled
+    # users = rows per split, top-N products of the matched pair, all products, feature columns
+    "131,209",
+    "4,000",
+    "49,688",
+    "8,320",
+    "90\\%",  # train-row draws (the "seed" substitute of the matched pairs)
 }
 
 fail = 0
@@ -61,7 +69,17 @@ if before != after:
     fail += 1
 
 defined = set(re.findall(r"\\newcommand\{\\(n[A-Za-z0-9]+)\}", after))
-tex = TEX.read_text(encoding="utf-8")
+SOURCES = [
+    p for p in (TEX, HERE / "supplement.tex", HERE / "poster" / "ibis2026_poster.tex") if p.exists()
+]  # the supplement and the IBIS poster share numbers.tex
+# Comment lines are excluded from the macro check: "% TODO(v3)" lines reserve sentences whose macros
+# do not exist until the corresponding result file is generated (they must stay commented until then).
+tex = "\n".join(
+    line
+    for p in SOURCES
+    for line in p.read_text(encoding="utf-8").splitlines()
+    if not line.lstrip().startswith("%")
+)
 LATEX_N = {
     "newcommand",
     "noindent",
@@ -94,22 +112,23 @@ if missing:
 # 3. hand-typed numbers in prose
 in_bib = False
 pat = re.compile(r"(?<![A-Za-z\\{])(\d{1,3}(?:,\d{3})+|\d+\.\d{2,}|\d+\.\d\\%|\d+\\%)")
-for ln, line in enumerate(tex.splitlines(), 1):
-    if line.startswith("\\bibliography") or line.startswith("%"):
-        continue
-    if "\\input{figures/" in line:
-        continue
-    for m in pat.finditer(line):
-        tok = m.group(0)
-        if tok in DESIGN or any(tok in d for d in DESIGN):
+for src in SOURCES:
+    for ln, line in enumerate(src.read_text(encoding="utf-8").splitlines(), 1):
+        if line.startswith("\\bibliography") or line.startswith("%"):
             continue
-        if any(a in line for a in ALLOW) and tok in "".join(ALLOW):
+        if "\\input{figures/" in line or "\\input figures/" in line:
             continue
-        # allow numbers inside \label/\ref/\cite keys and years
-        if re.search(r"\\(cite|label|cref|Cref|ref)\{[^}]*" + re.escape(tok), line):
-            continue
-        print(f"[MISS] line {ln}: hand-typed number '{tok}': {line.strip()[:110]}")
-        fail += 1
+        for m in pat.finditer(line):
+            tok = m.group(0)
+            if tok in DESIGN or any(tok in d for d in DESIGN):
+                continue
+            if any(a in line for a in ALLOW) and tok in "".join(ALLOW):
+                continue
+            # allow numbers inside \label/\ref/\cite keys and years
+            if re.search(r"\\(cite|label|cref|Cref|ref)\{[^}]*" + re.escape(tok), line):
+                continue
+            print(f"[MISS] {src.name} line {ln}: hand-typed number '{tok}': {line.strip()[:110]}")
+            fail += 1
 
 print("OK: no hand-typed result numbers; all macros defined" if fail == 0 else f"{fail} problem(s)")
 sys.exit(1 if fail else 0)

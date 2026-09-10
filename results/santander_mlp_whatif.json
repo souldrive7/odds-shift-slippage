@@ -1,0 +1,36 @@
+{
+  "N_raw": 0.766273027967565,
+  "S_actual": 0.11102680508446207,
+  "whatif_N_plus_a_lnw": {
+    "0.25": 0.7657277873346313,
+    "0.5": 0.7110993588809086,
+    "0.75": 0.3019261573781609,
+    "1.0": 0.12728545133725758
+  },
+  "top7_overlap_N_vs_whatif": {
+    "mean": 0.290698,
+    "frac_rows_changed": 1.0,
+    "n_rows": 500000
+  },
+  "top7_overlap_N_vs_S_actual": {
+    "mean": 3.897498,
+    "frac_rows_changed": 0.99226,
+    "n_rows": 500000
+  },
+  "loss_share": {
+    "odds_shift_part": 0.9751869668454448,
+    "residual_saturation_part": 0.024813033154555214
+  },
+  "_meta": {
+    "generated_at": "2026-09-08T22:24:07.196487+00:00",
+    "dataset": "santander_mlp",
+    "learner": "mlp",
+    "inputs": {
+      "santander_mlp/wr/predictions.npz": "c59845248ea5a5185e8aeec58741b414e5f4d322fee3d87a4c5de9c0b7ca5718",
+      "santander_mlp/w1/predictions.npz": "0cbc3a1a9e7edab12d6aefc6cf0789ad786df54c0e0a67a35e1ceebcade664f3"
+    },
+    "k": 7,
+    "elapsed_sec": 6.9,
+    "weight": "scale_pos_weight of the S configuration (run_meta per_label)"
+  }
+}

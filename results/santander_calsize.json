@@ -922,14 +922,29 @@
     ]
   },
   "_meta": {
-    "generated_at": "2026-09-07T04:38:56.230635+00:00",
+    "generated_at": "2026-09-09T04:14:05.977698+00:00",
+    "dataset": "santander",
+    "learner": "lightgbm",
     "inputs": {
+      "santander/weighted/predictions.npz": "2c627d3728d2634e9a0aac048d35e1eb3dcfa827075643f0f3dcea4b325c295c",
+      "santander/unweighted/predictions.npz": "45f6e1169c33fe8e5917584179ad4b55611e059e2d1a7a305252e0558a917d1f",
+      "santander/weighted_mds0.3/predictions.npz": "460f6b606011ca8f9cba50afbe6be806ad141577d5e24cb446c1d378df60ebca",
+      "santander/weighted_mds0.7/predictions.npz": "dedfe5ca16ba8bdbaf19382e69ff48ff1b3da16447b7b00d85fe5f8097b5e5c8",
+      "santander/weighted_mds1/predictions.npz": "63471327b4b04930cf4341896b69a3d8926f349feb9d7573d3a85b605281723b",
+      "santander/weighted_mds2/predictions.npz": "f152f305f7f056fc62ad59c5cbde5e2ed920a9002b2f8ed83c4af1243c480d10",
+      "santander/weighted_mds5/predictions.npz": "baf61f37181be7db5f6f0924b5236de8af557285be3e619e33dec640845ce3d0",
+      "santander/weighted_sqrt/predictions.npz": "e0a3bff818fa2737f8f85a89fb32f6a700dceb01892628d783a7753686b10b8f",
+      "santander/weighted_10r/predictions.npz": "515476a1b4a5fdede31ca24ee37689b16b7a36edfc0af5a18706b7fde08201b6",
+      "santander/weighted_sub0/predictions.npz": "514cef38472b9d454f0eeb2c8f7f7f21cbf3e8184605abea0a63914adb3fe7d7",
+      "santander/weighted_sub1/predictions.npz": "742168ac2d9c3f9051cbf9d821d1981964f197cfbf8551603640d74111d05409",
+      "santander/weighted_sub2/predictions.npz": "26370492c7a1438a6144d294b23d356d496493bc259bb78c72ff712d0d43f241",
+      "santander/unweighted_sub0/predictions.npz": "16bd3e5fc9be3d3e60263ebcd98078244071732ba15e35d12bb2532b5416e376",
+      "santander/unweighted_sub1/predictions.npz": "2a21931266f8a9b5a9ede1315b9bafeea3d9dc8837f2699122c0f8ff81a9680d",
+      "santander/unweighted_sub2/predictions.npz": "7c158bd4c34adf693e0b3e8643feda691f8fb6ede3d32180b04a7d1633b44e6b",
       "uq_arrays.npz": "843c419cbb27f244c0bbabc3ce5d1c619c5516f2432f1eb15d884b8abbe3154b",
-      "predictions.npz": "bec72a9396842861fd0993d4966b934aa36bc81d31aa92858d94c40579a4e13a",
-      "matched_pair/unweighted/predictions.npz": "45f6e1169c33fe8e5917584179ad4b55611e059e2d1a7a305252e0558a917d1f",
-      "matched_pair/weighted/predictions.npz": "2c627d3728d2634e9a0aac048d35e1eb3dcfa827075643f0f3dcea4b325c295c"
+      "predictions.npz": "bec72a9396842861fd0993d4966b934aa36bc81d31aa92858d94c40579a4e13a"
     },
     "k": 7,
-    "elapsed_sec": 621.6
+    "elapsed_sec": 465.4
   }
 }

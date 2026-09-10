@@ -18,7 +18,22 @@ from learners import LEARNERS
 EPS = 1e-15
 CAL_SEED = 42
 CAL_FRAC = 0.3
-DATASETS = ["emotions", "scene", "flags", "birds", "yeast", "genbase", "enron", "medical"]
+# Every MULAN dataset that ships a standard train/test split, except tmc2007 (61 MB) and Corel16k
+# (366 MB), which we leave out for size. Ordered by label count so the table reads as a ladder.
+DATASETS = [
+    "emotions",
+    "scene",
+    "flags",
+    "yeast",
+    "birds",
+    "genbase",
+    "medical",
+    "enron",
+    "bibtex",
+    "corel5k",
+    "delicious",
+]
+FILE_STEM = {"corel5k": "Corel5k"}
 WEIGHT_SCHEMES = {"w=1": (0.0, 1.0), "w=sqrt(r)": (0.5, 1.0), "w=r": (1.0, 1.0), "w=10r": (1.0, 10.0)}
 
 
@@ -124,9 +139,10 @@ def distinct_scores_per_label(q):
 
 
 def load_split(p4, name):
-    labels = p4.parse_labels_xml(p4._fetch(f"{name}/{name}.xml"))
-    x_tr, y_tr = p4.parse_mulan_arff(p4._fetch(f"{name}/{name}-train.arff"), labels)
-    x_te, y_te = p4.parse_mulan_arff(p4._fetch(f"{name}/{name}-test.arff"), labels)
+    stem = FILE_STEM.get(name, name)  # the mirror's directory and file stem differ for Corel5k
+    labels = p4.parse_labels_xml(p4._fetch(f"{name}/{stem}.xml"))
+    x_tr, y_tr = p4.parse_mulan_arff(p4._fetch(f"{name}/{stem}-train.arff"), labels)
+    x_te, y_te = p4.parse_mulan_arff(p4._fetch(f"{name}/{stem}-test.arff"), labels)
     y_tr = y_tr.astype(np.int8)
     y_te = y_te.astype(np.int8)
     rng = np.random.default_rng(CAL_SEED)

@@ -1,0 +1,243 @@
+{
+  "draws": [
+    {
+      "draw": 0,
+      "n_train": 118219,
+      "S_raw": {
+        "map7_all": 0.0007686469177785051,
+        "map7_te": 0.0007039490356321249
+      },
+      "N_raw": {
+        "map7_all": 0.1293139173632287,
+        "map7_te": 0.12996093643638226
+      },
+      "S_per_label_iso_prior": {
+        "map7_te": 0.22443257416156448,
+        "n_dead_in_cal": 0
+      },
+      "S_pooled_iso": {
+        "map7_te": 0.0013418083979379707
+      },
+      "S_oracle": {
+        "map7_te": 0.2296676146023894
+      },
+      "S_saturation_frac_exact_1": 0.19963927588808694,
+      "N_per_label_iso_prior": {
+        "map7_te": 0.2491088503762298,
+        "n_dead_in_cal": 0
+      },
+      "N_pooled_iso": {
+        "map7_te": 0.14753017608048521
+      },
+      "N_oracle": {
+        "map7_te": 0.2675513779262054
+      },
+      "N_saturation_frac_exact_1": 0.0003254788162397397,
+      "S_elkan_inversion_known_w": {
+        "map7_te": 0.01599163049376876
+      },
+      "whatif_N_plus_lnw": {
+        "map7_all": 0.08909613962233442
+      },
+      "loss_share_odds_shift": 0.31286859175391596
+    },
+    {
+      "draw": 1,
+      "n_train": 118053,
+      "S_raw": {
+        "map7_all": 0.0007034271985106435,
+        "map7_te": 0.0006447330677593572
+      },
+      "N_raw": {
+        "map7_all": 0.12818047403722363,
+        "map7_te": 0.12837871121268016
+      },
+      "S_per_label_iso_prior": {
+        "map7_te": 0.22428254892760413,
+        "n_dead_in_cal": 0
+      },
+      "S_pooled_iso": {
+        "map7_te": 0.0018818458594458912
+      },
+      "S_oracle": {
+        "map7_te": 0.22930386722314355
+      },
+      "S_saturation_frac_exact_1": 0.1940394828098682,
+      "N_per_label_iso_prior": {
+        "map7_te": 0.25047732381978205,
+        "n_dead_in_cal": 0
+      },
+      "N_pooled_iso": {
+        "map7_te": 0.14748391764040625
+      },
+      "N_oracle": {
+        "map7_te": 0.26811750565626974
+      },
+      "N_saturation_frac_exact_1": 0.0003298325572178738,
+      "S_elkan_inversion_known_w": {
+        "map7_te": 0.01535926700569458
+      },
+      "whatif_N_plus_lnw": {
+        "map7_all": 0.08833499996285049
+      },
+      "loss_share_odds_shift": 0.3125697924645727
+    },
+    {
+      "draw": 2,
+      "n_train": 118070,
+      "S_raw": {
+        "map7_all": 0.0010567271657392855,
+        "map7_te": 0.0010081692176079219
+      },
+      "N_raw": {
+        "map7_all": 0.12921117239094393,
+        "map7_te": 0.12929368638081687
+      },
+      "S_per_label_iso_prior": {
+        "map7_te": 0.22438617109321618,
+        "n_dead_in_cal": 0
+      },
+      "S_pooled_iso": {
+        "map7_te": 0.003130594831249078
+      },
+      "S_oracle": {
+        "map7_te": 0.2295036229888027
+      },
+      "S_saturation_frac_exact_1": 0.20054748721505383,
+      "N_per_label_iso_prior": {
+        "map7_te": 0.2502750758760173,
+        "n_dead_in_cal": 0
+      },
+      "N_pooled_iso": {
+        "map7_te": 0.1477078107497304
+      },
+      "N_oracle": {
+        "map7_te": 0.26879920866047247
+      },
+      "N_saturation_frac_exact_1": 0.0003323209535931224,
+      "S_elkan_inversion_known_w": {
+        "map7_te": 0.016365616275366146
+      },
+      "whatif_N_plus_lnw": {
+        "map7_all": 0.08889293344119632
+      },
+      "loss_share_odds_shift": 0.3146066363823489
+    }
+  ],
+  "summary": {
+    "S_raw_te": {
+      "mean": 0.0007856171069998014,
+      "sd": 0.00019499670295898338,
+      "values": [
+        0.0007039490356321249,
+        0.0006447330677593572,
+        0.0010081692176079219
+      ]
+    },
+    "N_raw_te": {
+      "mean": 0.1292111113432931,
+      "sd": 0.0007943381787666595,
+      "values": [
+        0.12996093643638226,
+        0.12837871121268016,
+        0.12929368638081687
+      ]
+    },
+    "S_per_label_iso_prior_te": {
+      "mean": 0.22436709806079494,
+      "sd": 7.680968773872808e-05,
+      "values": [
+        0.22443257416156448,
+        0.22428254892760413,
+        0.22438617109321618
+      ]
+    },
+    "N_per_label_iso_prior_te": {
+      "mean": 0.24995375002400974,
+      "sd": 0.000738659338804604,
+      "values": [
+        0.2491088503762298,
+        0.25047732381978205,
+        0.2502750758760173
+      ]
+    },
+    "S_pooled_iso_te": {
+      "mean": 0.0021180830295443134,
+      "sd": 0.000917493992569734,
+      "values": [
+        0.0013418083979379707,
+        0.0018818458594458912,
+        0.003130594831249078
+      ]
+    },
+    "S_oracle_te": {
+      "mean": 0.22949170160477853,
+      "sd": 0.00018216648573446547,
+      "values": [
+        0.2296676146023894,
+        0.22930386722314355,
+        0.2295036229888027
+      ]
+    },
+    "N_oracle_te": {
+      "mean": 0.2681560307476492,
+      "sd": 0.0006248067880110646,
+      "values": [
+        0.2675513779262054,
+        0.26811750565626974,
+        0.26879920866047247
+      ]
+    },
+    "S_elkan_inversion_known_w_te": {
+      "mean": 0.015905504591609828,
+      "sd": 0.0005086727498197062,
+      "values": [
+        0.01599163049376876,
+        0.01535926700569458,
+        0.016365616275366146
+      ]
+    },
+    "S_saturation_frac_exact_1": {
+      "mean": 0.19807541530433634,
+      "sd": 0.0035245957610108227,
+      "values": [
+        0.19963927588808694,
+        0.1940394828098682,
+        0.20054748721505383
+      ]
+    },
+    "loss_share_odds_shift": {
+      "mean": 0.31334834020027924,
+      "sd": 0.0010999100941378953,
+      "values": [
+        0.31286859175391596,
+        0.3125697924645727,
+        0.3146066363823489
+      ]
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-09-09T08:56:06.876261+00:00",
+    "dataset": "instacart",
+    "learner": "lightgbm",
+    "inputs": {
+      "instacart/weighted/predictions.npz": "9802c185080829b7fc9a737f6f77e5e4b7403ee221d7b1e0842b293309b79b9c",
+      "instacart/unweighted/predictions.npz": "0c5760419aedc8a2ecc4d91d75ab510a7d169cf6d86e1eeedb44bc81bd5f0df7",
+      "instacart/weighted_mds0.3/predictions.npz": "e98e0abd598015524572bc774e54f107759412b38977426441b6b48dd1cfd901",
+      "instacart/weighted_mds0.7/predictions.npz": "8bf8c611c9a8b6f644cd370938e00420ab2e2c1d576e4de8ffa0089a7750ccff",
+      "instacart/weighted_mds1/predictions.npz": "f639362a1e95f9fbfbc58a622064a3aa657a129b9301b86309a138356803e629",
+      "instacart/weighted_mds2/predictions.npz": "84e399f2cb80c30f191f8c9cafa7791e385654096e43d31ead67f6b447ffa9ca",
+      "instacart/weighted_mds5/predictions.npz": "490893e195987308c6f4ec91bbcc384aa895f06a80c16d54902b4dd8e16d9007",
+      "instacart/weighted_sub0/predictions.npz": "65832d6e88f2f1ac24762b1c00d45350003df9c893f9cc044d6393d0961c206f",
+      "instacart/weighted_sub1/predictions.npz": "952d25d6e36bf0cb1406c382b89a739e0b23876433f2304e4c29891a07326ec4",
+      "instacart/weighted_sub2/predictions.npz": "50e46ef55489b577f12eb0689fe30bbe95ddc12590b91acf70551909245da176",
+      "instacart/unweighted_sub0/predictions.npz": "4a839bb566f83f8e12099e3f175e830fa0e5d4a87176023435c7ecad9a2c6b9e",
+      "instacart/unweighted_sub1/predictions.npz": "02cfa50200d24a7f262e1b22db68cb0fb24e45e89591454f368314e15f67435d",
+      "instacart/unweighted_sub2/predictions.npz": "dad5a3ef6ddacc2042dfd3f2f5d1c1f154f740c105fb2a6ea89b2cc51b5d661f"
+    },
+    "k": 7,
+    "elapsed_sec": 1389.2,
+    "protocol": "90% train-row draws, seeds 0/1/2, LightGBM configuration unchanged",
+    "n_draws": 3
+  }
+}

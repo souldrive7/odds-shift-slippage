@@ -13,25 +13,29 @@ train small models from public data with fixed seeds.
 | Santander matched pair | `matched_pair/<config>/predictions.npz` | `p_te`, `p_va`, `Y_te`, `Y_va` for `weighted` (LGBM-w, the paper's weighted model) and `unweighted` (LGBM-0, the same configuration without weights), trained by one script in one session; `weighted_mds0.7`, `weighted_mds2` (`max_delta_step` variants); produced by `santander_train/train_matched_pair.py` | SHA-256 in `data/PRIMARY_ARRAYS.sha256` and every result file's `_meta.inputs` |
 | Santander earlier unweighted scorer | `predictions.npz` | `p_te_lgbm` (LightGBM one-vs-rest, no weights, 100 trees, feature/row subsampling; the robustness column LGBM-0_100) | SHA-256 `bec72a93…` |
 | Santander training counts | `data/santander_run_meta.json` | `n_train` and per-label `n_pos` of the training period (gives `w_j = n_-/n_+` and the training prevalence) | shipped |
-| MULAN benchmarks | fetched at run time from the public MULAN mirror | ARFF/XML for emotions, scene, flags, birds, yeast, genbase, enron, medical | content SHA-256 recorded under `fetch_provenance` in the result file |
+| MULAN benchmarks | fetched at run time from the public MULAN mirror | ARFF/XML for the 11 datasets of the sweep: emotions, scene, flags, yeast, birds, genbase, medical, enron, bibtex, Corel5k, delicious | content SHA-256 recorded under `fetch_provenance` in the result file |
 
 The `.npz` arrays are not in the repository. Put them in `data/` or in any
 directory and pass `--arrays-dir` (or set `DRC_ARRAYS_DIR`). See `DATA.md` for how to obtain them.
 
 ## Run
 
+The times are the measured wall clock of the run that produced the shipped results (Python 3.12.10,
+CPU only, `--n-jobs 8`); `REPRODUCE.md` carries the same table for every part *and* dataset,
+including the Instacart and MLP runs, which are 5 to 50 times slower part for part.
+
 ```bash
-python code/run_experiment.py --part santander    # results/santander_ladder.json   (~3 min, 2.5M rows)
-python code/run_experiment.py --part whatif       # results/santander_whatif.json   (~1 min)
-python code/run_experiment.py --part bootstrap    # results/santander_bootstrap.json (~5 min, B=2000)
-python code/run_experiment.py --part mulan        # results/mulan_dose_response.json (~10 min, 8 datasets x 5 learners x 4 weights)
-python code/run_experiment.py --part mulan_stats  # results/mulan_cal_stats.json    (~15 s, no training)
-python code/run_experiment.py --part leaf         # results/leaf_check.json         (~3 min)
-python code/run_experiment.py --part synthetic    # results/synthetic_check.json    (~5 min)
-python code/run_experiment.py --part deploy       # results/santander_deploy.json   (~3 min; calibrate on the validation period)
-python code/run_experiment.py --part calsize      # results/santander_calsize.json  (~10 min; calibration-split size sweep)
-python code/run_experiment.py --part mulan_tau    # results/mulan_tau_select.json   (~5 min; cross-validated tau / shared selection + bootstrap)
-python code/run_experiment.py --part dead_freq    # results/dead_label_frequency.json (~30 s; labels only)
+python code/run_experiment.py --part santander    # results/santander_ladder.json   (1,312 s / 22 min, 2.5M rows)
+python code/run_experiment.py --part whatif       # results/santander_whatif.json   (7.9 s)
+python code/run_experiment.py --part bootstrap    # results/santander_bootstrap.json (98 s, B=2000)
+python code/run_experiment.py --part mulan        # results/mulan_dose_response.json (6,840 s / 1 h 54 min, 11 datasets x 5 learners x 4 weights = 55 learner-dataset cells)
+python code/run_experiment.py --part mulan_stats  # results/mulan_cal_stats.json    (19 s, no training)
+python code/run_experiment.py --part leaf         # results/leaf_check.json         (147 s)
+python code/run_experiment.py --part synthetic    # results/synthetic_check.json    (349 s)
+python code/run_experiment.py --part deploy       # results/santander_deploy.json   (946 s / 16 min; calibrate on the validation period)
+python code/run_experiment.py --part calsize      # results/santander_calsize.json  (465 s / 7.8 min; calibration-split size sweep)
+python code/run_experiment.py --part mulan_tau    # results/mulan_tau_select.json   (3,612 s / 1 h; cross-validated tau / shared selection + bootstrap)
+python code/run_experiment.py --part dead_freq    # results/dead_label_frequency.json (labels only; the first run also scans all 11 MULAN datasets)
 ```
 
 Every result file is written atomically and carries a `_meta` block with the input hashes, the
@@ -48,7 +52,7 @@ calibration-split seed and fraction, the dead-label policies and the MAP definit
 - **whatif**: the ideal odds shift `logit(p) + ln w_j` applied to the unweighted model, the top-7 overlap
   statistics, and the share of the weighted model's loss that the shift explains.
 - **bootstrap**: per-row bootstrap intervals (B = 2000, seed 42) for the ladder entries and their differences.
-- **mulan**: dose-response across 8 datasets, 5 learners and 4 weight magnitudes, with the same ladder per cell.
+- **mulan**: dose-response across 11 datasets, 5 learners and 4 weight magnitudes (55 learner-dataset cells), with the same ladder per cell.
 - **mulan_stats**: calibration-split statistics (positives per label) per dataset.
 - **leaf**: the leaf-saturation lemma checked exactly on single trees and empirically on LightGBM.
 - **synthetic**: the odds shift, its inversion and saturation against known marginals.

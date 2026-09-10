@@ -1,0 +1,147 @@
+{
+  "S_raw": {
+    "point": 0.0012679661048073702,
+    "ci95": [
+      0.0011708600047111836,
+      0.001367719508542503
+    ]
+  },
+  "S_per_label_iso_identity": {
+    "point": 0.2253955173468438,
+    "ci95": [
+      0.2238450457947304,
+      0.226896484806433
+    ]
+  },
+  "S_per_label_iso_prior": {
+    "point": 0.2253955173468438,
+    "ci95": [
+      0.2238450457947304,
+      0.226896484806433
+    ]
+  },
+  "S_pooled_iso": {
+    "point": 0.003565763563174502,
+    "ci95": [
+      0.0033793816967352896,
+      0.0037480469785419516
+    ]
+  },
+  "S_prior_match_label_free": {
+    "point": 0.19610088822273763,
+    "ci95": [
+      0.19462379984656994,
+      0.19753158071922802
+    ]
+  },
+  "S_elkan_inversion_known_w": {
+    "point": 0.017404576370248368,
+    "ci95": [
+      0.017017569524784688,
+      0.0177799565545291
+    ]
+  },
+  "N_raw": {
+    "point": 0.13072858238333962,
+    "ci95": [
+      0.12952842630322164,
+      0.13187019432682318
+    ]
+  },
+  "N_per_label_iso_identity": {
+    "point": 0.2500066353600921,
+    "ci95": [
+      0.24827449546010338,
+      0.2516556509396088
+    ]
+  },
+  "N_per_label_iso_prior": {
+    "point": 0.2500066353600921,
+    "ci95": [
+      0.24827449546010338,
+      0.2516556509396088
+    ]
+  },
+  "N_pooled_iso": {
+    "point": 0.1485816847040408,
+    "ci95": [
+      0.14728260892237374,
+      0.14980449659040754
+    ]
+  },
+  "popularity": {
+    "point": 0.05596525970715941,
+    "ci95": [
+      0.055358583937903556,
+      0.05660683891456611
+    ]
+  },
+  "differences": {
+    "S_per_label_iso_prior_minus_popularity": {
+      "point": 0.16943025763968436,
+      "ci95": [
+        0.16798792849449196,
+        0.17088348573283915
+      ]
+    },
+    "S_per_label_iso_identity_minus_popularity": {
+      "point": 0.16943025763968436,
+      "ci95": [
+        0.16798792849449196,
+        0.17088348573283915
+      ]
+    },
+    "N_per_label_iso_prior_minus_N_raw": {
+      "point": 0.11927805297675247,
+      "ci95": [
+        0.11809108648504543,
+        0.12048875235163416
+      ]
+    },
+    "N_raw_minus_S_per_label_iso_prior": {
+      "point": -0.09466693496350416,
+      "ci95": [
+        -0.0961220794239691,
+        -0.09316769581648167
+      ]
+    },
+    "N_raw_minus_S_raw": {
+      "point": 0.12946061627853225,
+      "ci95": [
+        0.12824726808660725,
+        0.13062254098381415
+      ]
+    },
+    "S_per_label_iso_prior_minus_S_elkan_inversion_known_w": {
+      "point": 0.20799094097659543,
+      "ci95": [
+        0.20640025495165024,
+        0.20954377636347285
+      ]
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-09-09T01:39:44.952450+00:00",
+    "dataset": "instacart",
+    "learner": "lightgbm",
+    "inputs": {
+      "instacart/weighted/predictions.npz": "9802c185080829b7fc9a737f6f77e5e4b7403ee221d7b1e0842b293309b79b9c",
+      "instacart/unweighted/predictions.npz": "0c5760419aedc8a2ecc4d91d75ab510a7d169cf6d86e1eeedb44bc81bd5f0df7",
+      "instacart/weighted_mds0.3/predictions.npz": "e98e0abd598015524572bc774e54f107759412b38977426441b6b48dd1cfd901",
+      "instacart/weighted_mds0.7/predictions.npz": "8bf8c611c9a8b6f644cd370938e00420ab2e2c1d576e4de8ffa0089a7750ccff",
+      "instacart/weighted_mds1/predictions.npz": "f639362a1e95f9fbfbc58a622064a3aa657a129b9301b86309a138356803e629",
+      "instacart/weighted_mds2/predictions.npz": "84e399f2cb80c30f191f8c9cafa7791e385654096e43d31ead67f6b447ffa9ca",
+      "instacart/weighted_mds5/predictions.npz": "490893e195987308c6f4ec91bbcc384aa895f06a80c16d54902b4dd8e16d9007",
+      "instacart/weighted_sub0/predictions.npz": "65832d6e88f2f1ac24762b1c00d45350003df9c893f9cc044d6393d0961c206f",
+      "instacart/weighted_sub1/predictions.npz": "952d25d6e36bf0cb1406c382b89a739e0b23876433f2304e4c29891a07326ec4",
+      "instacart/weighted_sub2/predictions.npz": "50e46ef55489b577f12eb0689fe30bbe95ddc12590b91acf70551909245da176",
+      "instacart/unweighted_sub0/predictions.npz": "4a839bb566f83f8e12099e3f175e830fa0e5d4a87176023435c7ecad9a2c6b9e",
+      "instacart/unweighted_sub1/predictions.npz": "02cfa50200d24a7f262e1b22db68cb0fb24e45e89591454f368314e15f67435d"
+    },
+    "k": 7,
+    "elapsed_sec": 1301.7,
+    "B": 2000,
+    "seed": 42,
+    "n_rows_with_positives_te": 89525
+  }
+}

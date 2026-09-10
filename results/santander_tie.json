@@ -1,0 +1,144 @@
+{
+  "N_raw": {
+    "map7_all": 0.8077109170583896,
+    "map7_te": 0.8077137992069514
+  },
+  "models": {
+    "S_lgbm_spw": {
+      "cap": null,
+      "saturated_cells_per_row": {
+        "mean": 3.9761340229743762,
+        "p50": 4.0,
+        "p90": 7.0,
+        "frac_rows_ge1": 0.9939096942160612,
+        "frac_rows_ge_k": 0.15513416953885772
+      },
+      "frac_cells_exact_1": 0.16567225095726568,
+      "column_order": {
+        "map7_all": 0.1172458546472765,
+        "map7_te": 0.11743218464489596
+      },
+      "random": {
+        "map7_all_mean": 0.10973372500234871,
+        "map7_all_sd": 0.00019173868437322294,
+        "map7_te_mean": 0.10994320710081462,
+        "n_seeds": 5
+      },
+      "unweighted_order": {
+        "map7_all": 0.14872919656557998,
+        "map7_te": 0.14894000921445816
+      },
+      "oracle": {
+        "map7_all": 0.1691031270888744,
+        "map7_te": 0.16937433782661687
+      },
+      "recovered_share_unweighted_order": 0.045597299026779475,
+      "recovered_share_oracle": 0.07510484637776113
+    },
+    "S_weighted_mds0.3": {
+      "cap": 0.3,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.6343865207329729,
+        "map7_te": 0.633967374673024
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds0.7": {
+      "cap": 0.7,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.6426092229576139,
+        "map7_te": 0.642171830654069
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds1": {
+      "cap": 1.0,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.6501921672676146,
+        "map7_te": 0.6497595007888181
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds2": {
+      "cap": 2.0,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.7850805070423752,
+        "map7_te": 0.7850333668994058
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds5": {
+      "cap": 5.0,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.7175942467741571,
+        "map7_te": 0.7176935159735289
+      },
+      "note": "no cell at exactly 1.0"
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-09-08T17:48:50.246526+00:00",
+    "dataset": "santander",
+    "learner": "lightgbm",
+    "inputs": {
+      "santander/weighted/predictions.npz": "2c627d3728d2634e9a0aac048d35e1eb3dcfa827075643f0f3dcea4b325c295c",
+      "santander/unweighted/predictions.npz": "45f6e1169c33fe8e5917584179ad4b55611e059e2d1a7a305252e0558a917d1f",
+      "santander/weighted_mds0.3/predictions.npz": "460f6b606011ca8f9cba50afbe6be806ad141577d5e24cb446c1d378df60ebca",
+      "santander/weighted_mds0.7/predictions.npz": "dedfe5ca16ba8bdbaf19382e69ff48ff1b3da16447b7b00d85fe5f8097b5e5c8",
+      "santander/weighted_mds1/predictions.npz": "63471327b4b04930cf4341896b69a3d8926f349feb9d7573d3a85b605281723b",
+      "santander/weighted_mds2/predictions.npz": "f152f305f7f056fc62ad59c5cbde5e2ed920a9002b2f8ed83c4af1243c480d10",
+      "santander/weighted_mds5/predictions.npz": "baf61f37181be7db5f6f0924b5236de8af557285be3e619e33dec640845ce3d0",
+      "santander/weighted_sqrt/predictions.npz": "e0a3bff818fa2737f8f85a89fb32f6a700dceb01892628d783a7753686b10b8f",
+      "santander/weighted_10r/predictions.npz": "515476a1b4a5fdede31ca24ee37689b16b7a36edfc0af5a18706b7fde08201b6",
+      "santander/weighted_sub0/predictions.npz": "514cef38472b9d454f0eeb2c8f7f7f21cbf3e8184605abea0a63914adb3fe7d7",
+      "santander/weighted_sub1/predictions.npz": "742168ac2d9c3f9051cbf9d821d1981964f197cfbf8551603640d74111d05409",
+      "santander/weighted_sub2/predictions.npz": "26370492c7a1438a6144d294b23d356d496493bc259bb78c72ff712d0d43f241",
+      "santander/unweighted_sub0/predictions.npz": "16bd3e5fc9be3d3e60263ebcd98078244071732ba15e35d12bb2532b5416e376",
+      "santander/unweighted_sub1/predictions.npz": "2a21931266f8a9b5a9ede1315b9bafeea3d9dc8837f2699122c0f8ff81a9680d",
+      "santander/unweighted_sub2/predictions.npz": "7c158bd4c34adf693e0b3e8643feda691f8fb6ede3d32180b04a7d1633b44e6b"
+    },
+    "k": 7,
+    "elapsed_sec": 16.4,
+    "definition": "column_order = raw stable argsort (ties resolved by column index, which is arbitrary w.r.t. popularity); other rules re-order only the cells at exactly 1.0"
+  }
+}

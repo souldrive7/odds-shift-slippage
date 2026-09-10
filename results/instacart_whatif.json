@@ -1,0 +1,43 @@
+{
+  "N_raw": 0.13085622154948817,
+  "S_actual": 0.0013053964023003468,
+  "whatif_N_plus_a_lnw": {
+    "0.25": 0.11813569838058492,
+    "0.5": 0.10565408321704828,
+    "0.75": 0.09643758984704637,
+    "1.0": 0.08955229835990533
+  },
+  "top7_overlap_N_vs_whatif": {
+    "mean": 5.440305161993461,
+    "frac_rows_changed": 0.7901668330678536,
+    "n_rows": 131209
+  },
+  "top7_overlap_N_vs_S_actual": {
+    "mean": 0.020333970992843477,
+    "frac_rows_changed": 1.0,
+    "n_rows": 131209
+  },
+  "loss_share": {
+    "odds_shift_part": 0.31882408423609665,
+    "residual_saturation_part": 0.6811759157639034
+  },
+  "_meta": {
+    "generated_at": "2026-09-08T16:18:27.668843+00:00",
+    "dataset": "instacart",
+    "learner": "lightgbm",
+    "inputs": {
+      "instacart/weighted/predictions.npz": "9802c185080829b7fc9a737f6f77e5e4b7403ee221d7b1e0842b293309b79b9c",
+      "instacart/unweighted/predictions.npz": "0c5760419aedc8a2ecc4d91d75ab510a7d169cf6d86e1eeedb44bc81bd5f0df7",
+      "instacart/weighted_mds0.3/predictions.npz": "e98e0abd598015524572bc774e54f107759412b38977426441b6b48dd1cfd901",
+      "instacart/weighted_mds0.7/predictions.npz": "8bf8c611c9a8b6f644cd370938e00420ab2e2c1d576e4de8ffa0089a7750ccff",
+      "instacart/weighted_mds1/predictions.npz": "f639362a1e95f9fbfbc58a622064a3aa657a129b9301b86309a138356803e629",
+      "instacart/weighted_mds2/predictions.npz": "84e399f2cb80c30f191f8c9cafa7791e385654096e43d31ead67f6b447ffa9ca",
+      "instacart/weighted_mds5/predictions.npz": "490893e195987308c6f4ec91bbcc384aa895f06a80c16d54902b4dd8e16d9007",
+      "instacart/weighted_sub0/predictions.npz": "65832d6e88f2f1ac24762b1c00d45350003df9c893f9cc044d6393d0961c206f",
+      "instacart/weighted_sub1/predictions.npz": "952d25d6e36bf0cb1406c382b89a739e0b23876433f2304e4c29891a07326ec4"
+    },
+    "k": 7,
+    "elapsed_sec": 381.6,
+    "weight": "scale_pos_weight of the S configuration (run_meta per_label)"
+  }
+}

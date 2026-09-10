@@ -1,0 +1,138 @@
+{
+  "N_raw": {
+    "map7_all": 0.13085622154948817,
+    "map7_te": 0.13072858238333962
+  },
+  "models": {
+    "S_lgbm_spw": {
+      "cap": null,
+      "saturated_cells_per_row": {
+        "mean": 774.2650427943205,
+        "p50": 778.0,
+        "p90": 891.0,
+        "frac_rows_ge1": 1.0,
+        "frac_rows_ge_k": 1.0
+      },
+      "frac_cells_exact_1": 0.19356626069858013,
+      "column_order": {
+        "map7_all": 0.0013053964023003468,
+        "map7_te": 0.0012679661048073702
+      },
+      "random": {
+        "map7_all_mean": 0.001006272822007585,
+        "map7_all_sd": 4.130358486366298e-05,
+        "map7_te_mean": 0.001016070353674375,
+        "n_seeds": 5
+      },
+      "unweighted_order": {
+        "map7_all": 0.07136785220747041,
+        "map7_te": 0.07163642226135544
+      },
+      "oracle": {
+        "map7_all": 0.29914756255732344,
+        "map7_te": 0.2998315979840694
+      },
+      "recovered_share_unweighted_order": 0.5408105716468369,
+      "recovered_share_oracle": 2.2990371988494305
+    },
+    "S_weighted_mds0.3": {
+      "cap": 0.3,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.07043925753164486,
+        "map7_te": 0.07027633098850636
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds0.7": {
+      "cap": 0.7,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.09007593282887677,
+        "map7_te": 0.09001603094183779
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds1": {
+      "cap": 1.0,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.11364014876682182,
+        "map7_te": 0.11368869708546175
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds2": {
+      "cap": 2.0,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.19313153945391506,
+        "map7_te": 0.19350584389391984
+      },
+      "note": "no cell at exactly 1.0"
+    },
+    "S_weighted_mds5": {
+      "cap": 5.0,
+      "saturated_cells_per_row": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "frac_rows_ge1": 0.0,
+        "frac_rows_ge_k": 0.0
+      },
+      "frac_cells_exact_1": 0.0,
+      "column_order": {
+        "map7_all": 0.21411969027883707,
+        "map7_te": 0.21457938059334314
+      },
+      "note": "no cell at exactly 1.0"
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-09-08T17:20:53.062752+00:00",
+    "dataset": "instacart",
+    "learner": "lightgbm",
+    "inputs": {
+      "instacart/weighted/predictions.npz": "9802c185080829b7fc9a737f6f77e5e4b7403ee221d7b1e0842b293309b79b9c",
+      "instacart/unweighted/predictions.npz": "0c5760419aedc8a2ecc4d91d75ab510a7d169cf6d86e1eeedb44bc81bd5f0df7",
+      "instacart/weighted_mds0.3/predictions.npz": "e98e0abd598015524572bc774e54f107759412b38977426441b6b48dd1cfd901",
+      "instacart/weighted_mds0.7/predictions.npz": "8bf8c611c9a8b6f644cd370938e00420ab2e2c1d576e4de8ffa0089a7750ccff",
+      "instacart/weighted_mds1/predictions.npz": "f639362a1e95f9fbfbc58a622064a3aa657a129b9301b86309a138356803e629",
+      "instacart/weighted_mds2/predictions.npz": "84e399f2cb80c30f191f8c9cafa7791e385654096e43d31ead67f6b447ffa9ca",
+      "instacart/weighted_mds5/predictions.npz": "490893e195987308c6f4ec91bbcc384aa895f06a80c16d54902b4dd8e16d9007",
+      "instacart/weighted_sub0/predictions.npz": "65832d6e88f2f1ac24762b1c00d45350003df9c893f9cc044d6393d0961c206f",
+      "instacart/weighted_sub1/predictions.npz": "952d25d6e36bf0cb1406c382b89a739e0b23876433f2304e4c29891a07326ec4"
+    },
+    "k": 7,
+    "elapsed_sec": 831.8,
+    "definition": "column_order = raw stable argsort (ties resolved by column index, which is arbitrary w.r.t. popularity); other rules re-order only the cells at exactly 1.0"
+  }
+}

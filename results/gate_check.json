@@ -1,0 +1,206 @@
+{
+ "G2": "PASS",
+ "G3": "PASS",
+ "checks": [
+  {
+   "gate": "G2",
+   "id": "H4a",
+   "what": "odds-shift share of the loss",
+   "criterion": "10% <= share <= 40%",
+   "value": 31.9,
+   "status": "PASS"
+  },
+  {
+   "gate": "G2",
+   "id": "H4b",
+   "what": "per-label iso (prior) repair share",
+   "criterion": ">= 80% of the loss",
+   "value": 173.1,
+   "status": "PASS"
+  },
+  {
+   "gate": "G2",
+   "id": "H8",
+   "what": "popularity below the unweighted raw score",
+   "criterion": "pop < N raw",
+   "value": {
+    "pop": 0.056,
+    "N_raw": 0.1307
+   },
+   "status": "PASS"
+  },
+  {
+   "gate": "G2",
+   "id": "H7",
+   "what": "per-label iso (prior) on the unweighted model",
+   "criterion": "|N plIsoPrior - N raw| <= 0.01",
+   "value": 0.1193,
+   "status": "FAIL"
+  },
+  {
+   "gate": "G2",
+   "id": "H6",
+   "what": "deployment vs test-split protocol (S, per-label iso prior)",
+   "criterion": "|diff| <= 0.01",
+   "value": 0.0017,
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5sa",
+   "what": "Santander MLP: weights lower the raw score",
+   "criterion": "S raw < N raw",
+   "value": {
+    "S_raw": 0.1116,
+    "N_raw": 0.7659
+   },
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5sb",
+   "what": "Santander MLP: saturation at exactly 1.0",
+   "criterion": "frac > 0",
+   "value": 23.29,
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5sc",
+   "what": "Santander MLP: inversion returns less than the repair",
+   "criterion": "elkan share < repair share",
+   "value": {
+    "elkan": 20.7,
+    "repair": 66.8
+   },
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5sd",
+   "what": "Santander MLP: repair share",
+   "criterion": ">= 50%",
+   "value": 66.8,
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5ia",
+   "what": "Instacart MLP: weights lower the raw score",
+   "criterion": "S raw < N raw",
+   "value": {
+    "S_raw": 0.0075,
+    "N_raw": 0.0559
+   },
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5ib",
+   "what": "Instacart MLP: saturation at exactly 1.0",
+   "criterion": "frac > 0",
+   "value": 0.0,
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5ic",
+   "what": "Instacart MLP: inversion returns less than the repair",
+   "criterion": "elkan share < repair share",
+   "value": {
+    "elkan": 129.1,
+    "repair": 152.5
+   },
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "H5id",
+   "what": "Instacart MLP: repair share",
+   "criterion": ">= 50%",
+   "value": 152.5,
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "Ps",
+   "what": "Santander: |b_j| <= T*eta*c at every cap (prop:budget)",
+   "criterion": "all caps: frac(|b_prior| <= Tec + 0.1) == 1",
+   "value": {
+    "n_caps": 5,
+    "frac_within": {
+     "0.3": 1.0,
+     "0.7": 1.0,
+     "1": 1.0,
+     "2": 1.0,
+     "5": 1.0
+    },
+    "max_excess": {
+     "0.3": -0.003,
+     "0.7": -0.019,
+     "1": -0.046,
+     "2": -0.459,
+     "5": -6.096
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "gate": "G3",
+   "id": "Pi",
+   "what": "Instacart: |b_j| <= T*eta*c at every cap (prop:budget)",
+   "criterion": "all caps: frac(|b_prior| <= Tec + 0.1) == 1",
+   "value": {
+    "n_caps": 5,
+    "frac_within": {
+     "0.3": 1.0,
+     "0.7": 1.0,
+     "1": 1.0,
+     "2": 1.0,
+     "5": 1.0
+    },
+    "max_excess": {
+     "0.3": -0.043,
+     "0.7": -0.153,
+     "1": -0.277,
+     "2": -1.774,
+     "5": -10.554
+    }
+   },
+   "status": "PASS"
+  }
+ ],
+ "verdict": {
+  "G2": "G2 holds: on Instacart too the ideal odds shift is the minority of the loss, per-label isotonic regression with the prior fallback recovers most of it, and the weighted model ranks below popularity. The mechanism is carried by two datasets, not one.",
+  "G3": "G3 holds: the MLP reproduces the odds shift, the saturation and the failure of the analytic inversion, and prop:budget is not falsified at any cap. The mechanism is not specific to trees."
+ },
+ "_meta": {
+  "generated_at": "2026-09-10T00:59:22.984446+00:00",
+  "inputs": {
+   "instacart_ladder.json": "3daa6206cd6469a0f9c585aa562f050be26fdf740cdec50ac9842892215cfe61",
+   "instacart_whatif.json": "59daef895c96e4ec567195db067ca34fcb3a105b2f970700b79ab72b2655b166",
+   "instacart_deploy.json": "0a4d16b53a742709151ede9f8c8f6d6fdf8597852ca07d09967b54533b7d29de",
+   "santander_mlp_ladder.json": "5be0af6cf165d0766dfb593ae2fbcd7e6e9b4a1b8bae145dec2f8be6df51ab74",
+   "instacart_mlp_ladder.json": "9e11b0e5a743d50e02bc6d2216f3525dd793c093881677f93ef2004ac32799e2",
+   "santander_capsweep.json": "665510830aa9766dd8d3433fd673bcce9375930fb5f394e496b259d6c2f20771",
+   "instacart_capsweep.json": "03f58aadc78bfed9ba0012f8bd8142f4b6109edec5ac85df89a616335d91d97b"
+  },
+  "core_ids": {
+   "G2": [
+    "H4a",
+    "H4b",
+    "H8"
+   ],
+   "G3": [
+    "H5sa",
+    "H5sb",
+    "H5sc",
+    "H5ia",
+    "H5ib",
+    "H5ic",
+    "Ps",
+    "Pi"
+   ]
+  }
+ }
+}

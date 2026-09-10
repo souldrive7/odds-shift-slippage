@@ -120,10 +120,14 @@ class PerLabelScalePosLGBM:
         random_state: int = 42,
         weighted: bool = True,
         max_delta_step: float = 0.0,
+        weight_power: float = 1.0,
+        weight_multiplier: float = 1.0,
     ) -> None:
         """``weighted=False`` trains the identical configuration without ``scale_pos_weight``
         (the matched unweighted control); ``max_delta_step`` caps the leaf step per round
-        (LightGBM default 0.0 = unbounded). Defaults reproduce the original behaviour.
+        (LightGBM default 0.0 = unbounded). ``weight_power`` / ``weight_multiplier`` set
+        ``scale_pos_weight = multiplier * (n_neg/n_pos) ** power`` (dose-response: 0.5 -> sqrt(r),
+        multiplier 10 -> 10r). Defaults reproduce the original behaviour.
         """
         if LGBMClassifier is None:
             raise RuntimeError("lightgbm not installed")
@@ -133,6 +137,8 @@ class PerLabelScalePosLGBM:
         self.random_state = int(random_state)
         self.weighted = bool(weighted)
         self.max_delta_step = float(max_delta_step)
+        self.weight_power = float(weight_power)
+        self.weight_multiplier = float(weight_multiplier)
         self.models_: list[Any] = []
         self.n_labels_: int = 0
         self.scale_pos_: list[float] = []
@@ -148,7 +154,7 @@ class PerLabelScalePosLGBM:
             yj = Y[:, j]
             n_pos = int(yj.sum())
             n_neg = int(n - n_pos)
-            spw = float(n_neg / max(n_pos, 1)) if self.weighted else 1.0
+            spw = float(self.weight_multiplier * (n_neg / max(n_pos, 1)) ** self.weight_power) if self.weighted else 1.0
             extra: dict[str, Any] = {}
             if self.weighted:
                 extra["scale_pos_weight"] = spw

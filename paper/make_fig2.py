@@ -22,7 +22,7 @@ RES = next(
     c
     for c in (
         HERE.parent / "results",
-        HERE.parents[1] / "experiments" / "arxiv_v2_rederive" / "results",
+        HERE.parent / "results",
     )
     if (c / "santander_ladder.json").exists()
 )
@@ -34,7 +34,11 @@ S = lad["S_lgbm_spw"]
 ln_w = np.array(S["prior_match_shift_label_free"]["ln_w"])
 b = np.array(S["prior_match_shift_label_free"]["shift_b"])
 sat = np.array(S["saturation"].get("frac_exact_1_per_label", [np.nan] * len(ln_w)))
-capped = np.abs(b) >= CAP
+# b_j is identifiable only where NO cell saturates. A clipped cell contributes a constant whatever
+# b is, so the bisection settles near its bound and reports the clipping constant, not the learner;
+# filtering on |b| >= CAP alone left four Santander labels plotted at 35-39 nat as if the learner
+# had realized 5-6x its intended shift. Same rule as make_tables.py emit_shift_ratio.
+capped = (np.abs(b) >= CAP) | (sat > 0)
 
 plt.rcParams.update(
     {"font.size": 8, "axes.spines.top": False, "axes.spines.right": False, "axes.linewidth": 0.6}
@@ -54,7 +58,7 @@ if capped.any():
         marker="^",
         color=BLUE,
         zorder=3,
-        label=f"unreachable (search bound), {int(capped.sum())} labels",
+        label=f"not identifiable (saturated cell or search bound), {int(capped.sum())} labels",
     )
 ax1.set_xlabel("intended shift $\\ln w_j$ (nat)")
 ax1.set_ylabel("prevalence-matching shift $b_j$ (nat)")

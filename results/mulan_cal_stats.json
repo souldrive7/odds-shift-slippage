@@ -27,15 +27,6 @@
       "n_labels_lt10_cal_pos": 1,
       "n_labels_zero_cal_pos": 0
     },
-    "birds": {
-      "n_cal": 96,
-      "L": 15,
-      "cal_pos_per_label_median": 5.0,
-      "cal_pos_per_label_min": 0,
-      "n_labels_lt5_cal_pos": 7,
-      "n_labels_lt10_cal_pos": 14,
-      "n_labels_zero_cal_pos": 1
-    },
     "yeast": {
       "n_cal": 450,
       "L": 14,
@@ -44,6 +35,15 @@
       "n_labels_lt5_cal_pos": 0,
       "n_labels_lt10_cal_pos": 1,
       "n_labels_zero_cal_pos": 0
+    },
+    "birds": {
+      "n_cal": 96,
+      "L": 15,
+      "cal_pos_per_label_median": 5.0,
+      "cal_pos_per_label_min": 0,
+      "n_labels_lt5_cal_pos": 7,
+      "n_labels_lt10_cal_pos": 14,
+      "n_labels_zero_cal_pos": 1
     },
     "genbase": {
       "n_cal": 138,
@@ -54,6 +54,15 @@
       "n_labels_lt10_cal_pos": 18,
       "n_labels_zero_cal_pos": 6
     },
+    "medical": {
+      "n_cal": 99,
+      "L": 45,
+      "cal_pos_per_label_median": 1.0,
+      "cal_pos_per_label_min": 0,
+      "n_labels_lt5_cal_pos": 37,
+      "n_labels_lt10_cal_pos": 43,
+      "n_labels_zero_cal_pos": 21
+    },
     "enron": {
       "n_cal": 336,
       "L": 53,
@@ -63,18 +72,36 @@
       "n_labels_lt10_cal_pos": 32,
       "n_labels_zero_cal_pos": 3
     },
-    "medical": {
-      "n_cal": 99,
-      "L": 45,
-      "cal_pos_per_label_median": 1.0,
+    "bibtex": {
+      "n_cal": 1464,
+      "L": 159,
+      "cal_pos_per_label_median": 17.0,
+      "cal_pos_per_label_min": 6,
+      "n_labels_lt5_cal_pos": 0,
+      "n_labels_lt10_cal_pos": 19,
+      "n_labels_zero_cal_pos": 0
+    },
+    "corel5k": {
+      "n_cal": 1350,
+      "L": 374,
+      "cal_pos_per_label_median": 4.0,
       "cal_pos_per_label_min": 0,
-      "n_labels_lt5_cal_pos": 37,
-      "n_labels_lt10_cal_pos": 43,
-      "n_labels_zero_cal_pos": 21
+      "n_labels_lt5_cal_pos": 201,
+      "n_labels_lt10_cal_pos": 262,
+      "n_labels_zero_cal_pos": 39
+    },
+    "delicious": {
+      "n_cal": 3876,
+      "L": 983,
+      "cal_pos_per_label_median": 26.0,
+      "cal_pos_per_label_min": 5,
+      "n_labels_lt5_cal_pos": 0,
+      "n_labels_lt10_cal_pos": 67,
+      "n_labels_zero_cal_pos": 0
     }
   },
   "_meta": {
-    "generated_at": "2026-09-06T22:05:43.508141+00:00",
+    "generated_at": "2026-09-09T22:00:09.166215+00:00",
     "cal_split": {
       "seed": 42,
       "frac": 0.3

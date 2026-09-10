@@ -1,6 +1,8 @@
 # primary prediction arrays (568 MB; see DATA.md) -- never commit
 *.npz
+*.npy
 data/*.npz
+data/*.npy
 
 # Python
 __pycache__/

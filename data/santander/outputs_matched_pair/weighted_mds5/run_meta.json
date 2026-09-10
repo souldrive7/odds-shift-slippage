@@ -1,17 +1,27 @@
 {
-  "generated_at": "2026-05-21T15:17:14.779296+00:00",
+  "generated_at": "2026-09-08T07:17:48.552803+00:00",
+  "config": "weighted_mds5",
   "csv": "train_ver2.csv",
   "n_train": 8248933,
+  "n_train_full": 8248933,
   "n_val": 1903599,
   "n_test": 2538132,
   "n_labels": 24,
-  "n_trees": 100,
+  "n_trees": 60,
   "learning_rate": 0.05,
   "num_leaves": 31,
-  "scale_pos_weight": null,
-  "split_strategy": "time-based via fecha_dato (matches run_uq.py)",
-  "smoke": false,
-  "seed": 42,
+  "random_state": 42,
+  "weighted": true,
+  "scale_pos_weight": "1.0 * (n_neg/n_pos) ** 1.0 per label",
+  "weight_power": 1.0,
+  "weight_multiplier": 1.0,
+  "train_subsample": null,
+  "subsample_seed": null,
+  "max_delta_step": 5.0,
+  "subsampling": "none (feature_fraction=1.0, bagging off; LightGBM defaults)",
+  "api": "lightgbm.LGBMClassifier via PerLabelScalePosLGBM, force_row_wise=True",
+  "split_strategy": "time-based via fecha_dato (matches run_uq.py / train_lightgbm_baseline.py)",
+  "max_rows": null,
   "label_names": [
     "ind_ahor_fin_ult1",
     "ind_aval_fin_ult1",
@@ -38,150 +48,151 @@
     "ind_valo_fin_ult1",
     "ind_viv_fin_ult1"
   ],
+  "total_fit_sec": 438.3,
   "per_label": [
     {
       "label": "ind_ahor_fin_ult1",
       "n_pos": 1,
-      "skipped": false,
-      "fit_sec": 10.221725940704346
+      "scale_pos_weight": 8248932.0,
+      "fit_sec": 16.56
     },
     {
       "label": "ind_aval_fin_ult1",
       "n_pos": 3,
-      "skipped": false,
-      "fit_sec": 18.75314426422119
+      "scale_pos_weight": 2749643.3333333335,
+      "fit_sec": 16.61
     },
     {
       "label": "ind_cco_fin_ult1",
       "n_pos": 50583,
-      "skipped": false,
-      "fit_sec": 16.703312873840332
+      "scale_pos_weight": 162.07718008026413,
+      "fit_sec": 18.44
     },
     {
       "label": "ind_cder_fin_ult1",
       "n_pos": 104,
-      "skipped": false,
-      "fit_sec": 14.308464527130127
+      "scale_pos_weight": 79315.66346153847,
+      "fit_sec": 18.02
     },
     {
       "label": "ind_cno_fin_ult1",
       "n_pos": 26189,
-      "skipped": false,
-      "fit_sec": 19.878962993621826
+      "scale_pos_weight": 313.97701324983774,
+      "fit_sec": 18.97
     },
     {
       "label": "ind_ctju_fin_ult1",
       "n_pos": 298,
-      "skipped": false,
-      "fit_sec": 15.7119619846344
+      "scale_pos_weight": 27679.98322147651,
+      "fit_sec": 15.57
     },
     {
       "label": "ind_ctma_fin_ult1",
       "n_pos": 4262,
-      "skipped": false,
-      "fit_sec": 16.797881603240967
+      "scale_pos_weight": 1934.4605818864384,
+      "fit_sec": 18.2
     },
     {
       "label": "ind_ctop_fin_ult1",
       "n_pos": 2751,
-      "skipped": false,
-      "fit_sec": 17.269628524780273
+      "scale_pos_weight": 2997.5216284987278,
+      "fit_sec": 18.01
     },
     {
       "label": "ind_ctpp_fin_ult1",
       "n_pos": 1728,
-      "skipped": false,
-      "fit_sec": 17.43833565711975
+      "scale_pos_weight": 4772.6880787037035,
+      "fit_sec": 17.83
     },
     {
       "label": "ind_deco_fin_ult1",
       "n_pos": 3073,
-      "skipped": false,
-      "fit_sec": 12.288743019104004
+      "scale_pos_weight": 2683.325740318907,
+      "fit_sec": 16.55
     },
     {
       "label": "ind_dela_fin_ult1",
       "n_pos": 11287,
-      "skipped": false,
-      "fit_sec": 20.45111083984375
+      "scale_pos_weight": 729.8348542571099,
+      "fit_sec": 17.65
     },
     {
       "label": "ind_deme_fin_ult1",
       "n_pos": 250,
-      "skipped": false,
-      "fit_sec": 15.66041088104248
+      "scale_pos_weight": 32994.732,
+      "fit_sec": 19.22
     },
     {
       "label": "ind_ecue_fin_ult1",
       "n_pos": 15315,
-      "skipped": false,
-      "fit_sec": 19.19396138191223
+      "scale_pos_weight": 537.6178909565785,
+      "fit_sec": 19.44
     },
     {
       "label": "ind_fond_fin_ult1",
       "n_pos": 3276,
-      "skipped": false,
-      "fit_sec": 17.777710437774658
+      "scale_pos_weight": 2516.9893162393164,
+      "fit_sec": 18.53
     },
     {
       "label": "ind_hip_fin_ult1",
       "n_pos": 57,
-      "skipped": false,
-      "fit_sec": 16.213873624801636
+      "scale_pos_weight": 144717.12280701756,
+      "fit_sec": 17.86
     },
     {
       "label": "ind_nom_pens_ult1",
       "n_pos": 54928,
-      "skipped": false,
-      "fit_sec": 20.641887187957764
+      "scale_pos_weight": 149.1771956015147,
+      "fit_sec": 18.7
     },
     {
       "label": "ind_nomina_ult1",
       "n_pos": 48204,
-      "skipped": false,
-      "fit_sec": 21.262774229049683
+      "scale_pos_weight": 170.12548751140983,
+      "fit_sec": 18.83
     },
     {
       "label": "ind_plan_fin_ult1",
       "n_pos": 421,
-      "skipped": false,
-      "fit_sec": 15.033496141433716
+      "scale_pos_weight": 19592.66508313539,
+      "fit_sec": 18.87
     },
     {
       "label": "ind_pres_fin_ult1",
       "n_pos": 117,
-      "skipped": false,
-      "fit_sec": 15.68997573852539
+      "scale_pos_weight": 70502.70085470086,
+      "fit_sec": 19.37
     },
     {
       "label": "ind_reca_fin_ult1",
       "n_pos": 7051,
-      "skipped": false,
-      "fit_sec": 18.87670111656189
+      "scale_pos_weight": 1168.8954758190328,
+      "fit_sec": 19.06
     },
     {
       "label": "ind_recibo_ult1",
       "n_pos": 103772,
-      "skipped": false,
-      "fit_sec": 21.825996160507202
+      "scale_pos_weight": 78.49093204332576,
+      "fit_sec": 19.55
     },
     {
       "label": "ind_tjcr_fin_ult1",
       "n_pos": 49635,
-      "skipped": false,
-      "fit_sec": 21.270638465881348
+      "scale_pos_weight": 165.19186058225043,
+      "fit_sec": 18.98
     },
     {
       "label": "ind_valo_fin_ult1",
       "n_pos": 3468,
-      "skipped": false,
-      "fit_sec": 17.812880516052246
+      "scale_pos_weight": 2377.5850634371395,
+      "fit_sec": 18.73
     },
     {
       "label": "ind_viv_fin_ult1",
       "n_pos": 52,
-      "skipped": false,
-      "fit_sec": 16.642027854919434
+      "scale_pos_weight": 158632.32692307694,
+      "fit_sec": 18.8
     }
   ]
 }
