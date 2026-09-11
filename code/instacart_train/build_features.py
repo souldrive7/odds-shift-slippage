@@ -1,4 +1,4 @@
-"""Feature and label matrices for the Instacart product-level experiment (arXiv v3).
+"""Feature and label matrices for the Instacart product-level experiment.
 
 Row = (user, basis order t). Features use orders 1..t-1 only (leak rule, asserted); the label
 row is the content of order t. Two label sets: the top-N products (train positives >= --min-pos,

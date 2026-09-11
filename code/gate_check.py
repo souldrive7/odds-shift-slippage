@@ -1,4 +1,4 @@
-"""Accept-line gates G2 and G3 for arXiv v3, computed from results/*.json only (no training).
+"""Accept-line gates G2 and G3, computed from result JSON only (no training).
 
 G2 (after the Instacart ladder + what-if): the decomposition has the Santander shape.
 G3 (after the MLP ladders + the cap sweeps): the mechanism is learner-agnostic and the step-budget
@@ -24,7 +24,9 @@ if hasattr(sys.stdout, "reconfigure"):  # the verdict lines are Japanese; a CP93
     sys.stdout.reconfigure(encoding="utf-8")
 
 HERE = Path(__file__).resolve().parent
-RES = HERE / "results"
+ROOT = HERE.parent
+_CANONICAL_RES = ROOT / "artifacts" / "results" / "canonical"
+RES = _CANONICAL_RES if _CANONICAL_RES.exists() else HERE / "results"
 
 S_LGBM, N_LGBM = "S_lgbm_spw", "N_lgbm_unweighted"
 S_MLP, N_MLP = "S_mlp_posweight", "N_mlp_unweighted"

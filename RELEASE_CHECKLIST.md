@@ -1,8 +1,8 @@
 # Release checklist
 
-This repository is not edited by hand. It is a pure export: `scripts/export_arxiv_v3.py` in the
-source repository deletes everything here except `.git`, copies the file map, runs the gates and
-writes `SHA256SUMS.txt`. Every fix belongs in the source and arrives here through the exporter.
+`scripts/export_public_release.py` validates this public tree, runs the release-safety scan and
+maintains `SHA256SUMS.txt`. A future source repository can add a copy step around this validator;
+until then, this repository is both the source and the public tree.
 
 That is also the failure this list exists to prevent. A previous push shipped a tree that had not
 been re-exported, so the published repository was a snapshot of an older paper while the source had
@@ -11,17 +11,15 @@ moved on. Nothing in the old checklist would have caught it, because no step ran
 
 Commands are written for this repository (plain `python`, dependencies from `requirements.txt`).
 **Every fenced block below starts at the repository root**; a `cd` inside a block applies to that
-block only. In the source repository the paper files (`paper/`) live under `manuscript/arxiv_v3/`,
-the release documents and `check_release_safety.py` under `manuscript/arxiv_v3/release/`, and
-`tests/test_oddslip.py` and `scripts/export_arxiv_v3.py` at the repository root; there the commands
-run under `uv run python`, and the exporter exists only there.
+block only. The full paper lives under `publications/full-paper/`, the public package under
+`src/oddslip/`, and the release validator under `scripts/export_public_release.py`.
 
 | # | Check | Command | Expected |
 |---|---|---|---|
-| 1 | Numbers gate | `cd paper && python verify_numbers.py` | `OK: no hand-typed result numbers; all macros defined` |
-| 2 | PDFs and arXiv bundle rebuild | `cd paper && bash make_bundle.sh` | main 14 pages (twice), supplement 7 pages |
+| 1 | Numbers gate | `cd publications/full-paper && python verify_numbers.py` | `OK: no hand-typed result numbers; all macros defined` |
+| 2 | PDFs and arXiv bundle rebuild | `cd publications/full-paper && bash make_bundle.sh` | main 14 pages (twice), supplement 7 pages |
 | 3 | Library tests | `python -m pytest tests/test_oddslip.py -q` | `4 passed` |
-| 4 | **Export is current** | `uv run python scripts/export_arxiv_v3.py` (source repo) | `[OK] export clean` |
+| 4 | **Release export is current** | `python scripts/export_public_release.py --check` | `[export_public_release] OK: ... manifest entries` |
 | 5 | Release safety scan | `python scripts/check_release_safety.py --root . --verbose` | `[check_release_safety] OK: 0 matches ...` |
 | 6 | No arrays committed | `git ls-files \| grep -E '\.(npy\|npz)$'` | no output |
 | 7 | Manifest matches the tree | `sha256sum -c SHA256SUMS.txt \| grep -v ': OK$'` | no output |
@@ -58,7 +56,7 @@ If it prints
 the macros on disk are now correct but the PDFs are not — go to step 2 and then re-run step 4.
 
 What this gate does and does not do. It checks three things: that `figures/numbers.tex` is what
-`make_tables.py` emits from `results/*.json` right now; that every `\nXxx` macro used in `main.tex`
+`make_tables.py` emits from `artifacts/results/canonical/*.json` right now; that every `\nXxx` macro used in `main.tex`
 and `supplement.tex` is defined; and that the prose of those two files, outside a generated table
 body, contains no decimal with two or more places, no percentage and no thousands-separated integer,
 apart from a short whitelist of design constants (split fractions, the CI level, hyper-parameter
@@ -147,7 +145,7 @@ calibrator selection.
 From the source repository:
 
 ```bash
-uv run python scripts/export_arxiv_v3.py
+python scripts/export_public_release.py
 ```
 
 Expected, ending in exit code 0:
@@ -279,7 +277,7 @@ following must be true.
 
 - [ ] **The URL the paper prints resolves.** `main.tex` states that everything is produced by the
       `code/` and `paper/` directories of
-      <https://github.com/souldrive7/dont-reweight-calibrate>. Open that URL in a logged-out browser
+      <https://github.com/souldrive7/odds-shift-slippage>. Open that URL in a logged-out browser
       and confirm it loads. A preprint that cites a private repository is worse than one that cites
       none.
 

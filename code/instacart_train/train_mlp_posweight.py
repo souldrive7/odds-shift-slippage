@@ -1,4 +1,4 @@
-"""Shared-trunk MLP with per-label ``pos_weight`` (arXiv v3, second learner family).
+"""Shared-trunk MLP with per-label ``pos_weight`` (second learner family).
 
 One network scores every label: Linear(d, h) - ReLU - Linear(h, h) - ReLU - Linear(h, L), trained
 with BCE-with-logits and per-label ``pos_weight`` = w_j (config ``wr``: w_j = n_-/n_+ on the fit

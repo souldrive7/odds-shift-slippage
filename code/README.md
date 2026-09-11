@@ -25,9 +25,9 @@ CPU only, `--n-jobs 8`); `REPRODUCE.md` carries the same table for every part *a
 including the Instacart and MLP runs, which are 5 to 50 times slower part for part.
 
 ```bash
-python code/run_experiment.py --part santander    # results/santander_ladder.json   (1,312 s / 22 min, 2.5M rows)
-python code/run_experiment.py --part whatif       # results/santander_whatif.json   (7.9 s)
-python code/run_experiment.py --part bootstrap    # results/santander_bootstrap.json (98 s, B=2000)
+python code/run_experiment.py --part santander    # artifacts/results/canonical/santander_ladder.json   (1,312 s / 22 min, 2.5M rows)
+python code/run_experiment.py --part whatif       # artifacts/results/canonical/santander_whatif.json   (7.9 s)
+python code/run_experiment.py --part bootstrap    # artifacts/results/canonical/santander_bootstrap.json (98 s, B=2000)
 python code/run_experiment.py --part mulan        # results/mulan_dose_response.json (6,840 s / 1 h 54 min, 11 datasets x 5 learners x 4 weights = 55 learner-dataset cells)
 python code/run_experiment.py --part mulan_stats  # results/mulan_cal_stats.json    (19 s, no training)
 python code/run_experiment.py --part leaf         # results/leaf_check.json         (147 s)

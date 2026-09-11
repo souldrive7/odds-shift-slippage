@@ -1,4 +1,4 @@
-"""EDA gate for the Instacart product-level experiment (arXiv v3): measures what README section 7
+"""EDA gate for the Instacart product-level experiment: measures what README section 7
 marks as [reference value, unmeasured] and decides H1-H3 before the main runs.
 
 Writes results/eda.json (tracked). Steps:

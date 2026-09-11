@@ -1,6 +1,6 @@
 """oddslip -- three functions for per-row top-K ranking under per-label class weights.
 
-The name is provisional (docs/arxiv_v3_title_candidates.md). Everything here is extracted from
+Everything here is extracted from
 run_experiment.py and mulan_dose.py, the code that produces every
 number of the paper, and kept numerically identical to it. Dependencies: numpy, scikit-learn.
 

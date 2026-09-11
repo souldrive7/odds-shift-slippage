@@ -1,14 +1,15 @@
-# Don't Reweight, Calibrate
+# Odds-Shift Slippage
 
 This repository holds the code, the result files and the LaTeX source of
 
-> **Odds-Shift Slippage in One-vs-Rest Rankers: Don't Reweight, Calibrate**
+> **Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-$K$ Errors**
 > Akifumi Goto ([0009-0004-8305-6436](https://orcid.org/0009-0004-8305-6436)),
 > Graduate School of Data Science, Shiga University, Hikone, Japan.
 > 2026. arXiv preprint (identifier to be added).
 
 Every result number in the paper and in its supplement is either a macro or a cell in a generated
-table body, both written by one script (`paper/make_tables.py`) from the JSON files in `results/`.
+table body, both written by one script (`paper/make_tables.py`) from the JSON files in
+`artifacts/results/canonical/`.
 The exceptions are few and named. Typed by hand in the `.tex` sources, and listed in `REPRODUCE.md`:
 design constants (split fractions, the CI level, hyper-parameter values), the body rows of Supplement
 Table S7, and the rounded "factor of 1.2" in the Limitations paragraph. Set by `make_tables.py` from
@@ -47,7 +48,7 @@ numbers in about a minute, what the paper claims, and where everything lives.
   that are not part of this release; `run_experiment.py` reads them from `uq_arrays.npz` and a second
   `predictions.npz` and hash-pins both. Their configurations are recorded in the paper, all three are
   robustness rows, and every headline number comes from the matched pairs.
-- **Everything downstream of `results/*.json` regenerates here in under a minute**, with no training
+- **Everything downstream of `artifacts/results/canonical/*.json` regenerates here in under a minute**, with no training
   and no arrays: the macro file, every table body, both main-text figures and the supplement figure.
 - **One instrument note that matters for reproduction.** The Santander and Instacart prediction
   arrays are stored as single-precision probabilities, so on those two benchmarks a cell "at exactly
@@ -71,7 +72,7 @@ Run `verify_numbers.py` directly. It calls `make_tables.py` itself, so running `
 first would leave its staleness check nothing to detect. Three things happen:
 
 1. `make_tables.py` rewrites `figures/numbers.tex`, `figures/numbers.json` and every
-   `figures/tab_*.tex` from `results/*.json`; the gate compares only `numbers.tex` and fails if the
+  `figures/tab_*.tex` from `artifacts/results/canonical/*.json`; the gate compares only `numbers.tex` and fails if the
    file that was on disk differed. The table bodies are rewritten as a side effect and never diffed,
    so a stale table body is caught by the `git status --porcelain paper/figures` check below, not by
    the gate.
@@ -157,18 +158,18 @@ that carry it are released as `oddslip`.
 ## Layout
 
 ```
-paper/      main.tex, supplement.tex, refs.bib, figures/
-            make_tables.py   results/*.json -> figures/numbers.{tex,json} and every tab_*.tex
+publications/full-paper/  main.tex, supplement.tex, figures/
+            make_tables.py   artifacts/results/canonical/*.json -> figures/numbers.{tex,json} and every tab_*.tex
             make_fig1.py (Fig. 1), make_fig_regime.py (Fig. 2), make_fig2.py (Supplement Fig. S1)
             verify_numbers.py (the number gate), make_bundle.sh (the arXiv upload bundle)
 code/       run_experiment.py (--dataset santander|instacart|santander_mlp|instacart_mlp, --part ...),
             datasets.py, chunked.py, learners.py, leaf_check.py, mulan_io.py, mulan_dose.py,
             synthetic_check.py, gate_check.py; every result file is produced here (code/README.md)
-code/oddslip/           the released library and an executed tutorial notebook
+src/oddslip/             the released library and an executed tutorial notebook
 code/santander_train/   train_matched_pair.py, io_data.py, train_models.py
 code/instacart_train/   build_features.py, train_matched_pair.py, train_mlp_posweight.py, eda.py,
                         instacart_io.py, README.md (the next-basket formulation)
-results/    the JSON result files the paper is generated from. The array-consuming files pin their
+artifacts/results/canonical/    the JSON result files the paper is generated from. The array-consuming files pin their
             inputs by SHA-256 under _meta.inputs -- except dead_label_frequency, which reads the
             arrays but pins none; mulan_dose_response, mulan_tau_select and leaf_check pin their
             fetched ARFF/XML under fetch_provenance; gate_check hashes result files rather than
@@ -190,7 +191,7 @@ SHA256SUMS.txt  hash of every other file in this repository
 
 ## The `oddslip` library
 
-`code/oddslip/` is the recipe as code, extracted from the scripts that produce the paper's numbers
+`src/oddslip/` is the recipe as code, extracted from the scripts that produce the paper's numbers
 and kept numerically identical to them. Three operations carry it:
 
 - `predict_rank_loss` — the what-if device: apply the ideal odds shift to an unweighted model and
@@ -206,7 +207,7 @@ and kept numerically identical to them. Three operations carry it:
 The package also exports the pieces those three are built from, because the paper's figures and
 tables use them directly: `calibrate_shared`, `dead_labels`, `elkan_inversion`, `odds_shift`,
 `map_at_k`, `logit` and `sigmoid`. It depends only on numpy and scikit-learn.
-`code/oddslip/README.md` is the short usage document, `code/oddslip/tutorial.ipynb` an executed
+`src/oddslip/README.md` is the short usage document, `src/oddslip/tutorial.ipynb` an executed
 notebook, and `pytest tests/test_oddslip.py` the test suite.
 
 ## Recompute from scratch

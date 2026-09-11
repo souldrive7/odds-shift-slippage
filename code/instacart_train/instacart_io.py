@@ -1,4 +1,4 @@
-"""Shared I/O for the Instacart product-level experiment (arXiv v3).
+"""Shared I/O for the Instacart product-level experiment.
 
 One pass over the Kaggle CSVs builds a compact NumPy cache (``data/processed/cache_items.npz``)
 that ``eda.py``, ``build_features.py`` and ``train_mlp_posweight.py`` all consume, so the

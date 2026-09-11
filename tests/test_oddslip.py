@@ -10,7 +10,7 @@ import pytest
 
 # release layout: code/oddslip
 _ROOT = Path(__file__).resolve().parents[1]
-for _cand in (_ROOT / "code",):
+for _cand in (_ROOT / "src", _ROOT / "code"):
     if (_cand / "oddslip").is_dir():
         sys.path.insert(0, str(_cand))
         break

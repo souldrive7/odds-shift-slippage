@@ -1,11 +1,11 @@
-"""Generate every number the manuscript cites from results/*.json.
+"""Generate every number the manuscript cites from the released result JSON files.
 
 Outputs (all under figures/):
   numbers.tex   \\newcommand macros (\\nXxx) used in prose -- numbers are never hand-typed
   numbers.json  flat key -> value map (for verify_numbers.py and for the reader)
   tab_*.tex     table bodies included with \\input
 
-Run:  python make_tables.py   (from manuscript/arxiv_v3)
+Run:  python make_tables.py   (from the paper directory)
 """
 
 from __future__ import annotations
@@ -17,6 +17,7 @@ from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
 
 
 BS = chr(92)
@@ -31,10 +32,10 @@ LNAME = {
 
 
 def _results_dir() -> Path:
-    """Release layout (../results) first, then the thesis-repository layout."""
+    """Locate canonical results, with the legacy directory as a read-only fallback."""
     for cand in (
-        HERE.parent / "results",
-        HERE.parent / "results",
+        ROOT / "artifacts" / "results" / "canonical",
+        ROOT / "results",
     ):
         if (cand / "santander_ladder.json").exists():
             return cand

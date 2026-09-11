@@ -1,8 +1,8 @@
 # Reproduce
 
-Every result number in the paper is either a macro in `paper/figures/numbers.tex` or a cell in a
-generated table body `paper/figures/tab_*.tex`. Both are written by `paper/make_tables.py` from
-`results/*.json`. The exceptions are typed by hand in the `.tex` sources: design constants (split
+Every result number in the paper is either a macro in `publications/full-paper/figures/numbers.tex` or a cell in a
+generated table body `publications/full-paper/figures/tab_*.tex`. Both are written by `publications/full-paper/make_tables.py` from
+`artifacts/results/canonical/*.json`. The exceptions are typed by hand in the `.tex` sources: design constants (split
 fractions, hyper-parameters, the CI level, the first 500,000 rows the top-7 overlap is read over),
 listed under Fixed choices below; the body rows of Supplement Table S7, which are literal LaTeX in
 `supplement.tex` (last row of the map below, and its count macro is likewise a literal in
@@ -14,7 +14,7 @@ It also replaces the old `REPORT.md`, which described the same mapping in a seco
 away from this one. `REPORT.md` is now a stub pointing here, and `supplement.tex` names this file.
 Six macros are set by `make_tables.py` from code rather than from a result file --- `\nnLabels`,
 `\nnSurveyImpl`, `\nshiftSearchBound`, `\nshiftClipLogit`, `\nsatMarginF` and `\nsatMarginD` ---
-and everything else in `figures/numbers.json` comes from `results/`.
+and everything else in `figures/numbers.json` comes from `artifacts/results/canonical/`.
 
 ## What can and cannot be reproduced from this repository
 
@@ -34,7 +34,7 @@ This decides how far you can get, so it comes first.
   rebuilt the same object. See `DATA.md`. One part straddles the two bullets: `--part dead_freq`
   reads the arrays *and*, only when `dead_label_frequency.json` is absent from `--out-dir`, also
   computes its MULAN block (the 8 pre-extension datasets, computed with no arrays; see `DATA.md`
-  section 7). The file is shipped in `results/`, so with the commands below the block is reused and
+  section 7). The file is shipped in `artifacts/results/canonical/`, so with the commands below the block is reused and
   nothing is downloaded.
 - **Not reproducible from this repository.** Three Santander scorers come from earlier runs whose
   training code is not part of this release: WGBoost (the W column of Supplement Table S1), an
@@ -81,15 +81,15 @@ is what catches a stale table body.
 
 ## Where files are written (read this before rerunning anything)
 
-`code/run_experiment.py` and `code/chunked.py` default their output to `code/results/`, next to the
-script, while `paper/make_tables.py` reads `results/` at the repository root. Run them from the
-repository root and pass `--out-dir results`; every command below does. `code/gate_check.py` has no
-such flag and reads its inputs from `code/results/`.
+`code/run_experiment.py` and `code/chunked.py` default their output to
+`artifacts/results/canonical/`, while `paper/make_tables.py` reads the same canonical directory.
+Run them from the repository root and pass `--out-dir artifacts/results/canonical` when overriding
+the default. `code/gate_check.py` reads the canonical directory automatically.
 
 The commands below use two shell variables:
 
 ```bash
-RUN="python code/run_experiment.py --out-dir results"
+RUN="python code/run_experiment.py --out-dir artifacts/results/canonical"
 ARR="--arrays-dir /path/to/arrays"   # Santander / Instacart only; one subdirectory per configuration
 ```
 
@@ -147,7 +147,7 @@ slower than Santander part for part: it has 4,000 labels against 24.
 | **Supp. Table S6, the cross-validated selection rule** — the evidence for recipe step 5 and for the Sec. 4 negative result | `mulan_tau_select.json` | `$RUN --part mulan_tau` | 3,612 s (1 h 0 min) | `\ntau…`, `\n…TauSel`, `\n…CiTauZero`, `\n…CiTauSel`, `\nnHurtAfterTau`, `\nnTauSelBelowRaw`, `\nnSharedBelowRaw`; body `tab_mulan_tau_body.tex` |
 | Supp. Tables S8 and S9, leaf saturation (single-tree identity check and the LightGBM sweep) | `leaf_check.json` | `$RUN --part leaf` | 147 s (sum of the three per-dataset `elapsed_sec`; no total is recorded) | `\nleaf…`; bodies `tab_leaf_tree_body.tex`, `tab_leaf_lgbm_body.tex` |
 | Supp. Table S10, the synthetic study with known marginals | `synthetic_check.json` | `$RUN --part synthetic` | 349 s (5.8 min) | `\nsyn…`; body `tab_synthetic_body.tex` |
-| Pre-registered accept-line gates G2 and G3 — provenance only, not cited in the paper | `gate_check.json` | `python code/gate_check.py` (reads `code/results/`) | not recorded; it only reads result files | nowhere in the paper |
+| Pre-registered accept-line gates G2 and G3 — provenance only, not cited in the paper | `gate_check.json` | `python code/gate_check.py` (reads `artifacts/results/canonical/`) | not recorded; it only reads result files | nowhere in the paper |
 | Supp. Table S7, calibrators on a single-class calibration window | *none* | — | — | rows hand-written in `supplement.tex` from `docs/dead_label_survey.md`; the count macro is a literal in `make_tables.py` |
 
 That is every result file in `results/` and every value of `--part`: `ladder` (alias `santander`),

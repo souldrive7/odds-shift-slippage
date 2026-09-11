@@ -1,4 +1,4 @@
-"""arXiv v3 evidence, recomputed from fixed prediction arrays only (no retraining), for every
+"""Evidence recomputed from fixed prediction arrays only (no retraining), for every
 dataset in datasets.py (Santander / Instacart, LightGBM / MLP) with one JSON schema.
 
 Usage:
@@ -8,7 +8,7 @@ Usage:
 Parts (results/<dataset>_<part>.json unless noted):
   ladder      raw / saturation / within-label AUC / per-label iso (identity, prior, exclude) /
               pooled iso / offset, Platt, beta / oracle ceiling / Elkan inversion / label-free
-              prevalence-matching shift, for S, N, every cap and weight dose      (v2: santander)
+              prevalence-matching shift, for S, N, every cap and weight dose
   whatif      loss decomposition: N raw -> N logit + a ln w -> S actual
   bootstrap   row-bootstrap CIs (B=2000) of the ladder entries on the te split
   deploy      calibrators fitted on the validation period, evaluated on all test rows
@@ -18,7 +18,7 @@ Parts (results/<dataset>_<part>.json unless noted):
               unweighted model / at random / by the labels                                (new)
   capsweep    realized shift b_j vs the step budget T*eta*c and ln w_j for every cap      (new)
   seeds       mean +- SD over the three 90% train-row draws                                (new)
-  mulan, mulan_stats, mulan_tau, leaf, synthetic   unchanged from v2 (dataset-independent)
+    mulan, mulan_stats, mulan_tau, leaf, synthetic   dataset-independent studies
 
 Every number the manuscript cites must come from the JSON written here. The dead-label policy of
 every per-label calibrator is explicit (identity / prior / exclude).
@@ -39,10 +39,11 @@ from sklearn.isotonic import IsotonicRegression
 from sklearn.metrics import roc_auc_score
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 from datasets import Dataset, get_dataset, sha256  # noqa: E402
 
-OUT_DIR = HERE / "results"  # committed (outputs/ is gitignored)
+OUT_DIR = ROOT / "artifacts" / "results" / "canonical"
 K = 7
 CAL_SEED = 42
 CAL_FRAC = 0.3
@@ -64,7 +65,7 @@ def _log(msg: str) -> None:
 
 
 # --------------------------------------------------------------------------------------
-# metric and calibration helpers (identical to the v2 release code; per-label loops threaded)
+# metric and calibration helpers (per-label loops threaded)
 # --------------------------------------------------------------------------------------
 
 
@@ -256,7 +257,8 @@ def elkan_inversion(q: np.ndarray, w: np.ndarray) -> np.ndarray:
 
 
 # --------------------------------------------------------------------------------------
-# Santander legacy scorers (arXiv v2 extras: the earlier weighted run, WGBoost, the 100-tree N)
+# Santander legacy scorers retained as non-reproducible robustness rows: the earlier weighted run,
+# WGBoost, and the 100-tree unweighted model.
 # --------------------------------------------------------------------------------------
 
 

@@ -1,7 +1,7 @@
 # Data
 
 No source data is redistributed and no prediction array is shipped. This repository ships the
-result files (`results/*.json`), the metadata of every training run, and the hashes that pin the
+result files (`artifacts/results/canonical/*.json`), the metadata of every training run, and the hashes that pin the
 inputs those results were computed from.
 
 Read this before `REPRODUCE.md`. It states which parts of the paper a reader can recompute from what
@@ -11,7 +11,7 @@ is here, and which parts need files that are not.
 
 Shipped:
 
-- `results/*.json` — every *result* number in the paper and the supplement. `REPRODUCE.md` maps each
+- `artifacts/results/canonical/*.json` — every *result* number in the paper and the supplement. `REPRODUCE.md` maps each
   table, figure and claim to its result file and to the command that regenerates it. Six macros are
   computed by `make_tables.py` from code rather than read from a result file (`\nnLabels`,
   `\nnSurveyImpl`, `\nshiftSearchBound`, `\nshiftClipLogit`, and the `\nsatMarginF` / `\nsatMarginD`

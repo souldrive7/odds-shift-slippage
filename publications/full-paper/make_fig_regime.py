@@ -30,11 +30,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
 RES = next(
     c
     for c in (
-        HERE.parent / "results",
-        HERE.parent / "results",
+        ROOT / "artifacts" / "results" / "canonical",
+        ROOT / "results",
     )
     if (c / "santander_ladder.json").exists()
 )

@@ -1,4 +1,4 @@
-"""Dataset registry for the arXiv v3 rederivation: where each prediction array lives, which
+"""Dataset registry for the released rederivation: where each prediction array lives, which
 configuration plays S (weighted), N (unweighted), the caps, the weight doses and the 90% train-row
 draws, and how the per-label weights are recovered from ``run_meta.json``.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Matched LightGBM pair for the arXiv v2 paper: identical configuration with and without
+"""Matched LightGBM pair: identical configuration with and without
 per-label ``scale_pos_weight``, plus ``max_delta_step`` variants.
 
 Why: the earlier unweighted baseline (``train_lightgbm_baseline.py``: 100 trees, feature and
@@ -44,12 +44,12 @@ def _cfg(weighted: bool, mds: float = 0.0, power: float = 1.0, mult: float = 1.0
 
 
 CONFIGS: dict[str, dict] = {
-    # arXiv v2 set (default --configs)
+    # Core matched-pair configurations (default --configs)
     "unweighted": _cfg(False),
     "weighted": _cfg(True),
     "weighted_mds0.7": _cfg(True, 0.7),
     "weighted_mds2": _cfg(True, 2.0),
-    # arXiv v3 additions: cap sweep, weight dose (sqrt r, 10 r), 90% train-row draws
+    # Additional cap, weight-dose, and 90% train-row-draw configurations
     "weighted_mds0.3": _cfg(True, 0.3),
     "weighted_mds1": _cfg(True, 1.0),
     "weighted_mds5": _cfg(True, 5.0),

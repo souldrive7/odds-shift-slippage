@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite the paper (arXiv identifier to be added once assigned)."
-title: "Odds-Shift Slippage in One-vs-Rest Rankers: Don't Reweight, Calibrate"
+title: "Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-K Errors"
 authors:
   - family-names: "Goto"
     given-names: "Akifumi"
@@ -12,7 +12,7 @@ authors:
     country: "JP"
 version: "0.3.0"
 date-released: "2026-09-10"
-repository-code: "https://github.com/souldrive7/dont-reweight-calibrate"
+repository-code: "https://github.com/souldrive7/odds-shift-slippage"
 license: MIT
 keywords:
   - class imbalance
@@ -27,7 +27,7 @@ keywords:
   - next-basket recommendation
 preferred-citation:
   type: article
-  title: "Odds-Shift Slippage in One-vs-Rest Rankers: Don't Reweight, Calibrate"
+  title: "Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-K Errors"
   authors:
     - family-names: "Goto"
       given-names: "Akifumi"

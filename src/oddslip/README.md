@@ -1,11 +1,10 @@
 # oddslip
 
-`oddslip` is short for *odds-shift slippage*: the gap between the log-odds shift a per-label class
+`oddslip` is the package name for *odds-shift slippage*: the gap between the log-odds shift a per-label class
 weight promises (ln w_j) and the shift a finite learner realizes. Three functions for per-row top-K
 ranking under per-label class weights, extracted from the code that produces every number of the
-arXiv v3 paper (`run_experiment.py`, `mulan_dose.py`) and kept numerically identical to it.
-Dependencies: numpy, scikit-learn. The package moves to its own repository and to PyPI when the paper
-is submitted (name confirmed 2026-09-08; the PyPI name was free on that date).
+paper (`run_experiment.py`, `mulan_dose.py`) and kept numerically identical to it.
+Dependencies: numpy, scikit-learn.
 
 ```python
 import numpy as np

@@ -1,4 +1,4 @@
-"""Matched LightGBM pair on Instacart top-N products (arXiv v3): identical configuration with and
+"""Matched LightGBM pair on Instacart top-N products: identical configuration with and
 without per-label ``scale_pos_weight``, plus ``max_delta_step`` caps and 90% train-row draws.
 
 Port of santander_train/train_matched_pair.py. Differences:
