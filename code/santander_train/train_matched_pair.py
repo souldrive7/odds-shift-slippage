@@ -61,6 +61,13 @@ CONFIGS: dict[str, dict] = {
     "unweighted_sub0": _cfg(False, sub=0.9, sub_seed=0),
     "unweighted_sub1": _cfg(False, sub=0.9, sub_seed=1),
     "unweighted_sub2": _cfg(False, sub=0.9, sub_seed=2),
+    # Unweighted twins of the cap sweep (the control the paper's c=5 observation lacked): same
+    # max_delta_step, no scale_pos_weight. Added 2026-09-12 after the pre-submission audit.
+    "unweighted_mds0.3": _cfg(False, 0.3),
+    "unweighted_mds0.7": _cfg(False, 0.7),
+    "unweighted_mds1": _cfg(False, 1.0),
+    "unweighted_mds2": _cfg(False, 2.0),
+    "unweighted_mds5": _cfg(False, 5.0),
 }
 V2_CONFIGS = ("unweighted", "weighted", "weighted_mds0.7", "weighted_mds2")
 V3_CONFIGS = tuple(c for c in CONFIGS if c not in V2_CONFIGS)

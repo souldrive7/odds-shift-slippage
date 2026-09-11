@@ -232,6 +232,9 @@
 \newcommand{\ngenbaseDefaultRawWr}{0.868}
 \newcommand{\nnDoseCells}{55}
 \newcommand{\nnCollapseCells}{8}
+\newcommand{\nnCollapseCellsAtPointThree}{4}
+\newcommand{\nnCollapseCellsAtPointSeven}{10}
+\newcommand{\nnCollapseCellsAtPointNine}{16}
 \newcommand{\ncollapseDatasets}{corel5k, delicious, genbase}
 \newcommand{\nnDelCollapseLearners}{5}
 \newcommand{\nnCorelCollapseLearners}{2}
@@ -369,6 +372,10 @@
 \newcommand{\ntauFailCells}{birds (LightGBM (regularized), $w{=}1$); birds (LightGBM (regularized), $w{=}r$); genbase (XGBoost, $w{=}1$); medical (LightGBM (regularized), $w{=}1$); medical (XGBoost, $w{=}r$); enron (XGBoost, $w{=}1$)}
 \newcommand{\nnTauSigGain}{1}
 \newcommand{\nnTauCells}{110}
+\newcommand{\nnTauChoiceRaw}{36}
+\newcommand{\nnTauChoiceShared}{29}
+\newcommand{\nnTauChoicePerLabel}{45}
+\newcommand{\ntauChoiceDist}{$\tau=0$: 7, $\tau=1$: 1, $\tau=2$: 8, $\tau=5$: 6, $\tau=10$: 23}
 \newcommand{\nnSharedBelowRaw}{9}
 \newcommand{\nnSharedBelowRawWone}{5}
 \newcommand{\nsharedWorstDelta}{-0.134}
@@ -752,6 +759,9 @@
 \newcommand{\nSmdsPointThreebPriorMedian}{0.75}
 \newcommand{\nSmdsPointThreebDirectMax}{4.72}
 \newcommand{\nSmdsPointThreeTEtaC}{0.9}
+\newcommand{\nSmdsPointThreeoverMedian}{7.0}
+\newcommand{\nSmdsPointThreeoverBoundMedian}{7.0}
+\newcommand{\nSmdsPointThreenLnwAboveBudget}{24}
 \newcommand{\nSmdsPointThreefracWithinBound}{100}
 \newcommand{\nSmdsPointThreefracWithinBoundSlack}{100}
 \newcommand{\nSmdsPointThreemaxExcess}{-0.00}
@@ -766,6 +776,9 @@
 \newcommand{\nSmdsPointSevenbPriorMedian}{1.77}
 \newcommand{\nSmdsPointSevenbDirectMax}{4.79}
 \newcommand{\nSmdsPointSevenTEtaC}{2.1}
+\newcommand{\nSmdsPointSevenoverMedian}{5.9}
+\newcommand{\nSmdsPointSevenoverBoundMedian}{5.8}
+\newcommand{\nSmdsPointSevennLnwAboveBudget}{24}
 \newcommand{\nSmdsPointSevenfracWithinBound}{100}
 \newcommand{\nSmdsPointSevenfracWithinBoundSlack}{100}
 \newcommand{\nSmdsPointSevenmaxExcess}{-0.02}
@@ -780,6 +793,9 @@
 \newcommand{\nSmdsOnebPriorMedian}{2.34}
 \newcommand{\nSmdsOnebDirectMax}{5.69}
 \newcommand{\nSmdsOneTEtaC}{3.0}
+\newcommand{\nSmdsOneoverMedian}{5.1}
+\newcommand{\nSmdsOneoverBoundMedian}{4.9}
+\newcommand{\nSmdsOnenLnwAboveBudget}{24}
 \newcommand{\nSmdsOnefracWithinBound}{100}
 \newcommand{\nSmdsOnefracWithinBoundSlack}{100}
 \newcommand{\nSmdsOnemaxExcess}{-0.05}
@@ -794,6 +810,9 @@
 \newcommand{\nSmdsTwobPriorMedian}{4.77}
 \newcommand{\nSmdsTwobDirectMax}{8.16}
 \newcommand{\nSmdsTwoTEtaC}{6.0}
+\newcommand{\nSmdsTwooverMedian}{3.0}
+\newcommand{\nSmdsTwooverBoundMedian}{1.9}
+\newcommand{\nSmdsTwonLnwAboveBudget}{18}
 \newcommand{\nSmdsTwofracWithinBound}{100}
 \newcommand{\nSmdsTwofracWithinBoundSlack}{100}
 \newcommand{\nSmdsTwomaxExcess}{-0.46}
@@ -808,6 +827,9 @@
 \newcommand{\nSmdsFivebPriorMedian}{6.10}
 \newcommand{\nSmdsFivebDirectMax}{9.57}
 \newcommand{\nSmdsFiveTEtaC}{15.0}
+\newcommand{\nSmdsFiveoverMedian}{1.1}
+\newcommand{\nSmdsFiveoverBoundMedian}{0.0}
+\newcommand{\nSmdsFivenLnwAboveBudget}{1}
 \newcommand{\nSmdsFivefracWithinBound}{100}
 \newcommand{\nSmdsFivefracWithinBoundSlack}{100}
 \newcommand{\nSmdsFivemaxExcess}{-6.10}
@@ -821,6 +843,7 @@
 \newcommand{\ncapT}{60}
 \newcommand{\ncapEta}{0.05}
 \newcommand{\ncapNraw}{0.808}
+\newcommand{\ncapNtwins}{0}
 \newcommand{\nStieCellsExactOne}{16.6}
 \newcommand{\nStieRowsGeOne}{99}
 \newcommand{\nStieRowsGeK}{16}
@@ -860,6 +883,9 @@
 \newcommand{\nISmdsPointThreebPriorMedian}{-0.08}
 \newcommand{\nISmdsPointThreebDirectMax}{4.08}
 \newcommand{\nISmdsPointThreeTEtaC}{0.9}
+\newcommand{\nISmdsPointThreeoverMedian}{7.1}
+\newcommand{\nISmdsPointThreeoverBoundMedian}{6.1}
+\newcommand{\nISmdsPointThreenLnwAboveBudget}{4000}
 \newcommand{\nISmdsPointThreefracWithinBound}{100}
 \newcommand{\nISmdsPointThreefracWithinBoundSlack}{100}
 \newcommand{\nISmdsPointThreemaxExcess}{-0.04}
@@ -874,6 +900,9 @@
 \newcommand{\nISmdsPointSevenbPriorMedian}{0.33}
 \newcommand{\nISmdsPointSevenbDirectMax}{3.72}
 \newcommand{\nISmdsPointSevenTEtaC}{2.1}
+\newcommand{\nISmdsPointSevenoverMedian}{6.7}
+\newcommand{\nISmdsPointSevenoverBoundMedian}{4.9}
+\newcommand{\nISmdsPointSevennLnwAboveBudget}{3998}
 \newcommand{\nISmdsPointSevenfracWithinBound}{100}
 \newcommand{\nISmdsPointSevenfracWithinBoundSlack}{100}
 \newcommand{\nISmdsPointSevenmaxExcess}{-0.15}
@@ -888,6 +917,9 @@
 \newcommand{\nISmdsOnebPriorMedian}{0.82}
 \newcommand{\nISmdsOnebDirectMax}{4.17}
 \newcommand{\nISmdsOneTEtaC}{3.0}
+\newcommand{\nISmdsOneoverMedian}{6.2}
+\newcommand{\nISmdsOneoverBoundMedian}{4.0}
+\newcommand{\nISmdsOnenLnwAboveBudget}{3992}
 \newcommand{\nISmdsOnefracWithinBound}{100}
 \newcommand{\nISmdsOnefracWithinBoundSlack}{100}
 \newcommand{\nISmdsOnemaxExcess}{-0.28}
@@ -902,6 +934,9 @@
 \newcommand{\nISmdsTwobPriorMedian}{3.12}
 \newcommand{\nISmdsTwobDirectMax}{5.47}
 \newcommand{\nISmdsTwoTEtaC}{6.0}
+\newcommand{\nISmdsTwooverMedian}{3.7}
+\newcommand{\nISmdsTwooverBoundMedian}{1.0}
+\newcommand{\nISmdsTwonLnwAboveBudget}{3360}
 \newcommand{\nISmdsTwofracWithinBound}{100}
 \newcommand{\nISmdsTwofracWithinBoundSlack}{100}
 \newcommand{\nISmdsTwomaxExcess}{-1.77}
@@ -916,6 +951,9 @@
 \newcommand{\nISmdsFivebPriorMedian}{3.17}
 \newcommand{\nISmdsFivebDirectMax}{4.55}
 \newcommand{\nISmdsFiveTEtaC}{15.0}
+\newcommand{\nISmdsFiveoverMedian}{3.8}
+\newcommand{\nISmdsFiveoverBoundMedian}{0.0}
+\newcommand{\nISmdsFivenLnwAboveBudget}{0}
 \newcommand{\nISmdsFivefracWithinBound}{100}
 \newcommand{\nISmdsFivefracWithinBoundSlack}{100}
 \newcommand{\nISmdsFivemaxExcess}{-10.55}
@@ -929,6 +967,7 @@
 \newcommand{\nIcapT}{60}
 \newcommand{\nIcapEta}{0.05}
 \newcommand{\nIcapNraw}{0.131}
+\newcommand{\nIcapNtwins}{0}
 \newcommand{\nIStieCellsExactOne}{19.4}
 \newcommand{\nIStieRowsGeOne}{100}
 \newcommand{\nIStieRowsGeK}{100}

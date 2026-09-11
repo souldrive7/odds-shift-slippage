@@ -329,6 +329,26 @@ def emit_capsweep(prefix, tag_s, cs, stem):
         put(f"{t}bPriorMedian", f"{r['b_prior']['median']:.2f}")
         put(f"{t}bDirectMax", f"{r['b_direct']['max_abs']:.2f}")
         put(f"{t}TEtaC", f"{tec:.1f}")
+        # The falsifiable content of the step budget is the over-correction it forces on the analytic
+        # inversion: ln w_j - b_j >= ln w_j - T*eta*c on every label whose intended shift exceeds the
+        # budget. Both medians are read from the per-label arrays of the result file.
+        _lnw = np.asarray(r["ln_w_per_label"], dtype=float)
+        _b = np.asarray(r["b_prior"]["per_label"], dtype=float)
+        put(f"{t}overMedian", f"{np.median(_lnw - _b):.1f}")
+        put(f"{t}overBoundMedian", f"{np.median(np.maximum(_lnw - tec, 0.0)):.1f}")
+        put(f"{t}nLnwAboveBudget", int((_lnw > tec).sum()))
+        # the unweighted twin with the same cap, where it was trained (Santander, added 2026-09-12)
+        tw = r.get("unweighted_twin")
+        if tw is not None:
+            put(f"{t}Nraw", f3(tw["map_raw"]["map7_te"]))
+            put(f"{t}NrawAll", f3(tw["map_raw"]["map7_all"]))
+            put(f"{t}NplIsoPrior", f3(tw["map_per_label_iso_prior"]["map7_te"]))
+            put(f"{t}Nceil", f3(tw["oracle_in_sample_per_label_iso"]["map7_all"]))
+            put(f"{t}Nauc", f3(tw["within_label_auc_mean_sub200k"]))
+            put(f"{t}NsatOne", f"{100 * tw['saturation']['frac_exact_1']:.1f}")
+            if tw.get("odds_shift_share_te") is not None:
+                put(f"{t}oddsShare", f"{100 * tw['odds_shift_share_te']:.0f}")
+            put(f"{t}NminusSplIsoPrior", f"{tw['map_per_label_iso_prior']['map7_te'] - r['map_per_label_iso_prior']['map7_te']:+.3f}")
         put(f"{t}fracWithinBound", f"{100 * bc['frac_labels_abs_b_prior_le_T_eta_c']:.0f}")
         put(
             f"{t}fracWithinBoundSlack",
@@ -352,10 +372,19 @@ def emit_capsweep(prefix, tag_s, cs, stem):
     put(f"{prefix}capT", first["T"])
     put(f"{prefix}capEta", first["eta"])
     put(f"{prefix}capNraw", f3(cs["N_raw"]))
+    n_twins = sum(1 for _c, t in rows if (t + "Nraw") in NUM)
+    put(f"{prefix}capNtwins", n_twins)
+    if n_twins:
+        # over all caps with a twin: where does the calibrated weighted arm sit against the calibrated
+        # unweighted twin (positive = twin ahead)
+        gaps = [float(NUM[t + "NminusSplIsoPrior"]) for _c, t in rows if (t + "Nraw") in NUM]
+        put(f"{prefix}capTwinGapMin", f"{min(gaps):+.3f}")
+        put(f"{prefix}capTwinGapMax", f"{max(gaps):+.3f}")
+        put(f"{prefix}capNtwinsAhead", sum(1 for g in gaps if g > 0))
     write(
         FIG / f"tab_capsweep_{stem}_body.tex",
         "\n".join(
-            f"${c:g}$ & {NUM[t + 'TEtaC']} & {NUM[t + 'bPriorMax']} & {NUM[t + 'fracWithinBound']} & {NUM[t + 'satOne']} & {NUM[t + 'raw']} & {NUM[t + 'elkan']} & {NUM[t + 'plIsoPrior']} \\\\"
+            f"${c:g}$ & {NUM[t + 'TEtaC']} & {NUM[t + 'bPriorMax']} & {NUM[t + 'overMedian']} & {NUM[t + 'satOne']} & {NUM[t + 'raw']} & {NUM[t + 'elkan']} & {NUM[t + 'plIsoPrior']} & {NUM.get(t + 'Nraw', '--')} & {NUM.get(t + 'NplIsoPrior', '--')} \\\\"
             for c, t in sorted(rows)
         )
         + "\n",
@@ -1113,6 +1142,9 @@ try:
                 collapsed.append((name, lname, c1, cr))
     put("nDoseCells", len(cells_all))
     put("nCollapseCells", len(collapsed))
+    # sensitivity of the "collapse" count to the (design-choice) threshold HALF
+    for thr, tag in ((0.3, "PointThree"), (0.7, "PointSeven"), (0.9, "PointNine")):
+        put(f"nCollapseCellsAt{tag}", sum(1 for _n, _l, c1, cr in cells_all if cr["map_raw"] < thr * c1["map_raw"]))
     put("collapseDatasets", ", ".join(sorted({n for n, _l, _a, _b in collapsed})))
     put("nDelCollapseLearners", sum(1 for n, _l, _a, _b in collapsed if n == "delicious"))
     put("nCorelCollapseLearners", sum(1 for n, _l, _a, _b in collapsed if n == "corel5k"))
@@ -1425,6 +1457,20 @@ try:
         1 for d in tu["datasets"].values() for c in d["cells"].values() if "error" not in c
     )
     put("nTauCells", n_cells)
+    # what the rule chose, over all cells: raw, the shared map, or a per-label map at each tau
+    _choices = [
+        c["choice"] if c["choice"] in ("shared", "raw") else f"tau{c['tau_selected']}"
+        for d in tu["datasets"].values()
+        for c in d["cells"].values()
+        if "error" not in c
+    ]
+    put("nTauChoiceRaw", _choices.count("raw"))
+    put("nTauChoiceShared", _choices.count("shared"))
+    put("nTauChoicePerLabel", sum(1 for ch in _choices if ch.startswith("tau")))
+    put(
+        "tauChoiceDist",
+        ", ".join(f"$\\tau={t}$: {_choices.count(f'tau{t}')}" for t in tu["taus"]),
+    )
     # the shared map is not a safe fallback: it is what the rule picked in its own worst cell
     shared_bad = [
         (name, k, c)

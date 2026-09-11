@@ -52,6 +52,9 @@ def _lgbm_specs(caps: tuple[float, ...] = (0.3, 0.7, 1.0, 2.0, 5.0), dose: bool 
         ModelSpec("N_lgbm_unweighted", "unweighted", "N", None, "same as S_lgbm_spw without scale_pos_weight"),
     ]
     specs += [ModelSpec(f"S_{cap_cfg(c)}", cap_cfg(c), "cap", c, f"S with max_delta_step={c:g}") for c in caps]
+    # unweighted twins of the capped arms (same cap, no weight): the control for the capped-and-calibrated
+    # weighted arm; read by part_capsweep only, and only where the arrays exist
+    specs += [ModelSpec(f"N_unweighted_mds{c:g}", f"unweighted_mds{c:g}", "cap_N", c, f"N with max_delta_step={c:g}") for c in caps]
     if dose:
         specs += [
             ModelSpec("S_weighted_sqrt", "weighted_sqrt", "dose", None, "S with scale_pos_weight = sqrt(n_-/n_+)"),

@@ -691,6 +691,32 @@ def part_capsweep(ds: Dataset) -> dict:
             }
         cal, _, _ = per_label_iso_multi(q, y, va, pi_train, ("prior",))
         r["map_per_label_iso_prior"] = {"map7_te": map_at_k(y[te], cal["prior"][te])}
+        # The unweighted twin with the same cap (added after the pre-submission audit): the control
+        # that says whether a capped-and-calibrated weighted arm gains from the weight or from the cap.
+        twin_cfg = f"unweighted_mds{c:g}" if c is not None else None
+        if twin_cfg is not None and ds.available(twin_cfg):
+            _log(f"[capsweep:{ds.key}]   twin {twin_cfg}")
+            qn = ds.scores(twin_cfg)
+            twin_params = ds.lgbm_params(twin_cfg)
+            assert float(twin_params.get("max_delta_step") or 0.0) == float(c), (twin_cfg, twin_params)
+            cal_n, _, _ = per_label_iso_multi(qn, y, va, pi_train, ("prior",))
+            ceil_n = oracle_ceiling(qn, y)
+            whatif = sigmoid(logit(qn) + ln_w)  # the ideal odds shift applied to the capped unweighted twin
+            n_raw_all, n_raw_te = map_at_k(y, qn), map_at_k(y[te], qn[te])
+            s_raw_te = r["map_raw"]["map7_te"]
+            loss_te = n_raw_te - s_raw_te
+            r["unweighted_twin"] = {
+                "config": twin_cfg,
+                "map_raw": {"map7_all": n_raw_all, "map7_te": n_raw_te},
+                "map_per_label_iso_prior": {"map7_te": map_at_k(y[te], cal_n["prior"][te])},
+                "oracle_in_sample_per_label_iso": {"map7_all": map_at_k(y, ceil_n)},
+                "map_whatif_N_plus_lnw": {"map7_te": map_at_k(y[te], whatif[te])},
+                "loss_te": loss_te,
+                "odds_shift_share_te": float((n_raw_te - map_at_k(y[te], whatif[te])) / loss_te) if loss_te > 0 else None,
+                "saturation": {"frac_exact_1": float((qn >= 1.0).mean())},
+                "within_label_auc_mean_sub200k": within_label_auc(qn, y),
+            }
+            del qn, cal_n, ceil_n, whatif
         del cal, pm, q
         res["models"][spec.name] = r
     res["_meta"] = _meta(ds, t0, note="b_prior: label-free prevalence-matching shift (bisection on [-40, 40]); b_direct: per-label median of logit S - logit N over cells strictly inside (1e-6, 1-1e-6) in both models")

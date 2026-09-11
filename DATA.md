@@ -107,7 +107,7 @@ Santander root only. Every path below is relative to `data/`.
 
 | Path | Configs | Keys | Consumed by |
 |---|---|---|---|
-| `santander/outputs_matched_pair/<config>/predictions.npz` | 15: `unweighted`, `weighted`, `weighted_mds{0.3,0.7,1,2,5}`, `weighted_sqrt`, `weighted_10r`, `weighted_sub{0,1,2}`, `unweighted_sub{0,1,2}` | `p_te`, `p_va` (float32), `Y_te`, `Y_va` (int8) | `santander_ladder`, `_whatif`, `_tie`, `_capsweep`, `_calsize`, `_bootstrap`, `_deploy`, `_seeds` |
+| `santander/outputs_matched_pair/<config>/predictions.npz` | 20: `unweighted`, `weighted`, `weighted_mds{0.3,0.7,1,2,5}`, `unweighted_mds{0.3,0.7,1,2,5}` (the unweighted twins of the cap sweep, added 2026-09-12; read by `_capsweep` only), `weighted_sqrt`, `weighted_10r`, `weighted_sub{0,1,2}`, `unweighted_sub{0,1,2}` | `p_te`, `p_va` (float32), `Y_te`, `Y_va` (int8) | `santander_ladder`, `_whatif`, `_tie`, `_capsweep`, `_calsize`, `_bootstrap`, `_deploy`, `_seeds` |
 | `santander/outputs_matched_pair/features_cache/` | — | `X_{tr,va,te}.npy` (float32), `Y_{tr,va,te}.npy` (int8) | input to the Santander MLP only |
 | `santander/outputs_mlp/<w1\|wr>/predictions.npz` | 2 | same keys as above | `santander_mlp_ladder`, `santander_mlp_whatif` |
 | `santander/outputs_uq_regen/uq_arrays.npz` | 1 | `Y_te`, `p_te_br` (earlier weighted run), `p_te_wg` (WGBoost) | `santander_ladder`, `_bootstrap`, `_calsize`, `_whatif` |
