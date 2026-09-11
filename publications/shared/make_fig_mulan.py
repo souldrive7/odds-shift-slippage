@@ -59,7 +59,7 @@ plt.rcParams.update(
 )
 n_rows = len(datasets)
 fig, axes = plt.subplots(
-    1, len(learners), figsize=(7.4, 0.62 + 0.26 * n_rows), sharey=True, sharex=True
+    1, len(learners), figsize=(7.4, 0.6 + 0.235 * n_rows), sharey=True, sharex=True
 )
 axes = list(axes) if len(learners) > 1 else [axes]
 
