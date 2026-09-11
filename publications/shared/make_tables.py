@@ -374,6 +374,13 @@ def emit_capsweep(prefix, tag_s, cs, stem):
     put(f"{prefix}capNraw", f3(cs["N_raw"]))
     n_twins = sum(1 for _c, t in rows if (t + "Nraw") in NUM)
     put(f"{prefix}capNtwins", n_twins)
+    # retrained core arrays (capsweep_twins.py): LightGBM did not reproduce the canonical arrays bit for bit
+    rc = cs.get("retrain_check", {}).get("models", {})
+    for cfg, tag in (("weighted", "S"), ("unweighted", "N")):
+        if cfg in rc:
+            put(f"{tag_s}{tag}retrainRaw", f3(rc[cfg]["map_raw"]["map7_te"]))
+            put(f"{tag_s}{tag}retrainRawAll", f3(rc[cfg]["map_raw"]["map7_all"]))
+            put(f"{tag_s}{tag}retrainSatOne", f"{100 * rc[cfg]['saturation']['frac_exact_1']:.1f}")
     if n_twins:
         # over all caps with a twin: where does the calibrated weighted arm sit against the calibrated
         # unweighted twin (positive = twin ahead)

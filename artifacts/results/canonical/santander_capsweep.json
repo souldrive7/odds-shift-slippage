@@ -301,6 +301,29 @@
       },
       "map_per_label_iso_prior": {
         "map7_te": 0.5555577441437702
+      },
+      "unweighted_twin": {
+        "config": "unweighted_mds0.3",
+        "map_raw": {
+          "map7_all": 0.734086335103241,
+          "map7_te": 0.7337803982165205
+        },
+        "map_per_label_iso_prior": {
+          "map7_te": 0.7531886533705494
+        },
+        "oracle_in_sample_per_label_iso": {
+          "map7_all": 0.7584154763794535
+        },
+        "map_whatif_N_plus_lnw": {
+          "map7_te": 0.4173913418060647
+        },
+        "loss_te": 0.09981302354349653,
+        "odds_shift_share_te": 3.1698173763124187,
+        "saturation": {
+          "frac_exact_1": 0.0
+        },
+        "within_label_auc_mean_sub200k": 0.909022208132168,
+        "note": "same max_delta_step, no scale_pos_weight; the weighted values it is compared with are the canonical entries of this model"
       }
     },
     "S_weighted_mds0.7": {
@@ -456,6 +479,29 @@
       },
       "map_per_label_iso_prior": {
         "map7_te": 0.6624884857872232
+      },
+      "unweighted_twin": {
+        "config": "unweighted_mds0.7",
+        "map_raw": {
+          "map7_all": 0.7903395193712562,
+          "map7_te": 0.7902331630017272
+        },
+        "map_per_label_iso_prior": {
+          "map7_te": 0.8056312922876159
+        },
+        "oracle_in_sample_per_label_iso": {
+          "map7_all": 0.8089624847603281
+        },
+        "map_whatif_N_plus_lnw": {
+          "map7_te": 0.5944294254025689
+        },
+        "loss_te": 0.14806133234765817,
+        "odds_shift_share_te": 1.322450193406322,
+        "saturation": {
+          "frac_exact_1": 0.0
+        },
+        "within_label_auc_mean_sub200k": 0.9274493241756409,
+        "note": "same max_delta_step, no scale_pos_weight; the weighted values it is compared with are the canonical entries of this model"
       }
     },
     "S_weighted_mds1": {
@@ -611,6 +657,29 @@
       },
       "map_per_label_iso_prior": {
         "map7_te": 0.6793227959951692
+      },
+      "unweighted_twin": {
+        "config": "unweighted_mds1",
+        "map_raw": {
+          "map7_all": 0.8064924457662059,
+          "map7_te": 0.8061485309516553
+        },
+        "map_per_label_iso_prior": {
+          "map7_te": 0.8252623850933287
+        },
+        "oracle_in_sample_per_label_iso": {
+          "map7_all": 0.8276484470922868
+        },
+        "map_whatif_N_plus_lnw": {
+          "map7_te": 0.6241588325244434
+        },
+        "loss_te": 0.15638903016283723,
+        "odds_shift_share_te": 1.163698618999801,
+        "saturation": {
+          "frac_exact_1": 0.0
+        },
+        "within_label_auc_mean_sub200k": 0.9310798536547542,
+        "note": "same max_delta_step, no scale_pos_weight; the weighted values it is compared with are the canonical entries of this model"
       }
     },
     "S_weighted_mds2": {
@@ -766,6 +835,29 @@
       },
       "map_per_label_iso_prior": {
         "map7_te": 0.8129288027164124
+      },
+      "unweighted_twin": {
+        "config": "unweighted_mds2",
+        "map_raw": {
+          "map7_all": 0.8233577918592886,
+          "map7_te": 0.8229965933678751
+        },
+        "map_per_label_iso_prior": {
+          "map7_te": 0.8274872814847135
+        },
+        "oracle_in_sample_per_label_iso": {
+          "map7_all": 0.8314524889394269
+        },
+        "map_whatif_N_plus_lnw": {
+          "map7_te": 0.6318270897968095
+        },
+        "loss_te": 0.03796322646846928,
+        "odds_shift_share_te": 5.035649531260029,
+        "saturation": {
+          "frac_exact_1": 0.0
+        },
+        "within_label_auc_mean_sub200k": 0.9321646097258506,
+        "note": "same max_delta_step, no scale_pos_weight; the weighted values it is compared with are the canonical entries of this model"
       }
     },
     "S_weighted_mds5": {
@@ -921,6 +1013,29 @@
       },
       "map_per_label_iso_prior": {
         "map7_te": 0.8287762009134789
+      },
+      "unweighted_twin": {
+        "config": "unweighted_mds5",
+        "map_raw": {
+          "map7_all": 0.8235946592846722,
+          "map7_te": 0.8233511214989923
+        },
+        "map_per_label_iso_prior": {
+          "map7_te": 0.8285241496620697
+        },
+        "oracle_in_sample_per_label_iso": {
+          "map7_all": 0.8322774354588424
+        },
+        "map_whatif_N_plus_lnw": {
+          "map7_te": 0.6313090444044863
+        },
+        "loss_te": 0.10565760552546333,
+        "odds_shift_share_te": 1.8175887683563308,
+        "saturation": {
+          "frac_exact_1": 0.0
+        },
+        "within_label_auc_mean_sub200k": 0.9325249858453863,
+        "note": "same max_delta_step, no scale_pos_weight; the weighted values it is compared with are the canonical entries of this model"
       }
     }
   },
@@ -943,10 +1058,65 @@
       "santander/weighted_sub2/predictions.npz": "26370492c7a1438a6144d294b23d356d496493bc259bb78c72ff712d0d43f241",
       "santander/unweighted_sub0/predictions.npz": "16bd3e5fc9be3d3e60263ebcd98078244071732ba15e35d12bb2532b5416e376",
       "santander/unweighted_sub1/predictions.npz": "2a21931266f8a9b5a9ede1315b9bafeea3d9dc8837f2699122c0f8ff81a9680d",
-      "santander/unweighted_sub2/predictions.npz": "7c158bd4c34adf693e0b3e8643feda691f8fb6ede3d32180b04a7d1633b44e6b"
+      "santander/unweighted_sub2/predictions.npz": "7c158bd4c34adf693e0b3e8643feda691f8fb6ede3d32180b04a7d1633b44e6b",
+      "santander/unweighted_mds0.3/predictions.npz": "f8fbd9025ceac0b6c11d49a6ef8c102f11add5e13aa01418f1c68032c3b7483e",
+      "santander/unweighted_mds0.7/predictions.npz": "fc7b605a046154151f09040837b8dde99e8a822683374a5ccf22274192f8f251",
+      "santander/unweighted_mds1/predictions.npz": "b2564e8506bd460067d409b33622f3e79c843d25e1d75a562ba1533e98e2350c",
+      "santander/unweighted_mds2/predictions.npz": "ff84caa78fb548c82cf7c0a25a22ab63460c226d07401c943a0a60c0262d5828",
+      "santander/unweighted_mds5/predictions.npz": "4b87f82efb96b9b088a5569d1a2337c522112aa89ce537025988f033751d8edd"
     },
     "k": 7,
     "elapsed_sec": 342.5,
-    "note": "b_prior: label-free prevalence-matching shift (bisection on [-40, 40]); b_direct: per-label median of logit S - logit N over cells strictly inside (1e-6, 1-1e-6) in both models"
+    "note": "b_prior: label-free prevalence-matching shift (bisection on [-40, 40]); b_direct: per-label median of logit S - logit N over cells strictly inside (1e-6, 1-1e-6) in both models",
+    "twins_added_at": "2026-09-11T23:25:15.492344+00:00",
+    "twins_added": [
+      "unweighted_mds0.3",
+      "unweighted_mds0.7",
+      "unweighted_mds1",
+      "unweighted_mds2",
+      "unweighted_mds5"
+    ],
+    "twins_elapsed_sec": 64.8
+  },
+  "retrain_check": {
+    "note": "arrays retrained on the same machine, data and configuration after the canonical ones were lost; LightGBM 4.6 with force_row_wise and 8 threads did not reproduce them bit for bit",
+    "models": {
+      "weighted": {
+        "sha256": "0941d1c6badc634f0b9e72942a8f798d3a1f058a17e26e4fea463c468b84b03d",
+        "canonical_sha256": "2c627d3728d2634e9a0aac048d35e1eb3dcfa827075643f0f3dcea4b325c295c",
+        "identical_file": false,
+        "map_raw": {
+          "map7_all": 0.11127011177739118,
+          "map7_te": 0.11149972872313979
+        },
+        "canonical_map_raw": {
+          "map7_all": 0.1172458546472765,
+          "map7_te": 0.11743218464489596
+        },
+        "saturation": {
+          "frac_exact_1": 0.17622044479956125
+        },
+        "canonical_saturation_frac_exact_1": 0.16567225095726568,
+        "run_meta_generated_at": "2026-09-11T23:15:49.903835+00:00"
+      },
+      "unweighted": {
+        "sha256": "5dcd80f26efbf5782bc371454130a3cae5300c9d79aa3e7ae7df80f1c541f2ec",
+        "canonical_sha256": "45f6e1169c33fe8e5917584179ad4b55611e059e2d1a7a305252e0558a917d1f",
+        "identical_file": false,
+        "map_raw": {
+          "map7_all": 0.8078026493541834,
+          "map7_te": 0.8077990383490063
+        },
+        "canonical_map_raw": {
+          "map7_all": 0.8077109170583896,
+          "map7_te": 0.8077137992069514
+        },
+        "saturation": {
+          "frac_exact_1": 0.0001895586990747526
+        },
+        "canonical_saturation_frac_exact_1": 0.0001849785590347547,
+        "run_meta_generated_at": "2026-09-11T23:13:30.100230+00:00"
+      }
+    }
   }
 }
