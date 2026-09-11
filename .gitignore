@@ -22,6 +22,16 @@ paper/*.fdb_latexmk
 paper/main.pdf
 paper/_bundle/
 paper/*.tar.gz
+publications/full-paper/*.aux
+publications/full-paper/*.log
+publications/full-paper/*.out
+publications/full-paper/*.bbl
+publications/full-paper/*.blg
+publications/full-paper/*.fdb_latexmk
+publications/full-paper/*.fls
+publications/full-paper/*.pdf
+publications/full-paper/_bundle/
+publications/full-paper/*.tar.gz
 
 # OS / editor
 .DS_Store

@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -110,6 +111,14 @@ def scan_file(path: Path) -> list[tuple[str, int, str]]:
     return findings
 
 
+def is_ignored(path: Path, root: Path) -> bool:
+    return subprocess.run(
+        ["git", "-C", str(root), "check-ignore", "--no-index", "-q", "--", str(path.relative_to(root))],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    ).returncode == 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Release-safety / PII scanner.")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent.parent)
@@ -122,6 +131,8 @@ def main() -> int:
     n_scanned = n_dirty = total = 0
     for path in sorted(root.rglob("*")):
         if path.is_dir() or any(part in SKIP_DIRS for part in path.parts):
+            continue
+        if is_ignored(path, root):
             continue
         if path.suffix.lower() not in TEXT_EXTS:
             continue

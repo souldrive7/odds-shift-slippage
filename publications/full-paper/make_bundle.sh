@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Build the arXiv upload bundle for manuscript/arxiv_v3.
-# Usage (Git Bash, from manuscript/arxiv_v3):  bash make_bundle.sh
+# Build the arXiv upload bundle for the full paper.
+# Usage (Git Bash, from publications/full-paper):  bash make_bundle.sh
 # Produces arxiv_v3_upload.tar.gz containing main.tex, main.bbl, figures/*.pdf, figures/*.tex and the
 # compiled supplement as the arXiv ancillary file anc/supplement.pdf (arXiv does not compile anc/).
 # arXiv compiles with pdflatex + acmart from TeX Live; the .bbl is shipped so bibtex is not needed.
@@ -15,7 +15,10 @@ for doc in main supplement; do
   grep "Output written" "$doc.log"
 done
 rm -rf _bundle && mkdir -p _bundle/figures _bundle/anc
-cp main.tex main.bbl _bundle/
+cp main.bbl _bundle/
+# The repository build uses the shared bibliography outside this directory. The arXiv bundle is
+# self-contained, so rewrite only the bundled copy to the local bibliography name.
+sed 's#\\bibliography{../../tex/bibliography/references}#\\bibliography{refs}#' main.tex > _bundle/main.tex
 # Ship only what main.tex actually pulls in. The supplement travels pre-compiled as anc/supplement.pdf,
 # so its figure and its table bodies are not needed; shipping them risks arXiv picking up a stale file.
 # The standalone compile below is what guarantees this list is complete.
