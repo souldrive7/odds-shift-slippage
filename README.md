@@ -7,6 +7,40 @@ This repository holds the code, the result files and the LaTeX source of
 > Graduate School of Data Science, Shiga University, Hikone, Japan.
 > 2026. arXiv preprint (identifier to be added).
 
+**TL;DR.** A per-label class weight `scale_pos_weight = n_-/n_+` promises to shift each label's
+log-odds by `ln w_j`; a finite one-vs-rest learner realizes something else, and the gap --
+*odds-shift slippage* -- is most of what the weight costs a top-K ranking. On matched LightGBM pairs
+the textbook shift explains 23% (Santander) and 32% (Instacart) of the loss; the analytic inversion
+repairs only models that realized the shift *and* saturated nothing; per-label isotonic regression
+with an explicit prior fallback repairs the rest, and the same collapse and repair reproduce on 11
+public MULAN benchmarks and 5 learners. Don't reweight, calibrate -- and send dead labels to their
+prior.
+
+![Loss decomposition and step budget](publications/shared/figures/fig1_decomposition_mechanism.png)
+
+![MULAN dose-response](publications/shared/figures/fig3_mulan_collapse.png)
+
+| Version | Where | Format |
+|---|---|---|
+| Canonical (arXiv) | [`publications/arxiv/`](publications/arxiv/) | acmart, 10 pages incl. references + supplement |
+| ECIR 2027 submission | [`publications/ecir/`](publications/ecir/) | LNCS, 12 pages + references, anonymised |
+| Archived long version | [`publications/full-paper/`](publications/full-paper/) | acmart, 14 + 7 pages, frozen |
+
+See [`publications/README.md`](publications/README.md) for how the three share one set of numbers and
+figures. The recipe is packaged as a small library:
+
+```bash
+pip install -e .            # oddslip: numpy + scikit-learn only
+python -m pytest tests -q   # 4 tests
+```
+
+```python
+from oddslip import predict_rank_loss, calibrate_per_label, select_calibrator_cv, apply_selection
+d = predict_rank_loss(p_unweighted, w, y=y, k=7, p_weighted=p_weighted)      # what-if odds-shift share
+p_rep, info = calibrate_per_label(p_cal, y_cal, p, prior=prior, fallback="prior", tau=0)
+sel = select_calibrator_cv(p_cal, y_cal, prior, k=7); p_sel = apply_selection(sel, p_cal, y_cal, p, prior)
+```
+
 Every result number in the paper and in its supplement is either a macro or a cell in a generated
 table body, both written by one script (`publications/shared/make_tables.py`) from the JSON files in
 `artifacts/results/canonical/`.

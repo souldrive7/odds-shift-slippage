@@ -10,8 +10,8 @@ authors:
     city: "Hikone"
     region: "Shiga"
     country: "JP"
-version: "0.3.0"
-date-released: "2026-09-10"
+version: "0.4.0"
+date-released: "2026-09-12"
 repository-code: "https://github.com/souldrive7/odds-shift-slippage"
 license: MIT
 keywords:

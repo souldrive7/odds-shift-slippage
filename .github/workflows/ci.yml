@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  library:
+    name: oddslip tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[test]"
+      - run: python -m pytest tests -q
+
+  numbers-gate:
+    name: paper numbers regenerate byte-for-byte
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      # make_tables.py and verify_numbers.py need numpy only; the pinned version keeps the
+      # generated macros byte-identical to the shipped ones.
+      - run: python -m pip install "numpy==2.4.4"
+      - run: python publications/shared/verify_numbers.py
+      - name: generated tables and macros are unchanged
+        run: git diff --exit-code -- publications/shared/figures
+
+  release-hygiene:
+    name: manifest and safety scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python scripts/export_public_release.py --check
+      - run: python scripts/check_release_safety.py --root . --verbose
+      - name: no prediction arrays committed
+        run: |
+          if git ls-files | grep -E '\.(npy|npz)$'; then echo "arrays committed"; exit 1; fi

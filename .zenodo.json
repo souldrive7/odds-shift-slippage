@@ -1,0 +1,31 @@
+{
+  "title": "Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-K Errors (code, results and paper sources)",
+  "upload_type": "software",
+  "description": "Code, canonical result files, the oddslip library and the LaTeX sources (arXiv, ECIR and archived long versions) of the paper on odds-shift slippage: the gap between the log-odds shift a per-label class weight promises and the shift a finite one-vs-rest learner realizes, its effect on top-K ranking, and its repair by per-label calibration with an explicit prior fallback.",
+  "creators": [
+    {
+      "name": "Goto, Akifumi",
+      "affiliation": "Graduate School of Data Science, Shiga University",
+      "orcid": "0009-0004-8305-6436"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "class imbalance",
+    "class weights",
+    "multi-label classification",
+    "top-K recommendation",
+    "probability calibration",
+    "isotonic regression",
+    "gradient boosting",
+    "odds-shift slippage"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/souldrive7/odds-shift-slippage",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "access_right": "open"
+}

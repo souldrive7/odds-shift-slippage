@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oddslip"
+version = "0.4.0"
+description = "Odds-shift slippage: what-if loss prediction, per-label calibration with an explicit dead-label fallback, and cross-validated calibrator selection for per-row top-K ranking under per-label class weights."
+readme = "src/oddslip/README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "Akifumi Goto" }]
+keywords = ["class imbalance", "class weights", "multi-label", "top-K", "calibration", "isotonic regression"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+# The library itself needs only numpy and scikit-learn. The experiment scripts under code/ and the
+# publication scripts under publications/shared/ use the pinned versions in requirements.txt.
+dependencies = ["numpy>=1.24", "scikit-learn>=1.3"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+paper = ["matplotlib>=3.8"]  # make_fig*.py; make_tables.py and verify_numbers.py need numpy only
+
+[project.urls]
+Repository = "https://github.com/souldrive7/odds-shift-slippage"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["oddslip*"]
+
+[tool.setuptools.package-data]
+oddslip = ["README.md", "tutorial.ipynb"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

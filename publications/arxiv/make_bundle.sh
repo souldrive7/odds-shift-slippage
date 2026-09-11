@@ -9,7 +9,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 SHARED=../shared
-python "$SHARED/verify_numbers.py"
+"${PYTHON:-python}" "$SHARED/verify_numbers.py"
 for doc in main supplement; do
   pdflatex -interaction=nonstopmode -halt-on-error "$doc.tex" > /dev/null
   bibtex "$doc" > /dev/null
@@ -25,9 +25,11 @@ cp ../../tex/bibliography/references.bib _bundle/refs.bib
 #   \inputbody{figures/X.tex}             -> \input figures/X.tex   (TeX primitive form, safe inside tabular)
 #   \graphicspath{{../shared/}}           -> \graphicspath{{./}}
 #   \bibliography{../../tex/bibliography/references} -> \bibliography{refs}
-sed -e 's#\\input{\.\./shared/figures/numbers\.tex}#\\input{figures/numbers.tex}#' \
+sed -e '/^%.*shared\//d' \
+    -e '/\\newcommand{\\inputbody}/d' \
+    -e 's#\\input{\.\./shared/figures/numbers\.tex}#\\input{figures/numbers.tex}#' \
     -e 's#\\inputbody{\(figures/[A-Za-z0-9_]*\.tex\)}#\\input \1#g' \
-    -e 's#\\inputbody{#3}#\\input #3#' \
+    -e 's|\\inputbody{#3}|\\input #3|' \
     -e 's#\\graphicspath{{\.\./shared/}}#\\graphicspath{{./}}#' \
     -e 's#\\bibliography{\.\./\.\./tex/bibliography/references}#\\bibliography{refs}#' \
     main.tex > _bundle/main.tex

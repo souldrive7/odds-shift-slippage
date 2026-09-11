@@ -10,6 +10,9 @@ __pycache__/
 .venv/
 .pytest_cache/
 .ruff_cache/
+*.egg-info/
+build/
+dist/
 
 # LaTeX build products (main.log carries local paths). One rule set for every version under
 # publications/ (full-paper, arxiv, ecir, ...); shared generated figures/tables are tracked.

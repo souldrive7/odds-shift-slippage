@@ -18,7 +18,7 @@ generated numbers and figures in `shared/`), the public package under
 | # | Check | Command | Expected |
 |---|---|---|---|
 | 1 | Numbers gate | `python publications/shared/verify_numbers.py` | `OK: no hand-typed result numbers; all macros defined` |
-| 2 | PDFs and arXiv bundle rebuild | `cd publications/arxiv && bash make_bundle.sh` | main 14 pages (twice), supplement 7 pages |
+| 2 | PDFs and arXiv bundle rebuild | `cd publications/arxiv && bash make_bundle.sh` | arXiv main 10 pages (twice), supplement 9 pages |
 | 3 | Library tests | `python -m pytest tests/test_oddslip.py -q` | `4 passed` |
 | 4 | **Release export is current** | `python scripts/export_public_release.py --check` | `[export_public_release] OK: ... manifest entries` |
 | 5 | Release safety scan | `python scripts/check_release_safety.py --root . --verbose` | `[check_release_safety] OK: 0 matches ...` |
@@ -88,18 +88,18 @@ with `pdflatex`, `bibtex`, `pdflatex`, `pdflatex` and prints its page count — 
 arXiv upload: it writes `_bundle/` with `main.tex`, `main.bbl` and exactly the `figures/` files
 `main.tex` pulls in — the two figure PDFs, the macro file `numbers.tex` and the two generated table
 bodies — copies `supplement.pdf` to `_bundle/anc/`, compiles the bundle standalone as a
-completeness test, and writes and hashes `arxiv_v3_upload.tar.gz`. So `main.pdf` is compiled twice,
+completeness test, and writes and hashes `arxiv_upload.tar.gz`. So `main.pdf` is compiled twice,
 once in the working tree and once in the bundle, and three `Output written` lines appear:
 
 ```
-Output written on main.pdf (14 pages, ...).
-Output written on supplement.pdf (7 pages, ...).
+Output written on main.pdf (10 pages, ...).
+Output written on supplement.pdf (9 pages, ...).
 bundled inputs:
 <the five `figures/` files copied into _bundle/figures/>
-Output written on main.pdf (14 pages, ...).
+Output written on main.pdf (10 pages, ...).
 ```
 
-followed by a listing of `arxiv_v3_upload.tar.gz` and its SHA-256. The byte sizes vary; the page
+followed by a listing of `arxiv_upload.tar.gz` and its SHA-256. The byte sizes vary; the page
 counts must not change without a reason you can name, and the two `main.pdf` counts must agree — if
 the bundle compiles to a different length, `_bundle/` is missing an input. Then confirm there is
 nothing left to resolve:
@@ -308,4 +308,13 @@ following must be true.
       after a reader asks.
 
 - [ ] Tag the release, and optionally mint a Zenodo DOI from the tag. Tag only a commit that passed
-      steps 1-8 in order.
+      steps 1-8 in order. The order that keeps every identifier consistent is:
+      1. `CITATION.cff` `version:` and `pyproject.toml` `version` agree (currently `0.4.0`); the tag is `v` + that version.
+      2. `git tag -a v0.4.0 -m "arXiv version" && git push origin v0.4.0` (after the final push of the branch).
+      3. Make the repository public; confirm the CI workflow (`.github/workflows/ci.yml`) is green on `main`.
+      4. Enable the repository on Zenodo and create a GitHub release from the tag; Zenodo reads `.zenodo.json`
+         and mints the DOI. Paste the DOI into `CITATION.cff` (`identifiers:`) and `README.md`.
+      5. Submit to arXiv (`publications/arxiv/arxiv_upload.tar.gz`); once the identifier is assigned, fill it in
+         `CITATION.cff` and `README.md`, re-export (step 4 above) and push.
+      6. Only then issue the anonymous mirror for ECIR (`publications/ecir/main.tex`, `\anonurl`) and submit;
+         the ECIR version must not cite the arXiv version.
