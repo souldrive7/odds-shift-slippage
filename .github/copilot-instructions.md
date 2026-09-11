@@ -5,11 +5,13 @@ artifacts, papers, and poster for the Odds-Shift Slippage project.
 
 ## Sources of truth
 
-- Scientific claims: `publications/full-paper/`
+- Scientific claims: `publications/arxiv/` (canonical); `publications/full-paper/` is the
+  archived long version, `publications/ecir/` the anonymised conference version
 - Canonical results: `artifacts/results/canonical/`
 - Public implementation: `src/oddslip/`
 - Shared bibliography: `tex/bibliography/references.bib`
-- Shared result macros: `tex/shared/result-values.tex`
+- Shared result macros and generated tables/figures: `publications/shared/figures/`
+  (written by `publications/shared/make_tables.py` and `make_fig*.py`)
 - Canonical repository URL:
   `https://github.com/souldrive7/odds-shift-slippage`
 

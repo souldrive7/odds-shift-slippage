@@ -8,7 +8,7 @@ This repository holds the code, the result files and the LaTeX source of
 > 2026. arXiv preprint (identifier to be added).
 
 Every result number in the paper and in its supplement is either a macro or a cell in a generated
-table body, both written by one script (`paper/make_tables.py`) from the JSON files in
+table body, both written by one script (`publications/shared/make_tables.py`) from the JSON files in
 `artifacts/results/canonical/`.
 The exceptions are few and named. Typed by hand in the `.tex` sources, and listed in `REPRODUCE.md`:
 design constants (split fractions, the CI level, hyper-parameter values), the body rows of Supplement
@@ -65,7 +65,7 @@ numbers in about a minute, what the paper claims, and where everything lives.
 ```bash
 sha256sum -c SHA256SUMS.txt            # every shipped file is intact
 pip install -r requirements.txt        # the pinned versions; the JSON is byte-identical only under them
-cd paper && python verify_numbers.py   # regenerate the numbers, then check the prose
+python publications/shared/verify_numbers.py   # regenerate the numbers, then check the prose
 ```
 
 Run `verify_numbers.py` directly. It calls `make_tables.py` itself, so running `make_tables.py`
@@ -74,9 +74,9 @@ first would leave its staleness check nothing to detect. Three things happen:
 1. `make_tables.py` rewrites `figures/numbers.tex`, `figures/numbers.json` and every
   `figures/tab_*.tex` from `artifacts/results/canonical/*.json`; the gate compares only `numbers.tex` and fails if the
    file that was on disk differed. The table bodies are rewritten as a side effect and never diffed,
-   so a stale table body is caught by the `git status --porcelain paper/figures` check below, not by
+   so a stale table body is caught by the `git status --porcelain publications/shared/figures` check below, not by
    the gate.
-2. Every `\n...` macro used in `main.tex` and `supplement.tex` must be defined by that file.
+2. Every `\n...` macro used in the `main.tex` and `supplement.tex` of every version under `publications/` must be defined by that file.
 3. The prose of both files is scanned for hand-typed result numbers.
 
 Be exact about what step 3 can catch. Its pattern matches thousands-separated integers
@@ -93,7 +93,7 @@ shift estimator) and `\nsatMarginF` and `\nsatMarginD` (the raw margin that "exa
 single and in double precision, computed from the floating-point format itself). Everything else in
 `figures/numbers.json` comes from a result file.
 
-After the gate has run, `git status --porcelain paper/figures` should be empty: that is the statement
+After the gate has run, `git status --porcelain publications/shared/figures` should be empty: that is the statement
 that every macro and every table cell reproduced byte-for-byte from the shipped results.
 `figures/numbers.json` is a flat key-to-value map of every macro, readable without LaTeX.
 
@@ -158,10 +158,13 @@ that carry it are released as `oddslip`.
 ## Layout
 
 ```
-publications/full-paper/  main.tex, supplement.tex, figures/
+publications/arxiv/       main.tex, supplement.tex, make_bundle.sh -- the canonical (arXiv) version
+publications/ecir/        main.tex -- the anonymised LNCS version for ECIR 2027
+publications/full-paper/  main.tex, supplement.tex -- the archived long version (frozen)
+publications/shared/      figures/ (numbers.{tex,json}, every tab_*.tex, every fig*.pdf) shared by all versions
             make_tables.py   artifacts/results/canonical/*.json -> figures/numbers.{tex,json} and every tab_*.tex
-            make_fig1.py (Fig. 1), make_fig_regime.py (Fig. 2), make_fig2.py (Supplement Fig. S1)
-            verify_numbers.py (the number gate), make_bundle.sh (the arXiv upload bundle)
+            make_fig1.py (Fig. 1), make_fig_regime.py (Fig. 2), make_fig_mulan.py (Fig. 3), make_fig2.py (Supp. Fig. S1)
+            verify_numbers.py (the number gate, run over every version)
 code/       run_experiment.py (--dataset santander|instacart|santander_mlp|instacart_mlp, --part ...),
             datasets.py, chunked.py, learners.py, leaf_check.py, mulan_io.py, mulan_dose.py,
             synthetic_check.py, gate_check.py; every result file is produced here (code/README.md)
@@ -222,9 +225,9 @@ shows whether anything but the `_meta` timestamp moved.
 To rebuild the PDFs:
 
 ```bash
-cd paper
-python verify_numbers.py                                        # macro file and table bodies
-python make_fig1.py && python make_fig_regime.py && python make_fig2.py   # Figs. 1, 2, S1
+python publications/shared/verify_numbers.py                    # macro file and table bodies (all versions)
+(cd publications/shared && python make_fig1.py && python make_fig_regime.py && python make_fig2.py && python make_fig_mulan.py)
+cd publications/arxiv                                           # or full-paper / ecir
 for doc in main supplement; do
   pdflatex $doc && bibtex $doc && pdflatex $doc && pdflatex $doc
 done

@@ -11,27 +11,20 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
-# LaTeX build products (main.log carries local paths)
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.bbl
-paper/*.blg
-paper/*.fls
-paper/*.fdb_latexmk
-paper/main.pdf
-paper/_bundle/
-paper/*.tar.gz
-publications/full-paper/*.aux
-publications/full-paper/*.log
-publications/full-paper/*.out
-publications/full-paper/*.bbl
-publications/full-paper/*.blg
-publications/full-paper/*.fdb_latexmk
-publications/full-paper/*.fls
-publications/full-paper/*.pdf
-publications/full-paper/_bundle/
-publications/full-paper/*.tar.gz
+# LaTeX build products (main.log carries local paths). One rule set for every version under
+# publications/ (full-paper, arxiv, ecir, ...); shared generated figures/tables are tracked.
+publications/*/*.aux
+publications/*/*.log
+publications/*/*.out
+publications/*/*.bbl
+publications/*/*.blg
+publications/*/*.fdb_latexmk
+publications/*/*.fls
+publications/*/*.synctex.gz
+publications/*/*.pdf
+publications/*/_bundle/
+publications/*/*.tar.gz
+publications/*/arxiv_*_upload/
 
 # OS / editor
 .DS_Store

@@ -1,4 +1,4 @@
-"""Number gate for arxiv_v3/main.tex.
+"""Number gate for every publication version (publications/*/main.tex, supplement.tex).
 
 Rule: the prose never contains a hand-typed result number. Every result number is a macro
 (\\nXxx from figures/numbers.tex) or lives in a generated table body (figures/tab_*.tex).
@@ -20,8 +20,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
-TEX = HERE / "main.tex"
+HERE = Path(__file__).resolve().parent  # publications/shared
+PUB = HERE.parent
 NUMS = HERE / "figures" / "numbers.tex"
 ALLOW = {
     "10^{-3}",
@@ -69,9 +69,12 @@ if before != after:
     fail += 1
 
 defined = set(re.findall(r"\\newcommand\{\\(n[A-Za-z0-9]+)\}", after))
-SOURCES = [
-    p for p in (TEX, HERE / "supplement.tex", HERE / "poster" / "ibis2026_poster.tex") if p.exists()
-]  # the supplement and the IBIS poster share numbers.tex
+SOURCES = sorted(
+    p
+    for p in list(PUB.glob("*/main.tex")) + list(PUB.glob("*/supplement.tex")) + [PUB / "poster" / "ibis2026_poster.tex"]
+    if p.exists() and p.parent.name not in {"_bundle"}
+)  # every version (full-paper, arxiv, ecir, ...) and the IBIS poster share numbers.tex
+print("checking:", ", ".join(str(p.relative_to(PUB)) for p in SOURCES))
 # Comment lines are excluded from the macro check: "% TODO(v3)" lines reserve sentences whose macros
 # do not exist until the corresponding result file is generated (they must stay commented until then).
 tex = "\n".join(
@@ -116,7 +119,7 @@ for src in SOURCES:
     for ln, line in enumerate(src.read_text(encoding="utf-8").splitlines(), 1):
         if line.startswith("\\bibliography") or line.startswith("%"):
             continue
-        if "\\input{figures/" in line or "\\input figures/" in line:
+        if "\\input{figures/" in line or "\\input figures/" in line or "\\inputbody{" in line:
             continue
         for m in pat.finditer(line):
             tok = m.group(0)
@@ -127,7 +130,7 @@ for src in SOURCES:
             # allow numbers inside \label/\ref/\cite keys and years
             if re.search(r"\\(cite|label|cref|Cref|ref)\{[^}]*" + re.escape(tok), line):
                 continue
-            print(f"[MISS] {src.name} line {ln}: hand-typed number '{tok}': {line.strip()[:110]}")
+            print(f"[MISS] {src.parent.name}/{src.name} line {ln}: hand-typed number '{tok}': {line.strip()[:110]}")
             fail += 1
 
 print("OK: no hand-typed result numbers; all macros defined" if fail == 0 else f"{fail} problem(s)")

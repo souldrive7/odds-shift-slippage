@@ -11,13 +11,14 @@ moved on. Nothing in the old checklist would have caught it, because no step ran
 
 Commands are written for this repository (plain `python`, dependencies from `requirements.txt`).
 **Every fenced block below starts at the repository root**; a `cd` inside a block applies to that
-block only. The full paper lives under `publications/full-paper/`, the public package under
+block only. The paper versions live under `publications/` (`arxiv/` canonical, `ecir/`, `full-paper/` archived;
+generated numbers and figures in `shared/`), the public package under
 `src/oddslip/`, and the release validator under `scripts/export_public_release.py`.
 
 | # | Check | Command | Expected |
 |---|---|---|---|
-| 1 | Numbers gate | `cd publications/full-paper && python verify_numbers.py` | `OK: no hand-typed result numbers; all macros defined` |
-| 2 | PDFs and arXiv bundle rebuild | `cd publications/full-paper && bash make_bundle.sh` | main 14 pages (twice), supplement 7 pages |
+| 1 | Numbers gate | `python publications/shared/verify_numbers.py` | `OK: no hand-typed result numbers; all macros defined` |
+| 2 | PDFs and arXiv bundle rebuild | `cd publications/arxiv && bash make_bundle.sh` | main 14 pages (twice), supplement 7 pages |
 | 3 | Library tests | `python -m pytest tests/test_oddslip.py -q` | `4 passed` |
 | 4 | **Release export is current** | `python scripts/export_public_release.py --check` | `[export_public_release] OK: ... manifest entries` |
 | 5 | Release safety scan | `python scripts/check_release_safety.py --root . --verbose` | `[check_release_safety] OK: 0 matches ...` |
@@ -34,8 +35,7 @@ the go/no-go is the exact line each step prints, not the count.
 ## 1. Numbers gate
 
 ```bash
-cd paper
-python verify_numbers.py
+python publications/shared/verify_numbers.py
 ```
 
 Expected, as the last line, exit code 0:
@@ -79,7 +79,7 @@ passes this gate.
 ## 2. Rebuild both PDFs and the arXiv bundle
 
 ```bash
-cd paper
+cd publications/arxiv
 bash make_bundle.sh
 ```
 
@@ -105,7 +105,7 @@ the bundle compiles to a different length, `_bundle/` is missing an input. Then 
 nothing left to resolve:
 
 ```bash
-grep -nE "There were undefined|Rerun to get|Citation .* undefined|Reference .* undefined" paper/main.log paper/supplement.log
+grep -nE "There were undefined|Rerun to get|Citation .* undefined|Reference .* undefined" publications/arxiv/main.log publications/arxiv/supplement.log
 ```
 
 Expected: no output. Both logs also carry the usual under- and overfull-box warnings — around twenty
@@ -276,7 +276,7 @@ following must be true.
       (step 4); do not edit these files here.
 
 - [ ] **The URL the paper prints resolves.** `main.tex` states that everything is produced by the
-      `code/` and `paper/` directories of
+      `code/` and `publications/` directories of
       <https://github.com/souldrive7/odds-shift-slippage>. Open that URL in a logged-out browser
       and confirm it loads. A preprint that cites a private repository is worse than one that cites
       none.

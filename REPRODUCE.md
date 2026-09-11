@@ -1,7 +1,7 @@
 # Reproduce
 
-Every result number in the paper is either a macro in `publications/full-paper/figures/numbers.tex` or a cell in a
-generated table body `publications/full-paper/figures/tab_*.tex`. Both are written by `publications/full-paper/make_tables.py` from
+Every result number in the paper is either a macro in `publications/shared/figures/numbers.tex` or a cell in a
+generated table body `publications/shared/figures/tab_*.tex`. Both are written by `publications/shared/make_tables.py` from
 `artifacts/results/canonical/*.json`. The exceptions are typed by hand in the `.tex` sources: design constants (split
 fractions, hyper-parameters, the CI level, the first 500,000 rows the top-7 overlap is read over),
 listed under Fixed choices below; the body rows of Supplement Table S7, which are literal LaTeX in
@@ -52,7 +52,7 @@ This decides how far you can get, so it comes first.
 ```bash
 sha256sum -c SHA256SUMS.txt                             # every shipped file is intact
 pip install -r requirements.txt
-cd paper && python verify_numbers.py                    # it runs make_tables.py itself
+python publications/shared/verify_numbers.py            # it runs make_tables.py itself
 ```
 
 Do not run `make_tables.py` yourself first: `verify_numbers.py` reads the shipped
@@ -82,7 +82,7 @@ is what catches a stale table body.
 ## Where files are written (read this before rerunning anything)
 
 `code/run_experiment.py` and `code/chunked.py` default their output to
-`artifacts/results/canonical/`, while `paper/make_tables.py` reads the same canonical directory.
+`artifacts/results/canonical/`, while `publications/shared/make_tables.py` reads the same canonical directory.
 Run them from the repository root and pass `--out-dir artifacts/results/canonical` when overriding
 the default. `code/gate_check.py` reads the canonical directory automatically.
 
@@ -166,14 +166,17 @@ called `make_fig2.py` makes the **supplement's** Fig. S1, and `make_fig_regime.p
 text's** Fig. 2. Run all three.
 
 ```bash
-cd paper
+cd publications/shared
 python verify_numbers.py     # runs make_tables.py itself: numbers.tex, numbers.json, every tab_*.tex
 python make_fig1.py          # -> figures/fig1_decomposition_mechanism.pdf   = MAIN TEXT Fig. 1
                              #    from {santander,instacart}_{ladder,whatif,capsweep}.json
 python make_fig_regime.py    # -> figures/fig2_inversion_regime.pdf          = MAIN TEXT Fig. 2
                              #    from {santander,instacart}_{capsweep,mlp_ladder}.json + figures/numbers.json
+python make_fig_mulan.py     # -> figures/fig3_mulan_collapse.pdf            = MAIN TEXT Fig. 3
+                             #    from mulan_dose_response.json
 python make_fig2.py          # -> figures/fig2_shift_vs_lnw.pdf              = SUPPLEMENT Fig. S1
                              #    from santander_ladder.json
+cd ../arxiv                  # the canonical version; full-paper/ and ecir/ build the same way
 pdflatex main       && bibtex main       && pdflatex main       && pdflatex main
 pdflatex supplement && bibtex supplement && pdflatex supplement && pdflatex supplement
 ```
@@ -275,7 +278,7 @@ paper quotes therefore comes from labels with no saturated cell.
 
 ## The library and its tests
 
-`code/oddslip/` is the small library the recipe is packaged as. Its README describes three entry
+`src/oddslip/` is the small library the recipe is packaged as. Its README describes three entry
 points (`predict_rank_loss`, `calibrate_per_label`, `select_calibrator_cv`); `__all__` exports 11
 names in total — those three plus `apply_selection`, `calibrate_shared`, `odds_shift`,
 `elkan_inversion`, `dead_labels`, `map_at_k`, `logit` and `sigmoid` — and the package ships an
@@ -291,7 +294,7 @@ python -m pytest tests/test_oddslip.py
 
 ```bash
 git diff --stat results/     # only _meta.generated_at / elapsed_sec should change
-cd paper && python make_tables.py && git diff --stat figures/
+python publications/shared/make_tables.py && git diff --stat publications/shared/figures/
 ```
 
 An empty second diff means every number in the paper reproduced, macros and table bodies alike. A

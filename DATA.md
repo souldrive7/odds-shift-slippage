@@ -18,7 +18,7 @@ Shipped:
   of §4), and a short list of design constants — split fractions, the CI level, hyper-parameter
   values, the body rows of Supp. Table S7 and the rounded "factor of 1.2" in Limitations — is typed
   by hand in the `.tex` sources; `README.md` and `REPRODUCE.md` enumerate both.
-- `paper/figures/numbers.json` — the resolved value of every macro used in the text.
+- `publications/shared/figures/numbers.json` — the resolved value of every macro used in the text.
 - `data/santander/outputs_*/<config>/run_meta.json` and `data/instacart/outputs_*/<config>/run_meta.json`
   — 32 files: row counts, hyper-parameters, per-label positives and the per-label weight of every
   training run.
