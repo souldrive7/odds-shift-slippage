@@ -1,0 +1,75 @@
+% Schematic (no data): the two slippage regimes, what each repair can undo, and the dead-label takeover.
+% Included with \inputbody{figures/fig0_schematic.tex} inside a figure* environment.
+% Requires: tikz with libraries arrows.meta and patterns; colours figblue/figorange/figgray defined by the
+% document (the same Okabe-Ito hues as the data figures: blue = unweighted / intended, orange = weighted / realized).
+\begin{tikzpicture}[x=1cm,y=1cm,font=\scriptsize,
+  every node/.style={inner sep=1pt},
+  axis/.style={-{Latex[length=1.2mm]},figgray!80!black,line width=0.4pt}]
+% ================================================================ (a) intended vs realized shift
+\begin{scope}
+  \node[anchor=west,font=\scriptsize\bfseries] at (-0.2,3.55) {(a) Two slippage regimes};
+  % saturated region (drawn first so the lines stay on top)
+  \fill[figorange!15] (2.9,0) rectangle (4.6,3.15);
+  \node[figorange!85!black,anchor=north,align=center,text width=1.6cm] at (3.75,1.72)
+    {no cap: cells at $1.0$, $b_j$ undefined (Lemma~1)};
+  \draw[axis] (0,0) -- (4.8,0);
+  \node[anchor=north east,figgray!80!black] at (4.8,-0.05) {intended shift $\ln w_j$};
+  \draw[axis] (0,0) -- (0,3.3);
+  \node[anchor=south west,figgray!80!black] at (0.05,3.02) {realized shift $b_j$};
+  % identity: Elkan's identity holds in the population
+  \draw[figblue,dashed,line width=0.5pt] (0,0) -- (2.9,2.9);
+  \node[figblue,anchor=south east] at (2.55,2.62) {$b_j=\ln w_j$ (Prop.~1)};
+  % uncapped learner: on the identity until its cells saturate
+  \draw[figorange,line width=0.9pt] (0,0) -- (2.9,2.9);
+  % capped learner: on the identity, then stalls at the step budget
+  \draw[figorange,line width=0.9pt] (0,0) -- (1.45,1.45) .. controls (1.75,1.75) and (1.85,1.85) .. (4.6,1.88);
+  \draw[figgray,dotted,line width=0.5pt] (0,1.88) -- (4.6,1.88);
+  \node[figgray!80!black,anchor=east] at (-0.05,1.88) {$T\eta c$};
+  \node[figorange!85!black,anchor=south west,align=left] at (3.0,1.98) {cap: shortfall,\\$b_j\le T\eta c$ (Prop.~2)};
+  \node[anchor=north west,align=left,text width=4.7cm,figgray!60!black] at (-0.15,-0.42)
+    {Inverting by $\ln w_j$ is exact only on the dashed line: a capped learner falls short of it, an uncapped one leaves it.};
+\end{scope}
+% ================================================================ (b) what each repair can undo
+\begin{scope}[xshift=6.3cm]
+  \node[anchor=west,font=\scriptsize\bfseries] at (-0.2,3.55) {(b) Which repair returns which part};
+  \def\xa{1.9}\def\xb{2.7}\def\xc{4.1}\def\xd{4.75}\def\yb{2.15}
+  \fill[figgray!55] (\xa,\yb) rectangle (\xb,\yb+0.45);
+  \fill[figorange!45] (\xb,\yb) rectangle (\xc,\yb+0.45);
+  \fill[pattern=north east lines,pattern color=figorange] (\xc,\yb) rectangle (\xd,\yb+0.45);
+  \draw[figgray] (\xa,\yb) rectangle (\xd,\yb+0.45);
+  \node[anchor=east,figgray!60!black] at (\xa-0.08,\yb+0.22) {the top-$K$ loss};
+  \node[anchor=south] at (2.3,\yb+0.5) {odds shift};
+  \node[anchor=south] at (3.4,\yb+0.82) {slippage (per-label, monotone)};
+  \node[anchor=south] at (4.42,\yb+0.5) {ties};
+  \draw[figgray!70,line width=0.3pt] (3.4,\yb+0.48) -- (3.4,\yb+0.8);
+  % rows: repairs and their reach (blue = the part the repair can return)
+  \node[anchor=east] at (\xa-0.08,1.6) {inversion by $\ln w_j$};
+  \draw[figgray!50,line width=0.4pt] (\xa,1.6) -- (\xd,1.6);
+  \draw[figblue,line width=2.2pt] (\xa,1.6) -- (\xb,1.6);
+  \node[anchor=east] at (\xa-0.08,1.1) {per-label monotone map};
+  \draw[figgray!50,line width=0.4pt] (\xa,1.1) -- (\xd,1.1);
+  \draw[figblue,line width=2.2pt] (\xa,1.1) -- (\xc,1.1);
+  \node[anchor=east] at (\xa-0.08,0.6) {shared (pooled) map};
+  \draw[figgray!50,line width=0.4pt] (\xa,0.6) -- (\xd,0.6);
+  \node[anchor=north west,align=left,text width=5.0cm,figgray!60!black] at (-0.15,-0.42)
+    {Blue: the part of the loss the repair can return. The inversion is exact only if $b_j=\ln w_j$ (Cor.~2); a shared map changes nothing beyond tie-breaking (Rem.~1); no separable map reaches the ties.};
+\end{scope}
+% ================================================================ (c) dead-label takeover
+\begin{scope}[xshift=12.4cm]
+  \node[anchor=west,font=\scriptsize\bfseries] at (-0.2,3.55) {(c) Dead-label takeover (Rem.~2)};
+  \draw[axis] (0,0) -- (0,3.3);
+  \node[anchor=south,figgray!80!black,rotate=90] at (-0.12,1.55) {score within one row};
+  \draw[figgray,dotted] (0,1.25) -- (4.4,1.25);
+  \node[anchor=west,figgray!80!black] at (4.42,1.25) {$\bar q$};
+  \foreach \x/\h in {0.45/1.1, 0.85/0.85, 1.25/0.65, 1.65/0.42, 2.05/0.28}
+    \draw[figblue,line width=2.2pt] (\x,0) -- (\x,\h);
+  \node[figblue,anchor=south,align=center] at (1.25,1.32) {calibrated labels\\$g_j(s)\le\bar q$};
+  \draw[figorange,line width=2.2pt] (3.05,0) -- (3.05,2.55);
+  \node[figorange!85!black,anchor=south,align=center] at (3.05,2.6) {dead label,\\identity fallback};
+  \node[figorange!85!black,anchor=west,align=left] at (3.15,1.9) {takes a\\top-$K$ slot};
+  \draw[figorange!70!black,line width=2.2pt] (3.95,0) -- (3.95,0.2);
+  \node[figorange!70!black,anchor=south,align=center] at (3.95,0.3) {prior\\fallback\\$\hat\pi_d$};
+  \node[anchor=north west,align=left,text width=4.6cm,figgray!60!black] at (-0.15,-0.42)
+    {A label with no calibration positives has no map. Passed through, its raw score outranks every calibrated label; mapped to its prior, it does not.};
+\end{scope}
+\end{tikzpicture}
