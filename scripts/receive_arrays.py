@@ -8,7 +8,7 @@ paper's numbers were computed from), walks the Google Drive transfer folder, and
   * on MATCH, copies the file (and run_meta.json) into the local arrays directory unless an identical
     file is already there.
 
-Usage:  python scripts/receive_arrays.py [--transfer "G:/マイドライブ/06_研究/00_msc_Thesis/transfer"]
+Usage:  python scripts/receive_arrays.py [--transfer <Drive transfer folder>]
                                           [--thesis C:/dev/msc-thesis/experiments] [--dry-run]
 Exit code 1 if any MISMATCH.
 """
@@ -55,10 +55,17 @@ def canonical_hashes() -> dict[str, str]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--transfer", type=Path, default=Path("G:/マイドライブ/06_研究/00_msc_Thesis/transfer"))
+    ap.add_argument("--transfer", type=Path, default=None, help="default: the first match of G:/*/06_*/00_msc_Thesis/transfer")
     ap.add_argument("--thesis", type=Path, default=Path("C:/dev/msc-thesis/experiments"))
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    if args.transfer is None:
+        import glob
+        hits = sorted(glob.glob("G:/*/06_*/00_msc_Thesis/transfer"))
+        if not hits:
+            raise SystemExit("transfer folder not found under G:/*/06_*/00_msc_Thesis/transfer")
+        args.transfer = Path(hits[0])
+    print("transfer folder:", args.transfer)
     canon = canonical_hashes()
     bad = 0
     for sub, (prefix, dest_rel) in LAYOUT.items():

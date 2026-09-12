@@ -1,4 +1,4 @@
-# Copy prediction arrays from the machine that trained them (EB, the ASUS ExpertBook "mothership") to
+# Copy prediction arrays from the machine that trained them (EB, the ASUS ExpertBook mothership) to
 # the Google Drive transfer folder, one TRANSFER.json manifest per configuration (same format the AW
 # machine used on 2026-09-08). Run on EB in PowerShell. Nothing is deleted or overwritten on EB.
 #
@@ -6,11 +6,17 @@
 #
 # Then, on the receiving machine, run scripts\receive_arrays.py to verify every SHA-256 against the
 # canonical hashes recorded in artifacts/results/canonical/*.json and to place the files.
+#
+# This file is ASCII only on purpose: Windows PowerShell 5.1 reads scripts without a BOM as ANSI, so the
+# Japanese folder name on G: is resolved with wildcards (G:\<My Drive>\06_<research>\00_msc_Thesis\transfer)
+# rather than typed here.
 
 $ErrorActionPreference = "Stop"
 $Thesis = "C:\dev\msc-thesis\experiments"
-$Drive  = "G:\マイドライブ\06_研究\00_msc_Thesis\transfer"
-$Host_  = "EB"
+$Drive = (Resolve-Path "G:\*\06_*\00_msc_Thesis\transfer" | Select-Object -First 1).Path
+if (-not $Drive) { throw "transfer folder not found under G:\*\06_*\00_msc_Thesis\transfer" }
+Write-Host "transfer folder: $Drive"
+$HostName = "EB"
 
 $jobs = @(
   @{ dataset = "santander"; src = "$Thesis\santander_product_proxy\outputs_matched_pair"; dst = "$Drive\santander_outputs_matched_pair";
@@ -28,16 +34,16 @@ foreach ($j in $jobs) {
     $s = Join-Path $j.src $c
     if (-not (Test-Path $s)) { Write-Host "SKIP (not on this machine): $s"; continue }
     $d = Join-Path $j.dst $c
-    New-Item -ItemType Directory -Force $d | Out-Null
+    New-Item -ItemType Directory -Force -Path $d | Out-Null
     $files = @{}
-    Get-ChildItem $s -File | Where-Object { $_.Name -match '\.(npz|npy|json)$' } | ForEach-Object {
-      $h = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower()
-      Copy-Item $_.FullName (Join-Path $d $_.Name) -Force
+    Get-ChildItem -LiteralPath $s -File | Where-Object { $_.Name -match '\.(npz|npy|json)$' } | ForEach-Object {
+      $h = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLower()
+      Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $d $_.Name) -Force
       $files[$_.Name] = @{ size = $_.Length; sha256 = $h }
-      Write-Host ("{0,-14} {1,-18} {2,12:N0} B  {3}" -f $j.dataset, $c, $_.Length, $h.Substring(0, 16))
+      Write-Host ("{0,-14} {1,-18} {2,14:N0} B  {3}" -f $j.dataset, $c, $_.Length, $h.Substring(0, 16))
     }
-    $manifest = @{ dataset = $j.dataset; config = $c; host = $Host_; files = $files; written = (Get-Date -Format "yyyy-MM-ddTHH:mm:ss") }
-    $manifest | ConvertTo-Json -Depth 4 | Set-Content -Encoding utf8 (Join-Path $d "TRANSFER.json")
+    $manifest = @{ dataset = $j.dataset; config = $c; host = $HostName; files = $files; written = (Get-Date -Format "yyyy-MM-ddTHH:mm:ss") }
+    $manifest | ConvertTo-Json -Depth 4 | Set-Content -Encoding utf8 -LiteralPath (Join-Path $d "TRANSFER.json")
   }
 }
 Write-Host "done. Wait for Google Drive to finish uploading before verifying on the other machine."
