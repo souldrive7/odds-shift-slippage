@@ -71,3 +71,8 @@ grep -rniE "goto|shiga|souldrive7|0009-0004|anthropic|claude" publications/ecir/
 ```
 
 The ECIR version does not cite the arXiv version (double-anonymous review).
+
+The arXiv version's Acknowledgments carry a one-sentence disclosure of AI-tool use (coding and language
+editing; all content verified by the author). `derive_from_arxiv.py` drops the section for review; the
+same sentence is restored verbatim in the camera-ready, which is what the publisher's policy asks for
+(describe the use, confirm author accountability; an AI is never an author).
