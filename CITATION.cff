@@ -13,6 +13,13 @@ authors:
 version: "0.4.0"
 date-released: "2026-09-12"
 repository-code: "https://github.com/souldrive7/odds-shift-slippage"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22719149"
+    description: "Zenodo archive of the v0.4.0 release (code, results, paper sources)"
+  - type: doi
+    value: "10.5281/zenodo.22719148"
+    description: "Zenodo concept DOI (all versions)"
 license: MIT
 keywords:
   - class imbalance
