@@ -1,7 +1,7 @@
 # Odds-Shift Slippage repository instructions
 
 This repository contains the implementation, experiments, result
-artifacts, papers, and poster for the Odds-Shift Slippage project.
+artifacts and papers for the Odds-Shift Slippage project.
 
 ## Sources of truth
 

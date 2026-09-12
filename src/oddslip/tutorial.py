@@ -20,7 +20,7 @@ from pathlib import Path
 
 import numpy as np
 
-# the package directory `oddslip/` is next to this notebook (code/oddslip in the release repository)
+# the package directory `oddslip/` is next to this notebook (src/oddslip in the release repository)
 for cand in (Path.cwd(), Path.cwd().parent, Path.cwd() / "code"):
     if (cand / "oddslip").is_dir():
         sys.path.insert(0, str(cand))

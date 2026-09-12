@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "oddslip"
-version = "0.4.0"
+version = "0.4.1"
 description = "Odds-shift slippage: what-if loss prediction, per-label calibration with an explicit dead-label fallback, and cross-validated calibrator selection for per-row top-K ranking under per-label class weights."
 readme = "src/oddslip/README.md"
 license = { file = "LICENSE" }

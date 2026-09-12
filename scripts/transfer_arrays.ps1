@@ -1,22 +1,23 @@
-# Copy prediction arrays from the machine that trained them (EB, the ASUS ExpertBook mothership) to
-# the Google Drive transfer folder, one TRANSFER.json manifest per configuration (same format the AW
-# machine used on 2026-09-08). Run on EB in PowerShell. Nothing is deleted or overwritten on EB.
+# Copy prediction arrays from the machine that trained them to a shared transfer folder, one
+# TRANSFER.json manifest per configuration. Nothing is deleted or overwritten on the source machine.
 #
+#   $env:ODDSLIP_ARRAYS_ROOT  = "<local experiments root, e.g. D:\experiments>"
+#   $env:ODDSLIP_TRANSFER_DIR = "<transfer folder, e.g. a synced cloud-drive folder>"
 #   powershell -ExecutionPolicy Bypass -File scripts\transfer_arrays.ps1
 #
 # Then, on the receiving machine, run scripts\receive_arrays.py to verify every SHA-256 against the
 # canonical hashes recorded in artifacts/results/canonical/*.json and to place the files.
 #
-# This file is ASCII only on purpose: Windows PowerShell 5.1 reads scripts without a BOM as ANSI, so the
-# Japanese folder name on G: is resolved with wildcards (G:\<My Drive>\06_<research>\00_msc_Thesis\transfer)
-# rather than typed here.
+# ASCII only on purpose: Windows PowerShell 5.1 reads scripts without a BOM as ANSI.
 
 $ErrorActionPreference = "Stop"
-$Thesis = "C:\dev\msc-thesis\experiments"
-$Drive = (Resolve-Path "G:\*\06_*\00_msc_Thesis\transfer" | Select-Object -First 1).Path
-if (-not $Drive) { throw "transfer folder not found under G:\*\06_*\00_msc_Thesis\transfer" }
+$Thesis = $env:ODDSLIP_ARRAYS_ROOT
+$Drive = $env:ODDSLIP_TRANSFER_DIR
+if (-not $Thesis) { throw "set ODDSLIP_ARRAYS_ROOT to the experiments root that holds <dataset>\outputs_*" }
+if (-not $Drive -or -not (Test-Path $Drive)) { throw "set ODDSLIP_TRANSFER_DIR to an existing transfer folder" }
+Write-Host "arrays root:     $Thesis"
 Write-Host "transfer folder: $Drive"
-$HostName = "EB"
+$HostName = $env:COMPUTERNAME
 
 $jobs = @(
   @{ dataset = "santander"; src = "$Thesis\santander_product_proxy\outputs_matched_pair"; dst = "$Drive\santander_outputs_matched_pair";
@@ -46,4 +47,4 @@ foreach ($j in $jobs) {
     $manifest | ConvertTo-Json -Depth 4 | Set-Content -Encoding utf8 -LiteralPath (Join-Path $d "TRANSFER.json")
   }
 }
-Write-Host "done. Wait for Google Drive to finish uploading before verifying on the other machine."
+Write-Host "done. Wait for the transfer folder to finish syncing before verifying on the other machine."

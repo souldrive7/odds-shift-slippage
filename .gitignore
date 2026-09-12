@@ -1,4 +1,4 @@
-# primary prediction arrays (568 MB; see DATA.md) -- never commit
+# prediction arrays (tens of GB; see DATA.md) -- never commit
 *.npz
 *.npy
 data/*.npz

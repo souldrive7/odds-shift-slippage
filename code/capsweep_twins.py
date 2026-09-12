@@ -123,7 +123,7 @@ def main() -> None:
             del q
         if chk:
             cs["retrain_check"] = {
-                "note": "arrays retrained on the same machine, data and configuration after the canonical ones were lost; "
+                "note": "arrays retrained on a second machine with the same data, script and configuration (the canonical arrays live on the machine that trained them); "
                 "LightGBM 4.6 with force_row_wise and 8 threads did not reproduce them bit for bit",
                 "models": chk,
             }

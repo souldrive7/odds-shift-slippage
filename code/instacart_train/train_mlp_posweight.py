@@ -19,7 +19,7 @@ Outputs (<output-dir>/<config>/):
   run_meta.json     configuration, per-label n_pos / pos_weight (top-N), n_pos of every label [tracked]
 
 Launch at full scale through pythonw.exe + Task Scheduler (scripts/run_mlp_posweight.bat).
-Smoke: uv run python code/instacart_train/train_mlp_posweight.py --dataset instacart --processed-dir data/processed_smoke --n-labels 50 --epochs 1 --output-dir outputs_smoke_mlp
+Smoke: python code/instacart_train/train_mlp_posweight.py --dataset instacart --processed-dir data/processed_smoke --n-labels 50 --epochs 1 --output-dir outputs_smoke_mlp
 """
 
 from __future__ import annotations

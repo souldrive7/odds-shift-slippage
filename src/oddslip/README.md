@@ -26,4 +26,4 @@ p_sel = apply_selection(sel, p_cal, y_cal, p, prior)
 
 Design rules (from the paper): the dead-label policy is an explicit argument, never a silent
 pass-through; the prior is the training prevalence, not the calibration-split mean; selection never
-touches evaluation labels. Tests: `uv run pytest tests/test_oddslip.py`.
+touches evaluation labels. Tests: `python -m pytest tests/test_oddslip.py`.

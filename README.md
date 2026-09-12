@@ -6,7 +6,7 @@ This repository holds the code, the result files and the LaTeX source of
 > Akifumi Goto ([0009-0004-8305-6436](https://orcid.org/0009-0004-8305-6436)),
 > Graduate School of Data Science, Shiga University, Hikone, Japan.
 > 2026. arXiv preprint (identifier to be added).
-> Code and results archived on Zenodo: [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149) (release v0.4.0).
+> Code and results archived on Zenodo under the concept DOI [10.5281/zenodo.22719148](https://doi.org/10.5281/zenodo.22719148) (all versions; v0.4.0: [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149)).
 
 **TL;DR.** A per-label class weight `scale_pos_weight = n_-/n_+` promises to shift each label's
 log-odds by `ln w_j`; a finite one-vs-rest learner realizes something else, and the gap --
@@ -87,7 +87,7 @@ numbers in about a minute, what the paper claims, and where everything lives.
   and no arrays: the macro file, every table body, both main-text figures and the supplement figure.
 - **One instrument note that matters for reproduction.** The Santander and Instacart prediction
   arrays are stored as single-precision probabilities, so on those two benchmarks a cell "at exactly
-  1.0" means a raw margin above 16.6 nat. Every saturation share, tie attribution and
+  1.0" means a raw margin of at least 17.3 nat, the float32 rounding threshold below one (the midpoint 1 - 2^-25 rounds up to 1.0). Every saturation share, tie attribution and
   identifiability count the paper reports **on Santander and Instacart** is therefore a property of
   the stored probability array — the object a deployed ranker consumes — and not a claim that the
   learner produced an infinite score (paper, Section 3). A pipeline that keeps the raw margin can
@@ -121,7 +121,7 @@ pulls in a generated table body (`\input{figures/...}` or `\input figures/...`),
 explicit allow-list of design constants — split fractions, the CI level, hyper-parameter values, the
 Instacart row and column counts, and a few theory constants — listed at the top of the script.
 Six macros are written by
-`make_tables.py` from code rather than derived from `results/`: `\nnLabels` (24 Santander products),
+`make_tables.py` from code rather than derived from `artifacts/results/canonical/`: `\nnLabels` (24 Santander products),
 `\nnSurveyImpl` (17 implementation rows of the dead-label survey in `docs/`), and the four instrument
 constants `\nshiftSearchBound` and `\nshiftClipLogit` (the bisection bound and the logit clip of the
 shift estimator) and `\nsatMarginF` and `\nsatMarginD` (the raw margin that "exactly 1.0" means in
@@ -254,7 +254,7 @@ notebook, and `pytest tests/test_oddslip.py` the test suite.
 produces it and to the command that regenerates that file, and it lists the fixed choices (splits,
 seeds, MAP@K convention, dead-label policies, bootstrap settings) that every part shares. Install the
 pinned versions first — `pip install -r requirements.txt`; the result JSON is byte-identical only
-under those. Every run rewrites its file in `results/` atomically, so `git diff results/` afterwards
+under those. Every run rewrites its file in `artifacts/results/canonical/` atomically, so `git diff artifacts/results/canonical/` afterwards
 shows whether anything but the `_meta` timestamp moved.
 
 To rebuild the PDFs:
@@ -277,7 +277,10 @@ check.
 
 ## Citation and license
 
-Release v0.4.0 is archived on Zenodo under DOI [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149) (concept DOI 10.5281/zenodo.22719148 for all versions).
+AI tools (Claude, Codex) were used for coding, language editing and manuscript review, as disclosed in the paper's
+Acknowledgments; every analysis, number and citation was produced or verified by the author.
+
+Every release is archived on Zenodo under the concept DOI [10.5281/zenodo.22719148](https://doi.org/10.5281/zenodo.22719148); v0.4.0 is [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149), and v0.4.1 (the arXiv text) receives its own DOI from the GitHub release.
 
 See `CITATION.cff`. Code and documentation are under the MIT license (`LICENSE`); the datasets keep
 their own terms.

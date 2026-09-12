@@ -72,7 +72,7 @@ narrower than "the numbers are right":
    design constants such as 30% and 0.05.
 
 So the gate makes it hard for the manuscript to carry a hand-typed result number *of those three
-shapes*. It is not a proof that every number in the paper comes from `results/`: check 3 does not see
+shapes*. It is not a proof that every number in the paper comes from `artifacts/results/canonical/`: check 3 does not see
 plain integers or one-decimal numbers, and a thousands separator written the LaTeX way escapes it as
 well — `$500{,}000$` in `main.tex`, the "factor of $1.2$" in its Limitations and the "10 code bases"
 of the Table S7 caption are all hand-typed and all pass today. Nor does the gate check that a result file is correct, that a table body is current, or
@@ -255,14 +255,14 @@ datasets at w = 1 and w = r only.
 **float32 storage.** This is the most important caveat for anyone rerunning the Santander and
 Instacart saturation numbers. The Santander and Instacart prediction arrays — and only those — are
 stored as single-precision probabilities. A cell "at exactly 1.0" is therefore one whose raw margin
-exceeds 16.6 nat; in double precision the same threshold would be 36.7 nat. Every Santander and
+reaches 17.3 nat (the midpoint 1 - 2^-25, which rounds up to 1.0); in double precision the same threshold would be 37.4 nat. Every Santander and
 Instacart saturation share, tie attribution and identifiability count is a property of the stored
 probability array — the object a deployed ranker consumes — and not a claim that the learner
 produced an infinite score. The MULAN, leaf-check and synthetic saturation columns are not
 float32 storage artefacts: those parts write no array and measure saturation in process. The
 arithmetic is not uniformly double precision, though — XGBoost and the torch MLP hand
 `learners.py` float32 probabilities that it only then holds in a float64 array, so for those two
-learners the 1 − 1e−9 threshold sits at the same 16.6-nat boundary rather than at the 20.7 nat it
+learners the 1 − 1e−9 threshold sits at the same float32 boundary rather than at the 20.7 nat it
 implies (`DATA.md` section 4). The leaf check is float64 throughout. A pipeline that keeps the raw margin can still order the saturated cells; a
 post-hoc calibrator applied to the probabilities cannot. Casting the shipped arrays to float64
 changes nothing — a stored 1.0f is exactly 1.0 in double as well. What moves the numbers is

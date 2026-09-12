@@ -44,7 +44,6 @@ ALLOWLIST: tuple[str, ...] = (
     "shiga-u.ac.jp",
     "0009-0004-8305-6436",  # the author's ORCID iD, printed on the paper
     "orcid.org/0009-0004-8305-6436",
-    "souldrive7@gmail.com",
     "github.com/souldrive7",
     # third-party public references cited by the paper or used by the code
     "raw.githubusercontent.com/tsoumakas",  # MULAN benchmark mirror

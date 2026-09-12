@@ -93,8 +93,6 @@ body = body.replace(
     "The same wrapper produced a published negative result of ours; and since \\cref{sec:dose} shows",
     "The same wrapper has produced a published negative result; and since \\cref{sec:dose} shows",
 )
-body = body.replace("The supplement travels with this preprint as an ancillary file.",
-                    "The supplementary material is a PDF in the same repository.")
 body = body.replace("\\bibliographystyle{ACM-Reference-Format}", "\\bibliographystyle{splncs04}")
 
 # ---- LNCS layout ------------------------------------------------------------------------------------

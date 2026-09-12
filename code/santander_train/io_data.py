@@ -1,4 +1,4 @@
-"""Santander Product Recommendation 形式のパネルを読み込み、(t)→(t+1) の新規商品追加をラベル化。"""
+"""Load the Santander Product Recommendation panel and label each row with the products added from month t to t+1."""
 
 from __future__ import annotations
 

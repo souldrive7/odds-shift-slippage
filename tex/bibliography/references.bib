@@ -8,7 +8,7 @@
   booktitle = {Proceedings of the 17th International Joint Conference on Artificial Intelligence (IJCAI)},
   year      = {2001},
   pages     = {973--978},
-  annotation = {verified PARTIAL: dblp/ACM DL search results and OpenAlex; primary page not fetched}
+  annotation = {verified PARTIAL: dblp/ACM DL search results and OpenAlex; primary page not fetched; author's PDF (rescale.pdf on his UCSD page, 'To appear, IJCAI 01') fetched 2026-09-12: Theorem 2 is the rescaling identity; the abstract also notes that changing the class balance has little effect on decision-tree learners}
 }
 
 @inproceedings{Menon2019Reductions,
@@ -32,7 +32,7 @@
   title     = {Consistent Multilabel Ranking through Univariate Loss Minimization},
   booktitle = {Proceedings of the 29th International Conference on Machine Learning (ICML)},
   year      = {2012},
-  annotation = {verified: https://icml.cc/Conferences/2012/papers/661.pdf (title as printed in proceedings)}
+  annotation = {verified: https://icml.cc/Conferences/2012/papers/661.pdf (title as printed in proceedings); cited for consistency for the rank loss only (2026-09-12)}
 }
 
 @inproceedings{Koyejo2015Consistent,
@@ -68,7 +68,7 @@
   title     = {Multi-Class Uncertainty Calibration via Mutual Information Maximization-based Binning},
   booktitle = {International Conference on Learning Representations (ICLR)},
   year      = {2021},
-  annotation = {verified PARTIAL: OpenAlex record pointing to https://openreview.net/pdf?id=AICNpd8ke-m. Cited for: independent class-wise (per-class) binning loses top-k accuracy on ImageNet, shared class-wise binning (I-Max) recovers it}
+  annotation = {verified PARTIAL: OpenAlex record pointing to https://openreview.net/pdf?id=AICNpd8ke-m. Cited for: independent class-wise (per-class) binning loses top-k accuracy on ImageNet, shared class-wise binning (I-Max) recovers it; arXiv:2006.13092 abstract: class-wise binning often fails to preserve accuracy, shared class-wise binning recovers it (2026-09-12)}
 }
 
 @inproceedings{Rahimi2020IntraOrder,
@@ -76,7 +76,7 @@
   title     = {Intra Order-preserving Functions for Calibration of Multi-Class Neural Networks},
   booktitle = {Advances in Neural Information Processing Systems 33 (NeurIPS)},
   year      = {2020},
-  annotation = {verified PARTIAL: papers.nips.cc search result and OpenAlex}
+  annotation = {verified PARTIAL: papers.nips.cc search result and OpenAlex; arXiv:2003.06820 abstract confirms accuracy-preserving (intra-order-preserving) maps (2026-09-12)}
 }
 
 @inproceedings{Zadrozny2002,
@@ -116,7 +116,7 @@
   title     = {Long-tail Learning via Logit Adjustment},
   booktitle = {International Conference on Learning Representations (ICLR)},
   year      = {2021},
-  annotation = {verified PARTIAL: https://iclr.cc/virtual/2021/poster/2675 search result and OpenAlex}
+  annotation = {verified PARTIAL: https://iclr.cc/virtual/2021/poster/2675 search result and OpenAlex; arXiv:2007.07314 abstract confirms post-hoc logit adjustment (2026-09-12)}
 }
 
 @article{VandenGoorbergh2022,
@@ -138,7 +138,7 @@
   year      = {2012},
   pages     = {695--704},
   doi       = {10.1109/ICDM.2012.115},
-  annotation = {verified: Crossref record for DOI 10.1109/ICDM.2012.115}
+  annotation = {verified: Crossref record for DOI 10.1109/ICDM.2012.115; abstract: estimates are unreliable under imbalance itself; the proposed fix is balanced bagging (2026-09-12)}
 }
 
 @misc{Caplin2022ClassWeights,
@@ -200,7 +200,7 @@
   title     = {Cost-Sensitive Boosting Algorithms: Do We Really Need Them?},
   journal   = {Machine Learning},
   volume    = {104},
-  number    = {2},
+  number    = {2--3},
   pages     = {359--384},
   year      = {2016},
   doi       = {10.1007/s10994-016-5572-x},
@@ -235,7 +235,7 @@
   volume    = {293},
   year      = {2025},
   pages     = {1--14},
-  annotation = {verified: https://proceedings.mlr.press/v293/ entry abdelrahman25a, listed as 293:12/1-14 (paper 12), re-checked 2026-09-12}
+  annotation = {verified: https://proceedings.mlr.press/v293/ entry abdelrahman25a, listed as 293:12/1-14 (paper 12), re-checked 2026-09-12; abstract: meta-model plus Bayesian optimisation over calibrators; cited as selection by a probability metric (2026-09-12)}
 }
 
 @inproceedings{Ke2017LightGBM,
@@ -338,7 +338,7 @@
 % verification (2026-09-07). House style follows manuscript/arxiv_v2/refs.bib.
 
 @inproceedings{Lipton2018LabelShift,
-  author    = {Lipton, Zachary and Wang, Yu-Xiang and Smola, Alexander},
+  author    = {Lipton, Zachary C. and Wang, Yu-Xiang and Smola, Alexander},
   title     = {Detecting and Correcting for Label Shift with Black Box Predictors},
   booktitle = {Proceedings of the 35th International Conference on Machine Learning (ICML)},
   series    = {Proceedings of Machine Learning Research},
@@ -347,7 +347,7 @@
   year      = {2018},
   publisher = {PMLR},
   url       = {https://proceedings.mlr.press/v80/lipton18a.html},
-  annotation = {verified: https://proceedings.mlr.press/v80/lipton18a.html (PMLR BibTeX; authors, pages 3122--3130, vol. 80, editors Dy and Krause), 2026-09-07}
+  annotation = {verified: https://proceedings.mlr.press/v80/lipton18a.html (PMLR BibTeX; authors, pages 3122--3130, vol. 80, editors Dy and Krause), 2026-09-07; BBSE estimates the label shift from a black-box, possibly uncalibrated predictor; calibration is combined with it only in Alexandari et al. 2020 (2026-09-12)}
 }
 
 @inproceedings{Alexandari2020MLLS,

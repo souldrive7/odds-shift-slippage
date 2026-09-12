@@ -12,8 +12,8 @@ by path), ``<config>/p_*_all.npy`` (all-product MLP arrays, dataset-ambiguous, l
 files of that name), and bare file names such as ``uq_arrays.npz`` (thesis scorers, located by hash under
 the whole arrays root). Inputs that are themselves result files (``*.json``) are skipped.
 
-Usage:  python scripts/pack_arrays_for_zenodo.py [--thesis C:/dev/msc-thesis/experiments]
-                                                  [--out C:/dev/zenodo_arrays] [--dry-run]
+Usage:  python scripts/pack_arrays_for_zenodo.py [--thesis <local arrays root>] [--out <upload dir>] [--dry-run]
+Defaults: --thesis from $ODDSLIP_ARRAYS_ROOT; --out from $ODDSLIP_ZENODO_DIR.
 Exit code 1 if any pinned array is missing or does not match its hash.
 """
 
@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -83,10 +84,15 @@ class Locator:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--thesis", type=Path, default=Path("C:/dev/msc-thesis/experiments"))
-    ap.add_argument("--out", type=Path, default=Path("C:/dev/zenodo_arrays"))
+    ap.add_argument("--thesis", type=Path, default=os.environ.get("ODDSLIP_ARRAYS_ROOT"), help="local arrays root (default: $ODDSLIP_ARRAYS_ROOT)")
+    ap.add_argument("--out", type=Path, default=os.environ.get("ODDSLIP_ZENODO_DIR"), help="upload directory (default: $ODDSLIP_ZENODO_DIR)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    if args.thesis is None or (args.out is None and not args.dry_run):
+        raise SystemExit("set --thesis/--out or the environment variables ODDSLIP_ARRAYS_ROOT and ODDSLIP_ZENODO_DIR")
+    args.thesis = Path(args.thesis)
+    if args.out is not None:
+        args.out = Path(args.out)
     loc = Locator(args.thesis)
     rows: list[tuple[str, str]] = []        # (sha256, upload path) — one line per copied file
     aliases: list[tuple[str, str]] = []     # (other key, upload path) — same bytes pinned under another key

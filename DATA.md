@@ -144,10 +144,10 @@ store no array (see the second bullet below).
 
 Every prediction array is stored as single-precision probabilities (`p_te`, `p_va`, `p_te_all`,
 `p_va_all` are float32; labels are int8). The largest float32 strictly below 1 is
-1 − 2⁻²⁴ ≈ 0.99999994, whose logit is **16.6 nat**; any probability above it rounds to exactly
-`1.0f` on storage. In double precision the same boundary (1 − 2⁻⁵³) would sit at **36.7 nat**.
+1 − 2⁻²⁴ ≈ 0.99999994; a probability at or above the midpoint 1 − 2⁻²⁵, whose logit is **17.3 nat**, rounds to
+exactly `1.0f` on storage. In double precision the same boundary (1 − 2⁻⁵⁴) would sit at **37.4 nat**.
 
-So a cell reported as "at exactly 1.0" is a cell whose raw margin exceeded 16.6 nat — not a cell for
+So a cell reported as "at exactly 1.0" is a cell whose raw margin reached 17.3 nat — not a cell for
 which the learner produced an infinite score. Consequently:
 
 - The Santander and Instacart saturated shares (16.6% of the Santander weighted model's cells at
@@ -167,7 +167,7 @@ which the learner produced an infinite score. Consequently:
   throughout (scikit-learn decision trees and LightGBM). In the MULAN and synthetic sweeps the
   LightGBM and logistic-regression learners return float64 probabilities, but XGBoost and the torch
   MLP return float32 ones that `learners.py` only then holds in a float64 array, so for those two
-  learners the 1 − 1e-9 threshold is in practice the same float32 boundary of 16.6 nat rather than
+  learners the 1 − 1e-9 threshold is in practice the same float32 boundary of 17.3 nat rather than
   the 20.7 nat the threshold itself would imply.
 - A pipeline that keeps the raw margin instead can still order those cells. A post-hoc calibrator
   applied to the stored probabilities cannot; that is the sense in which the ties lie beyond any

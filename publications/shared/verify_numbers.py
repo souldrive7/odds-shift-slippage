@@ -5,7 +5,7 @@ Rule: the prose never contains a hand-typed result number. Every result number i
 
 Checks:
  1. figures/numbers.tex is regenerated from the JSON results and identical to what make_tables.py emits now.
- 2. every \\n<Name> macro used in main.tex, supplement.tex and poster/ibis2026_poster.tex is defined
+ 2. every \\n<Name> macro used in every */main.tex and */supplement.tex is defined
     (full-line comments are skipped, so "% TODO(v3)" lines may reserve macros that do not exist yet).
  3. main.tex prose (outside \\input'd tables and outside the bibliography) contains no decimal number
     of the form d.ddd, no percentage like dd.d\\%, and no integer with thousands separators.
@@ -71,9 +71,9 @@ if before != after:
 defined = set(re.findall(r"\\newcommand\{\\(n[A-Za-z0-9]+)\}", after))
 SOURCES = sorted(
     p
-    for p in list(PUB.glob("*/main.tex")) + list(PUB.glob("*/supplement.tex")) + [PUB / "poster" / "ibis2026_poster.tex"]
+    for p in list(PUB.glob("*/main.tex")) + list(PUB.glob("*/supplement.tex"))
     if p.exists() and p.parent.name not in {"_bundle"}
-)  # every version (full-paper, arxiv, ecir, ...) and the IBIS poster share numbers.tex
+)  # every version (full-paper, arxiv, ecir, ...) shares numbers.tex
 print("checking:", ", ".join(str(p.relative_to(PUB)) for p in SOURCES))
 # Comment lines are excluded from the macro check: "% TODO(v3)" lines reserve sentences whose macros
 # do not exist until the corresponding result file is generated (they must stay commented until then).

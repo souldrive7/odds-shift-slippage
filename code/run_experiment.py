@@ -2,8 +2,8 @@
 dataset in datasets.py (Santander / Instacart, LightGBM / MLP) with one JSON schema.
 
 Usage:
-    uv run python code/run_experiment.py --dataset santander --part ladder
-    uv run python code/run_experiment.py --dataset instacart --part capsweep
+    python code/run_experiment.py --dataset santander --part ladder
+    python code/run_experiment.py --dataset instacart --part capsweep
 
 Parts (results/<dataset>_<part>.json unless noted):
   ladder      raw / saturation / within-label AUC / per-label iso (identity, prior, exclude) /

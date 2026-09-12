@@ -13,8 +13,8 @@ Writes results/eda.json (tracked). Steps:
      MAP@7 on those labels, lgb.train vs LGBMClassifier parity, initial-score check)
   7. hypotheses H1-H3 with pass/fail and a recommended N
 
-Usage (scheduled; ~12 min):  see scripts/run_instacart_eda.bat
-Smoke:  uv run python code/instacart_train/eda.py --max-users 3000 --n-bench-labels 10 --n-jobs 2 --cache-dir data/processed_smoke --out results/eda_smoke.json
+Usage (~12 min):  python code/instacart_train/eda.py
+Smoke:  python code/instacart_train/eda.py --max-users 3000 --n-bench-labels 10 --n-jobs 2 --cache-dir data/processed_smoke --out results/eda_smoke.json
 """
 
 from __future__ import annotations

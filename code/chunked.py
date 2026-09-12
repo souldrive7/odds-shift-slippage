@@ -6,7 +6,7 @@ processed in chunks of --chunk labels, and the top-K per row is maintained by a 
 reproduces the stable-argsort order of the full matrix (ties broken by the lower column index).
 
 Usage:
-    uv run python code/chunked.py --config wr --part ladder
+    python code/chunked.py --config wr --part ladder
 Writes results/instacart_mlp_all_<part>.json.
 """
 

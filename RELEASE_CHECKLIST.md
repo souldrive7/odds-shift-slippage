@@ -69,7 +69,6 @@ a thousands separator written the LaTeX way escapes it as well, because the brac
 run: `$500{,}000$` in Sec. 3 passes, as does the "10 code bases" of the Table S7 caption. All three
 are hand-typed today and `REPRODUCE.md` lists the same three survivors. And in the **source**
 repository — where steps 1-3 are run — both the macro check and the hand-typed-number check also cover
-`poster/ibis2026_poster.tex`, which shares `figures/numbers.tex` but is not exported, so a `[MISS]`
 or undefined-macro line there names a file this tree does not contain.
 
 It does not check that a macro was placed in the right sentence, that a table body says what its
@@ -151,10 +150,8 @@ python scripts/export_public_release.py
 Expected, ending in exit code 0:
 
 ```
-copied 140 files to <this repository>; PRIMARY_ARRAYS.sha256 has 34 entries
 [check_release_safety] OK: 0 matches across <n> text file(s).
-SHA256SUMS.txt: 141 entries
-[OK] export clean
+[export_public_release] wrote <n> manifest entries
 ```
 
 `[OK] export clean` is the whole check. Without it, do not push. Three failures are worth naming
@@ -259,10 +256,11 @@ endings. Step 7 cannot see that; only step 8 can.
 
 ---
 
-## Before making the repository public
+## Before the arXiv submission
 
-The repository stays private until the arXiv submission is announced. At that moment all of the
-following must be true.
+The repository went public on 2026-09-12 (release v0.4.0, Zenodo DOI 10.5281/zenodo.22719149) ahead of the
+arXiv submission, so that the URL in the paper resolves when the preprint appears. All of the following must
+stay true.
 
 - [ ] **The arXiv identifier is filled in.** It appears as a placeholder in three places:
       `CITATION.cff` (`message:` and `preferred-citation.notes:`) and `README.md` (the byline,
@@ -309,8 +307,8 @@ following must be true.
 
 - [ ] Tag the release, and optionally mint a Zenodo DOI from the tag. Tag only a commit that passed
       steps 1-8 in order. The order that keeps every identifier consistent is:
-      1. `CITATION.cff` `version:` and `pyproject.toml` `version` agree (currently `0.4.0`); the tag is `v` + that version.
-      2. `git tag -a v0.4.0 -m "arXiv version" && git push origin v0.4.0` (after the final push of the branch).
+      1. `CITATION.cff` `version:` and `pyproject.toml` `version` agree (currently `0.4.1`); the tag is `v` + that version.
+      2. `git tag -a v0.4.1 -m "arXiv version" && git push origin v0.4.1` (after the final push of the branch).
       3. Make the repository public; confirm the CI workflow (`.github/workflows/ci.yml`) is green on `main`.
       4. Enable the repository on Zenodo and create a GitHub release from the tag; Zenodo reads `.zenodo.json`
          and mints the DOI. Paste the DOI into `CITATION.cff` (`identifiers:`) and `README.md`.

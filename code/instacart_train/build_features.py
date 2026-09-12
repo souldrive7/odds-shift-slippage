@@ -16,7 +16,7 @@ Outputs (data/processed/, gitignored):
   split.npz + split.json, feature_names.json, label_meta.json
 
 Usage:
-  uv run python code/instacart_train/build_features.py --max-users 5000 --self-check --out-dir data/processed_smoke
+  python code/instacart_train/build_features.py --max-users 5000 --self-check --out-dir data/processed_smoke
 """
 
 from __future__ import annotations

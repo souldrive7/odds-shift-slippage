@@ -238,6 +238,68 @@ the "Consistency and top-K" paragraph condensed, a few restatements, and figure 
 - ECIR supplement is still typeset in acmart (AC): cosmetic; LNCS re-derivation optional.
 - Zenodo v0.4.0 archives the pre-second-audit bundle; the arXiv submission should use the new `arxiv_upload.tar.gz` (sha256 41605443…). A v0.4.1 release would re-align the archive with the submitted text.
 
+---
+
+# Third pass (2026-09-12, after the GPT assessment of the new bundle): whole-repository review
+
+Reviewers: three Claude agents with new remits (stale/contradictory documentation and contamination;
+number-level fabrication check; references, AI disclosure and citation metadata), qwen3:32b on the
+university GPU (both main texts), Codex (hit its usage limit before reporting), gpt-oss:120b (dispatched
+after its pull; result appended below if it returned in time). The GPT assessment of the second bundle was
+read for its actionable items; its metric/twins recommendations need new numbers and stay deferred.
+
+## Accepted and fixed
+
+| Source | Fix |
+|---|---|
+| numbers check | `\Supp{Table~S4}` was cited for the √r and 10r arms, but no supplement table carries them; the sentence now quotes the four macros directly (raw 0.688 / 0.036, repaired 0.806 / 0.772) |
+| numbers check | "lands on its ceiling ($\nMSplIsoPrior$)" quoted the calibrated score; now "the bold rung (0.549) lands on its ceiling (0.548)" |
+| numbers check | ECIR attributed the clipping-free estimator to the Instacart MLP; it exists for the two boosters only |
+| numbers check | Limitations compared estimators across learners (0.78 to 1.06); now per dataset (0.78 vs 0.98 Santander, 0.50 vs 0.88 Instacart) |
+| references | Wallace 2012 is about imbalance itself, van den Goorbergh 2022 about its corrections — sentence split accordingly |
+| references | Lipton 2018 (BBSE) works with uncalibrated predictors; only Alexandari 2020 combines the shift with calibration — sentence split |
+| references | Dembczyński 2012 proves consistency for the rank loss, not precision@k — removed from the two precision@k citations (Intro, Setup), kept for rank loss |
+| references | Friedman 2001 no longer reads as the source of "none of these measures…"; it now tags "gradient booster" |
+| references | Elkan's own abstract (rebalancing barely changes a decision tree) acknowledged as an early qualitative form of slippage |
+| references | SmartCal "chooses by calibration error" → "by a probability metric" (abstract-level support only) |
+| references | Nikolaou et al.: issue `2--3`; Lipton's middle initial made consistent; annotations of Elkan, Menon 2021, Rahimi, Patel, Wallace, Lipton, Dembczyński, SmartCal now carry claim-level evidence |
+| references / AI use | Acknowledgments now name Claude and Codex as coding, language-editing **and manuscript-review** tools (the adversarial review passes were AI-driven); README.md gains the same one-liner; publications/README states that commit trailers naming a tool record tool use, not authorship |
+| references | CITATION.cff: top-level `doi`; `preferred-citation` marked `status: preprint` instead of a fake journal |
+| stale info | README/REPRODUCE/DATA prose still said 16.6 / 36.7 nat and `2⁻²⁴`/`2⁻⁵³`; now the rounding midpoints 17.3 / 37.4 (1−2⁻²⁵, 1−2⁻⁵⁴) |
+| stale info | RELEASE_CHECKLIST no longer says the repository "stays private"; exporter output block updated; poster references removed (also from `verify_numbers.py`) |
+| stale info | `docs/handoff_2026-09-12.md` rewritten as a neutral current-state document (no machine nicknames, no local paths); the earlier "arrays lost" narrative removed |
+| contamination | personal e-mail removed from the safety-scan allowlist; local drive letters, cloud-folder names and machine nicknames removed from `transfer_arrays.ps1`, `receive_arrays.py`, `pack_arrays_for_zenodo.py` (locations now come from `ODDSLIP_ARRAYS_ROOT`, `ODDSLIP_TRANSFER_DIR`, `ODDSLIP_ZENODO_DIR` or arguments) |
+| stale info | `results/` → `artifacts/results/canonical/` in README/REPRODUCE; `uv run` → `python` in docstrings; Japanese module docstrings translated; dead `.bat` reference and dead `derive_from_arxiv.py` replacement removed; `code/oddslip` → `src/oddslip` in test/notebook comments |
+| stale info | `capsweep_twins.py` note no longer says "lost"; the shipped JSON note is left as generated (documented in the handoff) |
+
+## Knowledge only (not applied)
+
+- qwen3:32b: reported the 2Tηc bound as an error (it is the difference of two Tηc bounds), the 23% vs
+  20.3 ± 2.3% pair as a contradiction (single run vs draw band, stated as such), and anonymity defects in the
+  non-anonymous arXiv file. Its language notes were already covered or not defects.
+- GPT assessment: Recall/NDCG/P@K, a personal-frequency baseline, Instacart capped twins and a wider τ grid
+  remain deferred (new numbers); "selected optimum" and "caused by" do not occur in either version.
+
+## gpt-oss:120b (arrived after the third-pass edits)
+
+Its two reports were read in full. Applied: define $\sigma$ and the unit nat at first use (both versions);
+"the repair returns 97% of it" in the Fig. 1 caption so that 23% and 97% are read as shares of the same
+loss. Not applied (artefacts of reviewing a flattened text without its tables, or non-defects): "numbers not
+backed by any table" (Table 1 / Fig. 1 carry them), anonymity remarks on the non-anonymous arXiv file,
+"max\_delta\_step$=c$" (a rendering of the flattening), a request for pseudocode of the selection rule
+(Supplement Table S6 and `oddslip` carry it), "23% + 97% > 100%" (shares of the same loss, now worded).
+
+## Verification after the third pass (final, 2026-09-12)
+
+gate OK; arXiv main 10 pages (source and bundle), supplement 9; `arxiv_upload.tar.gz` sha256
+`28584d04d982ca59037c19e1a183a8cedb47da911cc98baaab7c670e7b80abb6` (632,506 bytes), contents: main.tex,
+main.bbl, refs.bib, figures/{fig0_schematic.tex, fig1–3.pdf, numbers.tex, two table bodies}, anc/supplement.pdf;
+ECIR main 16 pages with the body ending on page 12 and References from page 13, supplement 9; no undefined
+references or citations; anonymity grep on `ecir/*.tex` empty; 44 bib entries, all cited in both versions,
+none missing; pytest 4 passed; `export_public_release` 171 entries; safety scan 0 matches across 158 text
+files; manifest verifies; no tracked arrays; version 0.4.1 in pyproject, `__version__`, CITATION.cff and
+.zenodo.json; CITATION.cff top-level DOI = Zenodo concept DOI.
+
 ## Verification after the second pass
 
 gate OK (1142 macros; `numbers.tex` changed only by `\nsatMarginF` 16.6→17.3, `\nsatMarginD` 36.7→37.4,

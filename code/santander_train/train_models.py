@@ -1,4 +1,4 @@
-"""多ラベル分類モデル群。"""
+"""Multi-label classification models (one-vs-rest LightGBM and friends)."""
 
 from __future__ import annotations
 

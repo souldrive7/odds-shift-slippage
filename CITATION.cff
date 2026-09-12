@@ -10,16 +10,17 @@ authors:
     city: "Hikone"
     region: "Shiga"
     country: "JP"
-version: "0.4.0"
+version: "0.4.1"
 date-released: "2026-09-12"
 repository-code: "https://github.com/souldrive7/odds-shift-slippage"
+doi: "10.5281/zenodo.22719148"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.22719149"
     description: "Zenodo archive of the v0.4.0 release (code, results, paper sources)"
   - type: doi
     value: "10.5281/zenodo.22719148"
-    description: "Zenodo concept DOI (all versions)"
+    description: "Zenodo concept DOI (all versions; resolves to the latest release)"
 license: MIT
 keywords:
   - class imbalance
@@ -41,5 +42,5 @@ preferred-citation:
       orcid: "https://orcid.org/0009-0004-8305-6436"
       affiliation: "Graduate School of Data Science, Shiga University"
   year: 2026
-  journal: "arXiv preprint"
+  status: preprint
   notes: "arXiv identifier and categories (cs.IR primary, cs.LG cross-list) to be added once assigned."

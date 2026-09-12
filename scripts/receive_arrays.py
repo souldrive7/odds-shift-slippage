@@ -1,15 +1,15 @@
 """Verify transferred prediction arrays against the canonical hashes and place them.
 
 Reads every ``_meta.inputs`` block in artifacts/results/canonical/*.json (the SHA-256 of each array the
-paper's numbers were computed from), walks the Google Drive transfer folder, and for every
+paper's numbers were computed from), walks the transfer folder, and for every
 ``<dataset>/<config>/predictions.npz`` (or MLP ``p_*_all.npy``) found there:
 
   * recomputes the SHA-256 and compares it with the canonical one -> MATCH / MISMATCH / UNKNOWN;
   * on MATCH, copies the file (and run_meta.json) into the local arrays directory unless an identical
     file is already there.
 
-Usage:  python scripts/receive_arrays.py [--transfer <Drive transfer folder>]
-                                          [--thesis C:/dev/msc-thesis/experiments] [--dry-run]
+Usage:  python scripts/receive_arrays.py [--transfer <transfer folder>] [--thesis <local arrays root>] [--dry-run]
+Defaults come from the environment variables ODDSLIP_TRANSFER_DIR and ODDSLIP_ARRAYS_ROOT.
 Exit code 1 if any MISMATCH.
 """
 
@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
 from pathlib import Path
 
@@ -57,16 +58,13 @@ def canonical_hashes() -> dict[str, set[str]]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--transfer", type=Path, default=None, help="default: the first match of G:/*/06_*/00_msc_Thesis/transfer")
-    ap.add_argument("--thesis", type=Path, default=Path("C:/dev/msc-thesis/experiments"))
+    ap.add_argument("--transfer", type=Path, default=os.environ.get("ODDSLIP_TRANSFER_DIR"), help="transfer folder (default: $ODDSLIP_TRANSFER_DIR)")
+    ap.add_argument("--thesis", type=Path, default=os.environ.get("ODDSLIP_ARRAYS_ROOT"), help="local arrays root (default: $ODDSLIP_ARRAYS_ROOT)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
-    if args.transfer is None:
-        import glob
-        hits = sorted(glob.glob("G:/*/06_*/00_msc_Thesis/transfer"))
-        if not hits:
-            raise SystemExit("transfer folder not found under G:/*/06_*/00_msc_Thesis/transfer")
-        args.transfer = Path(hits[0])
+    if args.transfer is None or args.thesis is None:
+        raise SystemExit("set --transfer/--thesis or the environment variables ODDSLIP_TRANSFER_DIR and ODDSLIP_ARRAYS_ROOT")
+    args.transfer, args.thesis = Path(args.transfer), Path(args.thesis)
     print("transfer folder:", args.transfer)
     canon = canonical_hashes()
     bad = 0
