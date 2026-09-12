@@ -179,3 +179,68 @@ Start HEAD `7f23d8c`. End HEAD and diff summary: see `git log` for the commits o
 3. The three prior-work sentences (Wang, Tae & Lee, Liu) against the papers' abstracts/bodies.
 4. The Fig. 1 caption's "one matched pair" + draw variability against `santander_seeds.json`.
 5. The Acknowledgments sentence, and that `publications/ecir/main.tex` contains no author, URL or tool name.
+
+---
+
+# Second audit (2026-09-12, after the repository went public): four independent reviewers
+
+Reviewers: Codex (ChatGPT-backed `codex exec`, read-only on the repository), and three Claude agents in the
+roles R1 (skeptical experimentalist), R2 (adjacent-field / positioning), AC (submission compliance).
+Gemini (no key, credits depleted) and Copilot (CLI not installed) could not be used from this machine.
+Every finding below was verified against the sources before any edit; the discipline is unchanged
+(macros only, gate green, arXiv 10 pages, ECIR body 12 pages).
+
+## Refuted (no change)
+
+| Reviewer | Claim | Why it does not hold |
+|---|---|---|
+| R1 #8 | "Supplement S7" is a dangling pointer | The supplement numbers its sections S1–S7 (`\renewcommand{\thesection}{S\arabic{section}}`); S7 = "Material referred to from the main text" |
+| R1 #5 | Fig. 2 hides the points that break the association | The caption names every omitted point and why (too few identifiable labels; no loss to return) |
+| R2 #12 | de-anonymising phrase in ECIR | `derive_from_arxiv.py` neutralises it; the anonymity grep on `ecir/*.tex` is empty |
+| R2 #13 | NIPS/NeurIPS inconsistent | Names are year-correct (NIPS through 2017, NeurIPS from 2018) |
+| Codex #1 | Lemma 1 is presented as the mechanism of LightGBM's collapse | The text already states the lemma is exact for a single tree and describes the fixed point an ensemble approaches; wording tightened (below) rather than a new proposition |
+| Codex #2 | b_j should not be called the realized shift | It is introduced and used as "the label-free prevalence-matching shift b_j" throughout |
+
+## Accepted and fixed in both versions
+
+| Source | Fix |
+|---|---|
+| R2 #1 (strongest) | Caplin et al. 2022 was cited as an instance of the naive inversion; their abstract says the opposite (they model *why* it fails after class weighting and recover probabilities through that model). Related Work rewritten; Contribution 2's "no earlier statement" now reads "…for a booster under a leaf-step cap" and cites Elkan only; bib annotation records the abstract |
+| R2 #2 | "Slippage" defined once: the loss beyond the ideal shift, which splits into the part a per-label monotone map recovers and the tie residue (Contribution 1); Abstract and Conclusion already used it that way |
+| R2 #4 | Patel 2021 sentence re-scoped to independent per-class calibration maps (I-Max is about binning) |
+| R2 #5 | Cost-sensitive boosting literature added with limiting clauses: Masnadi-Shirazi & Vasconcelos 2011 (TPAMI), Nikolaou et al. 2016 (MLJ), Dmochowski et al. 2010 (JMLR) — all binary, threshold decisions |
+| R2 #7 | Terms defined in Setup: cell, dead label, arm/twin, rung |
+| R2 #8, #9-adjacent | ECIR abstract restores "in T rounds at rate η"; ECIR Fig. 2 caption sentence break repaired |
+| R2 #10 | Liu 2026 cited "in a class-weight control" |
+| R2 #3, #11; Codex #11 | Bib annotations now record the claim-bearing facts for Caplin, Tae & Lee (full text checked: multiclass relevance grades, per-item reliability, no rule for labels without examples), Wang, Ullah, Patel |
+| R1 #1 | Capped unweighted twins exist for Santander only: stated in Contribution 2 ("on Santander, the one dataset with such twins") and in Limitations (both versions) |
+| R1 #2 | Odds share reported with its draw band in Contribution 1: 23% (20.3 ± 2.3% over three draws) |
+| R1 #3 | "no separable map recovers the order of tied cells" made precise: a separable map of the stored probabilities can order saturated cells only by label, identically in every row (Lemma discussion, Cor. 2) |
+| R1 #4 | τ-grid boundary stated in Limitations with two new macros from the canonical JSON: the rule picks τ=10 in 23 of 45 per-label choices; a wider grid was not run |
+| R1 #12 | float32 constant corrected in `make_tables.py`: rounding to 1.0 begins at the midpoint 1−2⁻²⁵, i.e. 17.3 nat (was 16.6 = largest float below 1); text says "reaches … the float32 rounding threshold below one" |
+| R1 counterexample | Limitations: the prior fallback is a floor for stationary catalogues; a label with test positives but no calibration positives is sent to the bottom of every row and the rule cannot see the loss; on Santander all 3 dead labels are also dead in test |
+| R2 #6 (partial) | Limitations state that MAP@K is the only metric (recall/NDCG@K, the next-basket canon, are not reported); no new numbers |
+| Codex #3 | "b_j is undefined" → "not identifiable from the stored probabilities" (bisection returns its clipping bound) |
+| Codex #4 | ECIR Conclusion restores "for the boosted pairs" |
+| Codex #7 | "satisfies the hypothesis of Cor. 2" → "meets both conditions of Fig. 2" |
+| Codex #1 (wording) | "tie-breaking artefact of Lemma 1" → "of saturation (Lemma 1 gives its single-tree limit)" |
+| AC-E | Setup adds: the ordering statements concern within-row order and hold for any metric of the top-K order, MAP@K included |
+| AC-C | `.zenodo.json` gains `"version": "0.4.0"`; ECIR supplement header comment no longer says "arXiv preprint (non-anonymous)" |
+
+Offsetting cuts (no evidence removed): section title shortened, duplicated Related-Work summary sentence,
+the "Consistency and top-K" paragraph condensed, a few restatements, and figure widths reduced by 8–14%.
+
+## Deferred (would need new numbers or a decision)
+
+- Instacart capped unweighted twins (R1 #1): the script exists (`code/capsweep_twins.py --dataset instacart`); ≈1 h. Would let the "cap, not weight" claim cover both datasets.
+- Recall@K / NDCG@K and a personal-frequency baseline (R2 #6): computable from the stored arrays without retraining; a decision on scope.
+- τ grid beyond 10 (R1 #4): re-run of `mulan_tau_select`.
+- ECIR supplement is still typeset in acmart (AC): cosmetic; LNCS re-derivation optional.
+- Zenodo v0.4.0 archives the pre-second-audit bundle; the arXiv submission should use the new `arxiv_upload.tar.gz` (sha256 41605443…). A v0.4.1 release would re-align the archive with the submitted text.
+
+## Verification after the second pass
+
+gate OK (1142 macros; `numbers.tex` changed only by `\nsatMarginF` 16.6→17.3, `\nsatMarginD` 36.7→37.4,
+and the two new τ macros); arXiv main 10 pages (twice), supplement 9; ECIR main 16 pages with the body
+ending on page 12 and References starting on page 13, supplement 9; anonymity grep empty; 44 bib entries,
+all cited in both versions; pytest 4 passed.

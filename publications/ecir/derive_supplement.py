@@ -21,6 +21,8 @@ s, n = re.subn(r"\\author\{Akifumi Goto\}.*?\\country\{Japan\}\n\}\n", lambda m:
 assert n == 1, "author block not found"
 s = s.replace("\\pdfinfo{ /Author (Akifumi Goto)", "\\pdfinfo{ /Author (Anonymous)")
 s = re.sub(r"\\url\{https://github\.com/[^}]*\}", "the anonymous repository", s)
+s = s.replace("% arXiv preprint (non-anonymous). Primary category: cs.IR (cross-list cs.LG)",
+              "% ECIR 2027 supplementary material (anonymous), derived from ../arxiv/supplement.tex by derive_supplement.py")
 
 PROOFS = r"""
 \section{Proofs}

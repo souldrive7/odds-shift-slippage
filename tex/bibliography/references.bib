@@ -60,7 +60,7 @@
   year      = {2025},
   pages     = {1397--1408},
   doi       = {10.1145/3690624.3709333},
-  annotation = {verified: Crossref record for DOI 10.1145/3690624.3709333; arXiv:2411.04276 carries the earlier title "Labels in Extremes"}
+  annotation = {verified: Crossref record for DOI 10.1145/3690624.3709333; arXiv:2411.04276 carries the earlier title "Labels in Extremes". Cited for: a single shared (pooled) monotone map leaves precision@k unchanged; per-label calibration named as future work}
 }
 
 @inproceedings{Patel2021IMax,
@@ -68,7 +68,7 @@
   title     = {Multi-Class Uncertainty Calibration via Mutual Information Maximization-based Binning},
   booktitle = {International Conference on Learning Representations (ICLR)},
   year      = {2021},
-  annotation = {verified PARTIAL: OpenAlex record pointing to https://openreview.net/pdf?id=AICNpd8ke-m}
+  annotation = {verified PARTIAL: OpenAlex record pointing to https://openreview.net/pdf?id=AICNpd8ke-m. Cited for: independent class-wise (per-class) binning loses top-k accuracy on ImageNet, shared class-wise binning (I-Max) recovers it}
 }
 
 @inproceedings{Rahimi2020IntraOrder,
@@ -146,7 +146,7 @@
   title     = {Calibrating for Class Weights by Modeling Machine Learning},
   howpublished = {arXiv:2205.04613},
   year      = {2022},
-  annotation = {verified: arXiv API record (v2 2022-07-31); no published version found}
+  annotation = {verified: arXiv API record (v2 2022-07-31); no published version found; abstract re-read 2026-09-12: calibration is 'seemingly incompatible with class weighting', a model of the learner explains why and yields a method to recover likelihoods from a classifier miscalibrated by class weighting (binary pneumonia task) -- i.e. it is prior work on the failure of the naive inversion, not an instance of it}
 }
 
 @misc{Liu2026Resampling,
@@ -163,7 +163,7 @@
   booktitle = {Third Conference on Language Modeling (COLM)},
   year      = {2026},
   note      = {arXiv:2604.01506},
-  annotation = {verified: arXiv API record (comment: accepted at COLM 2026)}
+  annotation = {verified: arXiv API record (comment: accepted at COLM 2026); abstract re-read 2026-09-12: Bayes-optimal reranking on a base model's top-k shortlist, residual decomposed into a classwise and an input/competitor-dependent pairwise component; training-time class weights are not mentioned}
 }
 
 @inproceedings{Tae2026MRP,
@@ -172,7 +172,7 @@
   booktitle = {Proceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM)},
   year      = {2026},
   note      = {arXiv:2608.10406},
-  annotation = {verified: arXiv abstract page 2026-09-12 (submitted 2026-08-11; comment: accepted at CIKM 2026); no DOI yet}
+  annotation = {verified: arXiv abstract page and HTML full text 2026-09-12 (submitted 2026-08-11; comment: accepted at CIKM 2026); no DOI yet. Setting: multiclass relevance grades (2-5 classes) on six information-access datasets, per-item reliability of a fixed predicted label, metrics NLL/AUPR-error/AURC; the text contains no rule for a label without calibration examples}
 }
 
 @misc{Thies2026LabelRankingCalib,
@@ -181,6 +181,40 @@
   howpublished = {arXiv:2605.30447},
   year      = {2026},
   annotation = {verified: arXiv abstract page 2026-09-12 (submitted 2026-05-28); no published version found}
+}
+
+@article{MasnadiShirazi2011CSBoost,
+  author    = {Masnadi-Shirazi, Hamed and Vasconcelos, Nuno},
+  title     = {Cost-Sensitive Boosting},
+  journal   = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume    = {33},
+  number    = {2},
+  pages     = {294--309},
+  year      = {2011},
+  doi       = {10.1109/TPAMI.2010.71},
+  annotation = {verified: DOI and volume/pages from the IEEE record via web search 2026-09-12; cited for cost-sensitive boosting recovering the posterior ratio near the boundary}
+}
+
+@article{Nikolaou2016CSBoost,
+  author    = {Nikolaou, Nikolaos and Edakunni, Narayanan and Kull, Meelis and Flach, Peter and Brown, Gavin},
+  title     = {Cost-Sensitive Boosting Algorithms: Do We Really Need Them?},
+  journal   = {Machine Learning},
+  volume    = {104},
+  number    = {2},
+  pages     = {359--384},
+  year      = {2016},
+  doi       = {10.1007/s10994-016-5572-x},
+  annotation = {verified: Springer record via web search 2026-09-12; cited for calibrate-then-threshold matching cost-sensitive AdaBoost variants (binary)}
+}
+
+@article{Dmochowski2010CostSensitive,
+  author    = {Dmochowski, Jacek P. and Sajda, Paul and Parra, Lucas C.},
+  title     = {Maximum Likelihood in Cost-Sensitive Learning: Model Specification, Approximations, and Upper Bounds},
+  journal   = {Journal of Machine Learning Research},
+  volume    = {11},
+  pages     = {3313--3332},
+  year      = {2010},
+  annotation = {verified: jmlr.org/papers/v11/dmochowski10a.html 2026-09-12; cited for weighted likelihood under model misspecification (binary)}
 }
 
 @inproceedings{Sato2024TopN,

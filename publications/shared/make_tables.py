@@ -1474,6 +1474,8 @@ try:
     put("nTauChoiceRaw", _choices.count("raw"))
     put("nTauChoiceShared", _choices.count("shared"))
     put("nTauChoicePerLabel", sum(1 for ch in _choices if ch.startswith("tau")))
+    put("tauMax", max(tu["taus"]))
+    put("nTauChoiceMaxTau", _choices.count(f"tau{max(tu['taus'])}"))
     put(
         "tauChoiceDist",
         ", ".join(f"$\\tau={t}$: {_choices.count(f'tau{t}')}" for t in tu["taus"]),
@@ -1786,9 +1788,15 @@ put("shiftSearchBound", "40")
 # is a statement about that representation: it means a raw margin above this many nat.
 # Emitted as a macro so the paper states the instrument rather than implying an
 # infinite score. See docs/audit_20260910_gates.md, Gate 2.
-_F32_BELOW_ONE = float(np.nextafter(np.float32(1.0), np.float32(0.0)))
-put("satMarginF", f"{math.log(_F32_BELOW_ONE / (1.0 - _F32_BELOW_ONE)):.1f}")
-put("satMarginD", f"{math.log((1.0 - 2.0**-53) / 2.0**-53):.1f}")
+# A stored value rounds to 1.0 once the true probability passes the midpoint between the largest
+# float below one and one (ties-to-even round that midpoint up), so the threshold is that midpoint.
+# The midpoint is 1 - 2^-(p+1) for a p-bit significand (float32: p = 24, float64: p = 53); the logit of
+# 1 - e is log1p(-e) - log(e), written that way because 1 - 2^-54 is not representable in float64.
+def _logit_one_minus(e: float) -> float:
+    return math.log1p(-e) - math.log(e)
+
+put("satMarginF", f"{_logit_one_minus(2.0**-25):.1f}")
+put("satMarginD", f"{_logit_one_minus(2.0**-54):.1f}")
 write_ladder_v3()
 
 # ---------------------------------------------------------------- emit macros

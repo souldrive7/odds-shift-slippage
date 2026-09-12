@@ -375,6 +375,8 @@
  "nTauChoiceRaw": 36,
  "nTauChoiceShared": 29,
  "nTauChoicePerLabel": 45,
+ "tauMax": 10,
+ "nTauChoiceMaxTau": 23,
  "tauChoiceDist": "$\\tau=0$: 7, $\\tau=1$: 1, $\\tau=2$: 8, $\\tau=5$: 6, $\\tau=10$: 23",
  "nSharedBelowRaw": 9,
  "nSharedBelowRawWone": 5,
@@ -1137,6 +1139,6 @@
  "IMnCapsRungs": 0,
  "shiftClipLogit": "34.5",
  "shiftSearchBound": "40",
- "satMarginF": "16.6",
- "satMarginD": "36.7"
+ "satMarginF": "17.3",
+ "satMarginD": "37.4"
 }
