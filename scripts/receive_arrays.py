@@ -41,15 +41,17 @@ def sha256(p: Path) -> str:
     return h.hexdigest()
 
 
-def canonical_hashes() -> dict[str, str]:
-    out: dict[str, str] = {}
+def canonical_hashes() -> dict[str, set[str]]:
+    """key -> every SHA-256 pinned under that key. MLP ``.npy`` keys (``w1/p_te_all.npy``) carry no
+    dataset prefix, so Santander and Instacart pin different hashes under the same key."""
+    out: dict[str, set[str]] = {}
     for f in sorted(CANON.glob("*.json")):
         try:
             inputs = json.loads(f.read_text(encoding="utf-8")).get("_meta", {}).get("inputs", {})
         except Exception:
             continue
         for k, v in inputs.items():
-            out.setdefault(k, v)
+            out.setdefault(k, set()).add(v)
     return out
 
 
@@ -77,10 +79,11 @@ def main() -> None:
             for arr in sorted(list(cfg_dir.glob("*.npz")) + list(cfg_dir.glob("*.npy"))):
                 key = f"{prefix}/{cfg}/{arr.name}" if arr.suffix == ".npz" else f"{cfg}/{arr.name}"
                 have = sha256(arr)
-                want = canon.get(key)
-                status = "UNKNOWN" if want is None else ("MATCH" if have == want else "MISMATCH")
+                wants = canon.get(key)
+                status = "UNKNOWN" if wants is None else ("MATCH" if have in wants else "MISMATCH")
                 bad += status == "MISMATCH"
-                print(f"{status:8s} {key:48s} {have[:16]} {'' if want is None else want[:16]}")
+                shown = "" if wants is None else (have[:16] if have in wants else "/".join(w[:16] for w in sorted(wants)))
+                print(f"{status:8s} {key:48s} {have[:16]} {shown}")
                 if status == "MATCH" and not args.dry_run:
                     dest = args.thesis / dest_rel / cfg
                     dest.mkdir(parents=True, exist_ok=True)
