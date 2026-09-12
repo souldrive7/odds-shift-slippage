@@ -280,7 +280,7 @@ check.
 AI tools (Claude, Codex) were used for coding, language editing and manuscript review, as disclosed in the paper's
 Acknowledgments; every analysis, number and citation was produced or verified by the author.
 
-Every release is archived on Zenodo under the concept DOI [10.5281/zenodo.22719148](https://doi.org/10.5281/zenodo.22719148); v0.4.0 is [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149), and v0.4.1 (the arXiv text) receives its own DOI from the GitHub release.
+Every release is archived on Zenodo under the concept DOI [10.5281/zenodo.22719148](https://doi.org/10.5281/zenodo.22719148); v0.4.0 is [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149), and v0.4.1 (the arXiv text) is [10.5281/zenodo.22721960](https://doi.org/10.5281/zenodo.22721960).
 
 See `CITATION.cff`. Code and documentation are under the MIT license (`LICENSE`); the datasets keep
 their own terms.

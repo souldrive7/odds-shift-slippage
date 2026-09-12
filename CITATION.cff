@@ -19,6 +19,9 @@ identifiers:
     value: "10.5281/zenodo.22719149"
     description: "Zenodo archive of the v0.4.0 release (code, results, paper sources)"
   - type: doi
+    value: "10.5281/zenodo.22721960"
+    description: "Zenodo archive of the v0.4.1 release (the arXiv text)"
+  - type: doi
     value: "10.5281/zenodo.22719148"
     description: "Zenodo concept DOI (all versions; resolves to the latest release)"
 license: MIT
