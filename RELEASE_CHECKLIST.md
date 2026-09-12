@@ -312,7 +312,8 @@ stay true.
       3. Make the repository public; confirm the CI workflow (`.github/workflows/ci.yml`) is green on `main`.
       4. Enable the repository on Zenodo and create a GitHub release from the tag; Zenodo reads `.zenodo.json`
          and mints the DOI. Paste the DOI into `CITATION.cff` (`identifiers:`) and `README.md`.
-      5. Submit to arXiv (`publications/arxiv/arxiv_upload.tar.gz`); once the identifier is assigned, fill it in
+      5. Submit to arXiv (`publications/arxiv/arxiv_upload.tar.gz`) — DONE 2026-09-12 as submit/8069900 from
+         release v0.4.1 (bundle sha256 28584d04...); once the identifier is assigned, fill it in
          `CITATION.cff` and `README.md`, re-export (step 4 above) and push.
       6. Only then issue the anonymous mirror for ECIR (`publications/ecir/main.tex`, `\anonurl`) and submit;
          the ECIR version must not cite the arXiv version.

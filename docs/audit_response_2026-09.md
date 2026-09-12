@@ -306,3 +306,7 @@ gate OK (1142 macros; `numbers.tex` changed only by `\nsatMarginF` 16.6→17.3, 
 and the two new τ macros); arXiv main 10 pages (twice), supplement 9; ECIR main 16 pages with the body
 ending on page 12 and References starting on page 13, supplement 9; anonymity grep empty; 44 bib entries,
 all cited in both versions; pytest 4 passed.
+
+## Submission record
+
+arXiv: submitted 2026-09-12 as `submit/8069900` (cs.IR, cross-list cs.LG, arXiv perpetual non-exclusive license) from the v0.4.1 bundle `28584d04…`; 10 pages + 9-page ancillary supplement; identifier pending.
