@@ -315,5 +315,5 @@ stay true.
       5. Submit to arXiv (`publications/arxiv/arxiv_upload.tar.gz`) — DONE 2026-09-12 as submit/8069900 from
          release v0.4.1 (bundle sha256 28584d04...); once the identifier is assigned, fill it in
          `CITATION.cff` and `README.md`, re-export (step 4 above) and push.
-      6. Only then issue the anonymous mirror for ECIR (`publications/ecir/main.tex`, `\anonurl`) and submit;
-         the ECIR version must not cite the arXiv version.
+      6. Only then issue the anonymous mirror for the conference submission (`publications/ecir/main.tex`, `\anonurl`) and submit;
+         the conference version must not cite the arXiv version.

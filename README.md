@@ -24,7 +24,7 @@ prior.
 | Version | Where | Format |
 |---|---|---|
 | Canonical (arXiv) | [`publications/arxiv/`](publications/arxiv/) | acmart, 10 pages incl. references + supplement |
-| ECIR 2027 submission | [`publications/ecir/`](publications/ecir/) | LNCS, 12 pages + references, anonymised |
+| Conference version | [`publications/ecir/`](publications/ecir/) | LNCS, 12 pages + references, anonymised for double-anonymous review (venue named after notification) |
 | Archived long version | [`publications/full-paper/`](publications/full-paper/) | acmart, 14 + 7 pages, frozen |
 
 See [`publications/README.md`](publications/README.md) for how the three share one set of numbers and
@@ -194,7 +194,7 @@ that carry it are released as `oddslip`.
 
 ```
 publications/arxiv/       main.tex, supplement.tex, make_bundle.sh -- the canonical (arXiv) version
-publications/ecir/        main.tex -- the anonymised LNCS version for ECIR 2027
+publications/ecir/        main.tex -- the anonymised LNCS conference version
 publications/full-paper/  main.tex, supplement.tex -- the archived long version (frozen)
 publications/shared/      figures/ (numbers.{tex,json}, every tab_*.tex, every fig*.pdf) shared by all versions
             make_tables.py   artifacts/results/canonical/*.json -> figures/numbers.{tex,json} and every tab_*.tex
