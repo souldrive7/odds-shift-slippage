@@ -1,8 +1,8 @@
-r"""Derive the anonymous ECIR supplement from the arXiv supplement.
+r"""Derive the anonymous conference supplement from the arXiv supplement.
 
 Usage:  python derive_supplement.py        (from publications/ecir)
-Writes  supplement.tex next to this script (overwriting it). The ECIR supplement is the arXiv supplement
-with the author block anonymised, a proofs section (S8) appended -- the ECIR main text keeps its proofs
+Writes  supplement.tex next to this script (overwriting it). The conference supplement is the arXiv supplement
+with the author block anonymised, a proofs section (S8) appended -- the conference main text keeps its proofs
 in the supplement -- and no non-anonymous URL. Re-run after editing ../arxiv/supplement.tex.
 """
 
@@ -22,7 +22,7 @@ assert n == 1, "author block not found"
 s = s.replace("\\pdfinfo{ /Author (Akifumi Goto)", "\\pdfinfo{ /Author (Anonymous)")
 s = re.sub(r"\\url\{https://github\.com/[^}]*\}", "the anonymous repository", s)
 s = s.replace("% arXiv preprint (non-anonymous). Primary category: cs.IR (cross-list cs.LG)",
-              "% ECIR 2027 supplementary material (anonymous), derived from ../arxiv/supplement.tex by derive_supplement.py")
+              "% the conference supplementary material (anonymous), derived from ../arxiv/supplement.tex by derive_supplement.py")
 
 PROOFS = r"""
 \section{Proofs}

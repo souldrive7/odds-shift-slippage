@@ -1,8 +1,8 @@
-r"""Derive the ECIR (LNCS, double-anonymous) skeleton from the canonical arXiv source.
+r"""Derive the conference (LNCS, double-anonymous) skeleton from the canonical arXiv source.
 
 Usage:  python derive_from_arxiv.py            (from publications/ecir)
-Writes  main.tex  next to this script, overwriting it.  Run it once to (re)start the ECIR version from the
-current arXiv text; the ECIR main.tex is then hand-trimmed to the 12-page LNCS limit, so re-running this
+Writes  main.tex  next to this script, overwriting it.  Run it once to (re)start the conference version from the
+current arXiv text; the conference main.tex is then hand-trimmed to the 12-page LNCS limit, so re-running this
 script discards those hand edits (git diff shows them).
 
 What it changes, mechanically:
@@ -31,7 +31,7 @@ s = SRC.read_text(encoding="utf-8")
 pre_start = s.index("\\documentclass")
 body_start = s.index("\\begin{document}")
 preamble = r"""\documentclass[runningheads]{llncs}
-% ECIR 2027 submission (double-anonymous). Derived from ../arxiv/main.tex by derive_from_arxiv.py, then
+% the conference submission (double-anonymous). Derived from ../arxiv/main.tex by derive_from_arxiv.py, then
 % hand-trimmed to the 12-page LNCS limit. Every number is a macro from ../shared/figures/numbers.tex.
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
