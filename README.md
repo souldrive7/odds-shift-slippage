@@ -5,8 +5,8 @@ This repository holds the code, the result files and the LaTeX source of
 > **Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-$K$ Errors**
 > Akifumi Goto ([0009-0004-8305-6436](https://orcid.org/0009-0004-8305-6436)),
 > Graduate School of Data Science, Shiga University, Hikone, Japan.
-> 2026. arXiv preprint (identifier to be added).
-> Code and results archived on Zenodo under the concept DOI [10.5281/zenodo.22719148](https://doi.org/10.5281/zenodo.22719148) (all versions; v0.4.0: [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149)).
+> 2026. arXiv preprint [arXiv:2609.13810](https://arxiv.org/abs/2609.13810) [cs.IR] ([PDF](https://arxiv.org/pdf/2609.13810)).
+> Code and results archived on Zenodo under the concept DOI [10.5281/zenodo.22719148](https://doi.org/10.5281/zenodo.22719148) (all versions; v0.4.0: [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149); v0.4.1, the arXiv text: [10.5281/zenodo.22721960](https://doi.org/10.5281/zenodo.22721960)).
 
 **TL;DR.** A per-label class weight `scale_pos_weight = n_-/n_+` promises to shift each label's
 log-odds by `ln w_j`; a finite one-vs-rest learner realizes something else, and the gap --
@@ -281,6 +281,19 @@ AI tools (Claude, Codex) were used for coding, language editing and manuscript r
 Acknowledgments; every analysis, number and citation was produced or verified by the author.
 
 Every release is archived on Zenodo under the concept DOI [10.5281/zenodo.22719148](https://doi.org/10.5281/zenodo.22719148); v0.4.0 is [10.5281/zenodo.22719149](https://doi.org/10.5281/zenodo.22719149), and v0.4.1 (the arXiv text) is [10.5281/zenodo.22721960](https://doi.org/10.5281/zenodo.22721960).
+
+```bibtex
+@misc{goto2026oddsshift,
+  title         = {Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-{K} Errors},
+  author        = {Goto, Akifumi},
+  year          = {2026},
+  eprint        = {2609.13810},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.IR},
+  doi           = {10.48550/arXiv.2609.13810},
+  url           = {https://arxiv.org/abs/2609.13810}
+}
+```
 
 See `CITATION.cff`. Code and documentation are under the MIT license (`LICENSE`); the datasets keep
 their own terms.

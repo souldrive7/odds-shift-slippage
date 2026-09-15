@@ -26,6 +26,11 @@
       "identifier": "https://github.com/souldrive7/odds-shift-slippage",
       "relation": "isSupplementTo",
       "scheme": "url"
+    },
+    {
+      "identifier": "10.48550/arXiv.2609.13810",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
     }
   ],
   "access_right": "open"

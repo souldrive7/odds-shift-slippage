@@ -262,7 +262,8 @@ The repository went public on 2026-09-12 (release v0.4.0, Zenodo DOI 10.5281/zen
 arXiv submission, so that the URL in the paper resolves when the preprint appears. All of the following must
 stay true.
 
-- [ ] **The arXiv identifier is filled in.** It appears as a placeholder in three places:
+- [ ] **The arXiv identifier is filled in.** — DONE 2026-09-15: arXiv:2609.13810 (v1 2026-09-12) in
+      `CITATION.cff` and `README.md`. It appeared as a placeholder in three places:
       `CITATION.cff` (`message:` and `preferred-citation.notes:`) and `README.md` (the byline,
       "arXiv preprint (identifier to be added)"). Check with
 
@@ -313,7 +314,7 @@ stay true.
       4. Enable the repository on Zenodo and create a GitHub release from the tag; Zenodo reads `.zenodo.json`
          and mints the DOI. Paste the DOI into `CITATION.cff` (`identifiers:`) and `README.md`.
       5. Submit to arXiv (`publications/arxiv/arxiv_upload.tar.gz`) — DONE 2026-09-12 as submit/8069900 from
-         release v0.4.1 (bundle sha256 28584d04...); once the identifier is assigned, fill it in
-         `CITATION.cff` and `README.md`, re-export (step 4 above) and push.
+         release v0.4.1 (bundle sha256 28584d04...); identifier assigned as arXiv:2609.13810 (cs.IR, cross-list
+         cs.LG; DOI 10.48550/arXiv.2609.13810), filled in `CITATION.cff`, `README.md` and `.zenodo.json` on 2026-09-15.
       6. Only then issue the anonymous mirror for the conference submission (`publications/ecir/main.tex`, `\anonurl`) and submit;
          the conference version must not cite the arXiv version.

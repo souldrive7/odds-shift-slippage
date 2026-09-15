@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite the paper (arXiv identifier to be added once assigned)."
+message: "If you use this repository, please cite the paper (arXiv:2609.13810)."
 title: "Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-K Errors"
 authors:
   - family-names: "Goto"
@@ -46,4 +46,6 @@ preferred-citation:
       affiliation: "Graduate School of Data Science, Shiga University"
   year: 2026
   status: preprint
-  notes: "arXiv identifier and categories (cs.IR primary, cs.LG cross-list) to be added once assigned."
+  doi: "10.48550/arXiv.2609.13810"
+  url: "https://arxiv.org/abs/2609.13810"
+  notes: "arXiv:2609.13810 [cs.IR], cross-list cs.LG; v1 2026-09-12."
