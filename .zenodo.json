@@ -2,7 +2,7 @@
   "title": "Odds-Shift Slippage in One-vs-Rest Rankers: Diagnosing and Repairing Reweighting-Induced Top-K Errors (code, results and paper sources)",
   "version": "0.4.1",
   "upload_type": "software",
-  "description": "Code, canonical result files, the oddslip library and the LaTeX sources (arXiv, conference and archived long versions) of the paper on odds-shift slippage: the gap between the log-odds shift a per-label class weight promises and the shift a finite one-vs-rest learner realizes, its effect on top-K ranking, and its repair by per-label calibration with an explicit prior fallback.",
+  "description": "Code, canonical result files, the oddslip library and the LaTeX sources (arXiv and archived long versions) of the paper on odds-shift slippage: the gap between the log-odds shift a per-label class weight promises and the shift a finite one-vs-rest learner realizes, its effect on top-K ranking, and its repair by per-label calibration with an explicit prior fallback.",
   "creators": [
     {
       "name": "Goto, Akifumi",

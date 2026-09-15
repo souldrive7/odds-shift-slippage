@@ -11,7 +11,7 @@ moved on. Nothing in the old checklist would have caught it, because no step ran
 
 Commands are written for this repository (plain `python`, dependencies from `requirements.txt`).
 **Every fenced block below starts at the repository root**; a `cd` inside a block applies to that
-block only. The paper versions live under `publications/` (`arxiv/` canonical, `ecir/`, `full-paper/` archived;
+block only. The paper versions live under `publications/` (`arxiv/` canonical, `full-paper/` archived;
 generated numbers and figures in `shared/`), the public package under
 `src/oddslip/`, and the release validator under `scripts/export_public_release.py`.
 
@@ -316,5 +316,3 @@ stay true.
       5. Submit to arXiv (`publications/arxiv/arxiv_upload.tar.gz`) — DONE 2026-09-12 as submit/8069900 from
          release v0.4.1 (bundle sha256 28584d04...); identifier assigned as arXiv:2609.13810 (cs.IR, cross-list
          cs.LG; DOI 10.48550/arXiv.2609.13810), filled in `CITATION.cff`, `README.md` and `.zenodo.json` on 2026-09-15.
-      6. Only then issue the anonymous mirror for the conference submission (`publications/ecir/main.tex`, `\anonurl`) and submit;
-         the conference version must not cite the arXiv version.

@@ -6,7 +6,7 @@ artifacts and papers for the Odds-Shift Slippage project.
 ## Sources of truth
 
 - Scientific claims: `publications/arxiv/` (canonical); `publications/full-paper/` is the
-  archived long version, `publications/ecir/` the anonymised conference version
+  archived long version
 - Canonical results: `artifacts/results/canonical/`
 - Public implementation: `src/oddslip/`
 - Shared bibliography: `tex/bibliography/references.bib`

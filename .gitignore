@@ -15,7 +15,7 @@ build/
 dist/
 
 # LaTeX build products (main.log carries local paths). One rule set for every version under
-# publications/ (full-paper, arxiv, ecir, ...); shared generated figures/tables are tracked.
+# publications/ (full-paper, arxiv, ...); shared generated figures/tables are tracked.
 publications/*/*.aux
 publications/*/*.log
 publications/*/*.out

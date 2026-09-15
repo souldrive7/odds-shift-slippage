@@ -73,7 +73,7 @@ SOURCES = sorted(
     p
     for p in list(PUB.glob("*/main.tex")) + list(PUB.glob("*/supplement.tex"))
     if p.exists() and p.parent.name not in {"_bundle"}
-)  # every version (full-paper, arxiv, ecir, ...) shares numbers.tex
+)  # every version (full-paper, arxiv, ...) shares numbers.tex
 print("checking:", ", ".join(str(p.relative_to(PUB)) for p in SOURCES))
 # Comment lines are excluded from the macro check: "% TODO(v3)" lines reserve sentences whose macros
 # do not exist until the corresponding result file is generated (they must stay commented until then).

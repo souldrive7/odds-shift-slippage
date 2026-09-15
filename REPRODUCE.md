@@ -176,7 +176,7 @@ python make_fig_mulan.py     # -> figures/fig3_mulan_collapse.pdf            = M
                              #    from mulan_dose_response.json
 python make_fig2.py          # -> figures/fig2_shift_vs_lnw.pdf              = SUPPLEMENT Fig. S1
                              #    from santander_ladder.json
-cd ../arxiv                  # the canonical version; full-paper/ and ecir/ build the same way
+cd ../arxiv                  # the canonical version; full-paper/ builds the same way
 pdflatex main       && bibtex main       && pdflatex main       && pdflatex main
 pdflatex supplement && bibtex supplement && pdflatex supplement && pdflatex supplement
 ```
